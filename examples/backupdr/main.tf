@@ -53,7 +53,7 @@ resource "backupdr_slp" "name" {
 }
 #### SLT #####################
 data "backupdr_slt" "example" {
-  id = "63512" 
+  id = "63512"
 }
 
 resource "backupdr_slt" "name" {

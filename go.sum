@@ -177,10 +177,6 @@ github.com/stretchr/testify v1.6.1/go.mod h1:6Fq8oRcR53rry900zMqJjRRixrwX3KX962/
 github.com/stretchr/testify v1.7.2/go.mod h1:R6va5+xMeoiuVRoj+gSkQ7d3FALtqAAGI1FQKckRals=
 github.com/stretchr/testify v1.9.0 h1:HtqpIVDClZ4nwg75+f6Lvsy/wHu+3BoSGCbBAcpTsTg=
 github.com/stretchr/testify v1.9.0/go.mod h1:r2ic/lqez/lEtzL7wO/rwa5dbSLXVDPFyf8C91i36aY=
-github.com/umeshkumhar/backupdr-client v0.0.0-20240401062347-7a5a7209d07d h1:5axLEeh1xUj/swKsKR8sazD/V1zHhtBgtkvkMOsAr6A=
-github.com/umeshkumhar/backupdr-client v0.0.0-20240401062347-7a5a7209d07d/go.mod h1:rf5wotz2BYr2EUXzpqcpYm2VqARJvQdJNtl+zCGjYUY=
-github.com/umeshkumhar/backupdr-client v0.0.0-20240406172819-b70fddb4bee1 h1:VT7XKjYgZ0gn0hHShg+9eMVJp8zrqPsBNQUK/aDj68w=
-github.com/umeshkumhar/backupdr-client v0.0.0-20240406172819-b70fddb4bee1/go.mod h1:rf5wotz2BYr2EUXzpqcpYm2VqARJvQdJNtl+zCGjYUY=
 github.com/umeshkumhar/backupdr-client v0.0.0-20240407103940-caf5f4f179d8 h1:lrDW5Qzj9m+mo6s9Z+S2gB+8ZOFzUTfnj2Kbp7AX7Ik=
 github.com/umeshkumhar/backupdr-client v0.0.0-20240407103940-caf5f4f179d8/go.mod h1:rf5wotz2BYr2EUXzpqcpYm2VqARJvQdJNtl+zCGjYUY=
 github.com/vmihailenco/msgpack v3.3.3+incompatible/go.mod h1:fy3FlTQTDXWkZ7Bh6AcGMlsjHatGryHQYUTf1ShIgkk=
