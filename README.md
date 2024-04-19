@@ -92,3 +92,33 @@ ya29.a0Ad52N3_ffqwurrIYBQB218W4YberJjNPCQgSStxBlnXQVH0B8pFtUDia1LE9Ok9xqohfXzUJ_
 
 ya29.a0Ad52N38THmsa8HwxMwGYcHGr3KS_srcewsC2tE0dLG2oqDDR9HRzWL87fMLIrfzbazeusTuv01_6K3-UZ07EWJsO-tlixMZSxxAmW03wJYeEJHDkw2wUp-t28L80yNDEsjov4cwTu6VM6WMzeMPL_luir2c8GKBdF0BYhQaCgYKAWISARISFQHGX2Mi2jT0J6OnOv3cJeI6ctJCew0173# terraform-provider-backupdr
 # terraform-provider-backupdr
+
+
+
+{application: {id: "73492"}, scheduleoff: "true", slp: {id: "4208"}, slt: {id: 18123},…}
+application
+: 
+{id: "73492"}
+id
+: 
+"73492"
+protectiontype
+: 
+"User initiated protection"
+scheduleoff
+: 
+"true"
+slp
+: 
+{id: "4208"}
+id
+: 
+"4208"
+slt
+: 
+{id: 18123}
+id
+: 
+18123
+
+

@@ -102,5 +102,24 @@ resource "backupdr_slt" "name" {
   }]
 }
 
+#### SLA #####################
+data "backupdr_sla" "example" {
+  id = "64274"
+}
+
+resource "backupdr_sla" "name" {
+  description = "test sla"
+  scheduleoff = "true"
+  application = {
+    id = 22207
+  }
+  slt = {
+    id = 18123
+  }
+  slp = {
+    id = 4208
+  }
+}
+
 ############### Update is failing ************
 

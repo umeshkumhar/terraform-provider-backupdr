@@ -207,6 +207,7 @@ func (p *backupdrProvider) DataSources(ctx context.Context) []func() datasource.
 		NewSltDataSource,
 		NewSlpDataSource,
 		NewDiskpoolDataSource,
+		NewSLADataSource,
 	}
 }
 
@@ -216,5 +217,6 @@ func (p *backupdrProvider) Resources(ctx context.Context) []func() resource.Reso
 		NewSltResource,
 		NewSlpResource,
 		NewDiskpoolResource,
+		NewSlaResource,
 	}
 }

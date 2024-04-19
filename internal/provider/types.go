@@ -5,7 +5,101 @@ import (
 	backupdr "github.com/umeshkumhar/backupdr-client"
 )
 
-type sltRestModel struct {
+type ApplicationResourceModel struct {
+	// Immutable        types.Bool               `tfsdk:"immutable"`
+	Description types.String `tfsdk:"description"`
+	// Sources          []ApplicationRest  `tfsdk:"sources"`
+	Name types.String `tfsdk:"name"`
+	// Host             *HostRest          `tfsdk:"host"`
+	// Srcid            types.String             `tfsdk:"srcid"`
+	// Uniquename       types.String             `tfsdk:"uniquename"`
+	Appname types.String `tfsdk:"appname"`
+	// Isvm             types.Bool               `tfsdk:"isvm"`
+	// Managed          types.Bool               `tfsdk:"managed"`
+	// Scheduleoff      types.Bool               `tfsdk:"scheduleoff"`
+	Apptype types.String `tfsdk:"apptype"`
+	// Originalappid    types.String             `tfsdk:"originalappid"`
+	// Pathname         types.String             `tfsdk:"pathname"`
+	// Username         types.String             `tfsdk:"username"`
+	// Backup           []BackupRest       `tfsdk:"backup"`
+	// Isorphan         types.Bool               `tfsdk:"isorphan"`
+	// Appclass         types.String             `tfsdk:"appclass"`
+	// Sla              *SlaRest           `tfsdk:"sla"`
+	// Cluster          *ClusterRest       `tfsdk:"cluster"`
+	// Friendlypath     types.String             `tfsdk:"friendlypath"`
+	// Sourcecluster    types.String             `tfsdk:"sourcecluster"`
+	// Friendlytype     types.String             `tfsdk:"friendlytype"`
+	// Volumes          []types.String           `tfsdk:"volumes"`
+	// Protectable      types.String             `tfsdk:"protectable"`
+	// Failoverstate    types.String             `tfsdk:"failoverstate"`
+	// Auxinfo          types.String             `tfsdk:"auxinfo"`
+	// Appversion       types.String             `tfsdk:"appversion"`
+	// Networkname      types.String             `tfsdk:"networkname"`
+	// Networkip        types.String             `tfsdk:"networkip"`
+	// Ignore           types.Bool               `tfsdk:"ignore"`
+	// Isclustered      types.Bool               `tfsdk:"isclustered"`
+	// Frommount        types.Bool               `tfsdk:"frommount"`
+	// Sensitivity      int32              `tfsdk:"sensitivity"`
+	// Mountedhosts     []HostRest         `tfsdk:"mountedhosts"`
+	// AvailableSlp     []SlpRest          `tfsdk:"available_slp"`
+	// Orglist          []OrganizationRest `tfsdk:"orglist"`
+	// Isrestoring      types.Bool               `tfsdk:"isrestoring"`
+	// Consistencygroup *ApplicationRest   `tfsdk:"consistencygroup"`
+	// Logicalgroup     *LogicalGroupRest  `tfsdk:"logicalgroup"`
+	// AppstateText     []types.String           `tfsdk:"appstate_text"`
+	// Diskpools        []types.String           `tfsdk:"diskpools"`
+	ID       types.String `tfsdk:"id"`
+	Href     types.String `tfsdk:"href"`
+	Syncdate types.Int64  `tfsdk:"syncdate"`
+	Stale    types.Bool   `tfsdk:"stale"`
+}
+
+type LogicalGroupResourceModel struct {
+	Description types.String      `tfsdk:"description"`
+	Name        types.String      `tfsdk:"name"`
+	Srcid       types.String      `tfsdk:"srcid"`
+	Modifydate  types.Int64       `tfsdk:"modifydate"`
+	Managed     types.Bool        `tfsdk:"managed"`
+	Scheduleoff types.Bool        `tfsdk:"scheduleoff"`
+	Sla         *SlaResourceModel `tfsdk:"sla"`
+	Cluster     *ClusterRest      `tfsdk:"cluster"`
+	Membercount int32             `tfsdk:"membercount"`
+	// Orglist     []OrganizationRest `tfsdk:"orglist"`
+	ID       types.String `tfsdk:"id"`
+	Href     types.String `tfsdk:"href"`
+	Syncdate types.Int64  `tfsdk:"syncdate"`
+	Stale    types.Bool   `tfsdk:"stale"`
+}
+
+// SLA
+type SlaResourceModel struct {
+	Immutable   types.Bool                `tfsdk:"immutable"`
+	Description types.String              `tfsdk:"description"`
+	Application *ApplicationResourceModel `tfsdk:"application"`
+	Slt         *SltResourceRefModel      `tfsdk:"slt"`
+	// Options          []AdvancedOptionRest      `tfsdk:"options"`
+	Modifydate       types.Int64          `tfsdk:"modifydate"`
+	Scheduleoff      types.String         `tfsdk:"scheduleoff"`
+	Slp              *SlpResourceRefModel `tfsdk:"slp"`
+	Logexpirationoff types.Bool           `tfsdk:"logexpirationoff"`
+	Dedupasyncoff    types.String         `tfsdk:"dedupasyncoff"`
+	Expirationoff    types.String         `tfsdk:"expirationoff"`
+	// Group            *backupdr.LogicalGroupRest `tfsdk:"group"`
+	ID       types.String `tfsdk:"id"`
+	Href     types.String `tfsdk:"href"`
+	Syncdate types.Int64  `tfsdk:"syncdate"`
+	Stale    types.Bool   `tfsdk:"stale"`
+}
+
+type SlaResourceRefModel struct {
+	ID       types.String `tfsdk:"id"`
+	Href     types.String `tfsdk:"href"`
+	Syncdate types.Int64  `tfsdk:"syncdate"`
+	Stale    types.Bool   `tfsdk:"stale"`
+}
+
+// SLT
+type SltResourceModel struct {
 	ID          types.String `tfsdk:"id"`
 	Href        types.String `tfsdk:"href"`
 	Name        types.String `tfsdk:"name"`
@@ -23,6 +117,15 @@ type sltRestModel struct {
 	Usedbycloudapp types.Bool  `tfsdk:"usedbycloudapp"`
 	Syncdate       types.Int64 `tfsdk:"syncdate"`
 	Stale          types.Bool  `tfsdk:"stale"`
+}
+
+type SltResourceRefModel struct {
+	ID         types.String `tfsdk:"id"`
+	Href       types.String `tfsdk:"href"`
+	Name       types.String `tfsdk:"name"`
+	Sourcename types.String `tfsdk:"sourcename"`
+	Override   types.String `tfsdk:"override"`
+	Stale      types.Bool   `tfsdk:"stale"`
 }
 
 type policyRestModel struct {
@@ -77,6 +180,7 @@ type complianceSettingsRestModel struct {
 	Stale                types.Bool           `tfsdk:"stale"`
 }
 
+// SLP
 // SlpResourceModel represent TF SLA profile object
 type SlpResourceModel struct {
 	Description     types.String `tfsdk:"description"`
@@ -98,6 +202,15 @@ type SlpResourceModel struct {
 	Localnode      types.String              `tfsdk:"localnode"`
 	// Orglist         []OrganizationRest   `tfsdk:"orglist"`
 	// CloudCredential *CloudCredentialRest `tfsdk:"cloudCredential"`
+	ID       types.String `tfsdk:"id"`
+	Href     types.String `tfsdk:"href"`
+	Syncdate types.Int64  `tfsdk:"syncdate"`
+	Stale    types.Bool   `tfsdk:"stale"`
+}
+
+type SlpResourceRefModel struct {
+	Name     types.String `tfsdk:"name"`
+	Cid      types.String `tfsdk:"cid"`
 	ID       types.String `tfsdk:"id"`
 	Href     types.String `tfsdk:"href"`
 	Syncdate types.Int64  `tfsdk:"syncdate"`

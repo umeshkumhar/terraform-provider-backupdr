@@ -44,142 +44,188 @@ func (d *sltDataSource) Metadata(ctx context.Context, req datasource.MetadataReq
 
 func (d *sltDataSource) Schema(ctx context.Context, _ datasource.SchemaRequest, resp *datasource.SchemaResponse) {
 	resp.Schema = schema.Schema{
+		Description: "Read details about SLA Template",
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
-				Required: true,
+				Description: "Unique ID for this object",
+				Required:    true,
 			},
 			"name": schema.StringAttribute{
-				Computed: true,
+				Computed:    true,
+				Description: "Name",
 			},
 			"href": schema.StringAttribute{
-				Computed: true,
+				Computed:    true,
+				Description: "URL to access this object format",
 			},
 			"description": schema.StringAttribute{
-				Computed: true,
+				Computed:    true,
+				Description: "description",
 			},
 			"immutable": schema.BoolAttribute{
-				Computed: true,
+				Computed:    true,
+				Description: "Immutable",
 			},
 			"stale": schema.BoolAttribute{
-				Computed: true,
+				Computed:    true,
+				Description: "Optional flag to indicate if the information is out-of-date due to communication problems with appliances. It does not apply to local resources.",
 			},
 			"syncdate": schema.Int64Attribute{
-				Computed: true,
+				Computed:    true,
+				Description: "When this object was last synced from appliances (UNIX Epoch time in microseconds). It does not apply to local resources. format",
 			},
 			"managedbyagm": schema.BoolAttribute{
-				Computed: true,
+				Computed:    true,
+				Description: "Managed by AGM",
 			},
 			"usedbycloudapp": schema.BoolAttribute{
-				Computed: true,
+				Computed:    true,
+				Description: "Used by CloudApp",
 			},
 			"option_href": schema.StringAttribute{
-				Computed: true,
+				Computed:    true,
+				Description: "Href for options",
 			},
 			"policy_href": schema.StringAttribute{
-				Computed: true,
+				Computed:    true,
+				Description: "Href for policy",
 			},
 			"sourcename": schema.StringAttribute{
-				Computed: true,
+				Computed:    true,
+				Description: "Source Name",
 			},
 			"override": schema.StringAttribute{
-				Computed: true,
+				Computed:    true,
+				Description: "Override options",
 			},
 			"policies": schema.ListNestedAttribute{
-				Computed: true,
+				Description: "List of policies",
+				Computed:    true,
 				NestedObject: schema.NestedAttributeObject{
 					Attributes: map[string]schema.Attribute{
 						"id": schema.StringAttribute{
-							Computed: true,
+							Computed:    true,
+							Description: "Unique ID for this object",
 						},
 						"description": schema.StringAttribute{
-							Computed: true,
+							Computed:    true,
+							Description: "description",
 						},
 						"name": schema.StringAttribute{
-							Computed: true,
+							Computed:    true,
+							Description: "Name of the Policy",
 						},
 						"href": schema.StringAttribute{
-							Computed: true,
+							Computed:    true,
+							Description: "Href of the policy",
 						},
 						"stale": schema.BoolAttribute{
-							Computed: true,
+							Computed:    true,
+							Description: "Stale",
 						},
 						"syncdate": schema.Int64Attribute{
-							Computed: true,
+							Computed:    true,
+							Description: "Last sync date",
 						},
 						"priority": schema.StringAttribute{
-							Computed: true,
+							Computed:    true,
+							Description: "priority",
 						},
 						"rpo": schema.StringAttribute{
-							Computed: true,
+							Computed:    true,
+							Description: "RPO",
 						},
 						"rpom": schema.StringAttribute{
-							Computed: true,
+							Computed:    true,
+							Description: "RPO months",
 						},
 						"exclusiontype": schema.StringAttribute{
-							Computed: true,
+							Computed:    true,
+							Description: "Exclusion Type",
 						},
 						"iscontinuous": schema.BoolAttribute{
-							Computed: true,
+							Computed:    true,
+							Description: "Is Continous",
 						},
 						"targetvault": schema.Int64Attribute{
-							Computed: true,
+							Computed:    true,
+							Description: "Target Vault",
 						},
 						"sourcevault": schema.Int64Attribute{
-							Computed: true,
+							Computed:    true,
+							Description: "Source Vault",
 						},
 						"selection": schema.StringAttribute{
-							Computed: true,
+							Computed:    true,
+							Description: "Selection",
 						},
 						"scheduletype": schema.StringAttribute{
-							Computed: true,
+							Computed:    true,
+							Description: "Schedule Type",
 						},
 						"exclusion": schema.StringAttribute{
-							Computed: true,
+							Computed:    true,
+							Description: "Exclusion",
 						},
 						"reptype": schema.StringAttribute{
-							Computed: true,
+							Computed:    true,
+							Description: "Rep Type",
 						},
 						"retention": schema.StringAttribute{
-							Computed: true,
+							Computed:    true,
+							Description: "Retention",
 						},
 						"retentionm": schema.StringAttribute{
-							Computed: true,
+							Computed:    true,
+							Description: "Retention Type",
 						},
 						"encrypt": schema.StringAttribute{
-							Computed: true,
+							Computed:    true,
+							Description: "Encrypt",
 						},
 						"repeatinterval": schema.StringAttribute{
-							Computed: true,
+							Computed:    true,
+							Description: "Repeat Interval",
 						},
 						"exclusioninterval": schema.StringAttribute{
-							Computed: true,
+							Computed:    true,
+							Description: "Exclusion Interval",
 						},
 						"remoteretention": schema.Int64Attribute{
-							Computed: true,
+							Computed:    true,
+							Description: "Remote Retention",
 						},
 						"policytype": schema.StringAttribute{
-							Computed: true,
+							Computed:    true,
+							Description: "Policy Type",
 						},
 						"op": schema.StringAttribute{
-							Computed: true,
+							Computed:    true,
+							Description: "Operation",
 						},
 						"verification": schema.BoolAttribute{
-							Computed: true,
+							Computed:    true,
+							Description: "Verification",
 						},
 						"verifychoice": schema.StringAttribute{
-							Computed: true,
+							Computed:    true,
+							Description: "Verify Choice",
 						},
 						"truncatelog": schema.StringAttribute{
-							Computed: true,
+							Computed:    true,
+							Description: "Truncate Log",
 						},
 						"starttime": schema.StringAttribute{
-							Computed: true,
+							Computed:    true,
+							Description: "Start Time",
 						},
 						"endtime": schema.StringAttribute{
-							Computed: true,
+							Computed:    true,
+							Description: "End Time",
 						},
 						"scheduling": schema.StringAttribute{
-							Computed: true,
+							Computed:    true,
+							Description: "Scheduling",
 						},
 					},
 				},
@@ -190,7 +236,7 @@ func (d *sltDataSource) Schema(ctx context.Context, _ datasource.SchemaRequest, 
 
 func (d *sltDataSource) Read(ctx context.Context, req datasource.ReadRequest, resp *datasource.ReadResponse) {
 
-	var state sltRestModel
+	var state SltResourceModel
 	// Read Terraform configuration data into the model
 	resp.Diagnostics.Append(req.Config.Get(ctx, &state)...)
 
@@ -212,7 +258,7 @@ func (d *sltDataSource) Read(ctx context.Context, req datasource.ReadRequest, re
 	}
 
 	// Map response body to model
-	sltState := sltRestModel{
+	sltState := SltResourceModel{
 		ID:          types.StringValue(slt.Id),
 		Href:        types.StringValue(slt.Href),
 		Name:        types.StringValue(slt.Name),

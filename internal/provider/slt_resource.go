@@ -199,7 +199,7 @@ func (r *sltResource) Configure(_ context.Context, req resource.ConfigureRequest
 // Create a new resource.
 func (r *sltResource) Create(ctx context.Context, req resource.CreateRequest, resp *resource.CreateResponse) {
 	// Retrieve values from plan
-	var plan sltRestModel
+	var plan SltResourceModel
 	diags := req.Plan.Get(ctx, &plan)
 	resp.Diagnostics.Append(diags...)
 	if resp.Diagnostics.HasError() {
@@ -285,7 +285,7 @@ func (r *sltResource) Create(ctx context.Context, req resource.CreateRequest, re
 // Read resource information.
 func (r *sltResource) Read(ctx context.Context, req resource.ReadRequest, resp *resource.ReadResponse) {
 	// Get current state
-	var state sltRestModel
+	var state SltResourceModel
 	diags := req.State.Get(ctx, &state)
 	resp.Diagnostics.Append(diags...)
 	if resp.Diagnostics.HasError() {
@@ -318,7 +318,7 @@ func (r *sltResource) Read(ctx context.Context, req resource.ReadRequest, resp *
 
 func (r *sltResource) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {
 	// Retrieve values from plan
-	var plan sltRestModel
+	var plan SltResourceModel
 	diags := req.Plan.Get(ctx, &plan)
 	resp.Diagnostics.Append(diags...)
 	if resp.Diagnostics.HasError() {
@@ -403,7 +403,7 @@ func (r *sltResource) Update(ctx context.Context, req resource.UpdateRequest, re
 
 func (r *sltResource) Delete(ctx context.Context, req resource.DeleteRequest, resp *resource.DeleteResponse) {
 	// Retrieve values from state
-	var state sltRestModel
+	var state SltResourceModel
 	diags := req.State.Get(ctx, &state)
 	resp.Diagnostics.Append(diags...)
 	if resp.Diagnostics.HasError() {
