@@ -29,10 +29,10 @@ resource "backupdr_diskpool" "name" {
     clusterid = "143045097332"
   }
   properties = [
-    { key : "accessId", value : "backup-recovery-appliance001@drip-site-02.iam.gserviceaccount.com" },
-    { key : "bucket", value : "drip-demo" },
-    { key : "compression", value : "true" },
-    { key : "vaulttype", value : "GoogleNative" }
+    { key = "accessId", value = "backup-recovery-appliance001@drip-site-02.iam.gserviceaccount.com" },
+    { key = "bucket", value = "drip-demo" },
+    { key = "compression", value = "true" },
+    { key = "vaulttype", value = "GoogleNative" }
   ]
 }
 ###### SLP ##################
@@ -60,22 +60,22 @@ resource "backupdr_slt" "name" {
   name        = "um3210"
   description = "from TF"
   policies = [{
-    "op"                = "cloud",
-    "name"              = "onvault-pol",
-    "iscontinuous"      = false,
-    "starttime"         = 68400,
-    "endtime"           = 67800,
-    "rpo"               = "24",
-    "rpom"              = "hours",
-    "retention"         = "14",
-    "retentionm"        = "days",
-    "priority"          = "medium",
-    "sourcevault"       = 0,
-    "targetvault"       = 1,
-    "temp-id"           = "431",
-    "scheduletype"      = "daily",
-    "repeatinterval"    = "1",
-    "scheduling"        = "windowed",
+    "op"             = "cloud",
+    "name"           = "onvault-pol",
+    "iscontinuous"   = false,
+    "starttime"      = 68400,
+    "endtime"        = 67800,
+    "rpo"            = "24",
+    "rpom"           = "hours",
+    "retention"      = "14",
+    "retentionm"     = "days",
+    "priority"       = "medium",
+    "sourcevault"    = 0,
+    "targetvault"    = 1,
+    "temp-id"        = "431",
+    "scheduletype"   = "daily",
+    "repeatinterval" = "1",
+    # "scheduling"        = "windowed",
     "exclusiontype"     = "none",
     "exclusioninterval" = "1",
     "exclusion"         = "none",
@@ -95,9 +95,9 @@ resource "backupdr_slt" "name" {
     rpo               = "24",
     rpom              = "hours",
     scheduletype      = "daily",
-    scheduling        = "windowed",
-    selection         = "none",
-    starttime         = 68400,
+    # scheduling        = "windowed",
+    selection = "none",
+    starttime = 68400,
     # temp-id="362",
   }]
 }
@@ -120,6 +120,39 @@ resource "backupdr_sla" "name" {
     id = 4208
   }
 }
+
+#####  vCenter  #####################
+resource "backupdr_vcenter" "name" {
+  friendlypath = "vcsa-303836.fecaf039.asia-northeast1.gve.goog"
+  hostname     = "vcsa-303836.fecaf039.asia-northeast1.gve.goog"
+  hosttype     = "vcenter"
+  hypervisoragent = {
+    username = "CloudOwner@gve.local"
+    password = "ZReJ*c0NBpVCYvFL"
+  }
+  ipaddress = "10.10.0.2"
+  # orglist   = []
+  sources = [{ clusterid = "145353943664" }]
+
+}
+
+resource "backupdr_vcenter_addvms" "name" {
+  cluster_name = "bcdr"
+  cluster      = "86122"
+  vcenter_id   = backupdr_vcenter.name.id
+  vms          = ["502309d6-8a3a-410e-2d3c-4573f35300d3"]
+}
+
+#####  Cloud VMs  #####################
+# resource "backupdr_cloud_addvms" "name" {
+#   cloudcredential = "86139"
+#   cluster = {
+#     clusterid = "145353943664"
+#   }
+#   region    = "us-central1-c"
+#   projectid = "drip-site-02"
+#   vmids     = ["745278443586790556"]
+# }
 
 ############### Update is failing ************
 

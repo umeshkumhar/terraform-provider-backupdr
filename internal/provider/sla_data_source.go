@@ -56,9 +56,9 @@ func (d *slaDataSource) Schema(ctx context.Context, req datasource.SchemaRequest
 			"stale": schema.BoolAttribute{
 				Computed: true,
 			},
-			"immutable": schema.BoolAttribute{
-				Computed: true,
-			},
+			// "immutable": schema.BoolAttribute{
+			// 	Computed: true,
+			// },
 			"syncdate": schema.Int64Attribute{
 				Computed: true,
 			},
@@ -188,7 +188,7 @@ func (d *slaDataSource) Read(ctx context.Context, req datasource.ReadRequest, re
 		Modifydate:       types.Int64Value(sla.Modifydate),
 		Syncdate:         types.Int64Value(sla.Syncdate),
 		Stale:            types.BoolValue(sla.Stale),
-		Immutable:        types.BoolValue(sla.Immutable),
+		// Immutable:        types.BoolValue(sla.Immutable),
 		Dedupasyncoff:    types.StringValue(sla.Dedupasyncoff),
 		Expirationoff:    types.StringValue(sla.Expirationoff),
 		Scheduleoff:      types.StringValue(sla.Scheduleoff),

@@ -52,9 +52,9 @@ func (r *slaResource) Schema(_ context.Context, _ resource.SchemaRequest, resp *
 			"stale": schema.BoolAttribute{
 				Computed: true,
 			},
-			"immutable": schema.BoolAttribute{
-				Computed: true,
-			},
+			// "immutable": schema.BoolAttribute{
+			// 	Computed: true,
+			// },
 			"syncdate": schema.Int64Attribute{
 				Computed: true,
 			},
@@ -220,7 +220,7 @@ func (r *slaResource) Create(ctx context.Context, req resource.CreateRequest, re
 	plan.Stale = types.BoolValue(respObject.Stale)
 	plan.Modifydate = types.Int64Value(respObject.Modifydate)
 	plan.Syncdate = types.Int64Value(respObject.Syncdate)
-	plan.Immutable = types.BoolValue(respObject.Immutable)
+	// plan.Immutable = types.BoolValue(respObject.Immutable)
 
 	plan.Expirationoff = types.StringValue(respObject.Expirationoff)
 	plan.Dedupasyncoff = types.StringValue(respObject.Dedupasyncoff)

@@ -61,9 +61,9 @@ func (r *sltResource) Schema(_ context.Context, _ resource.SchemaRequest, resp *
 			"description": schema.StringAttribute{
 				Optional: true,
 			},
-			"immutable": schema.BoolAttribute{
-				Optional: true,
-			},
+			// "immutable": schema.BoolAttribute{
+			// 	Optional: true,
+			// },
 			"stale": schema.BoolAttribute{
 				Optional: true,
 			},
@@ -137,9 +137,9 @@ func (r *sltResource) Schema(_ context.Context, _ resource.SchemaRequest, resp *
 						"scheduletype": schema.StringAttribute{
 							Optional: true,
 						},
-						"scheduling": schema.StringAttribute{
-							Optional: true,
-						},
+						// "scheduling": schema.StringAttribute{
+						// 	Optional: true,
+						// },
 						"exclusion": schema.StringAttribute{
 							Optional: true,
 						},
@@ -207,8 +207,8 @@ func (r *sltResource) Create(ctx context.Context, req resource.CreateRequest, re
 	}
 
 	reqSlt := backupdr.SltRest{
-		Name:        plan.Name.ValueString(),
-		Immutable:   plan.Immutable.ValueBool(),
+		Name: plan.Name.ValueString(),
+		// Immutable:   plan.Immutable.ValueBool(),
 		Description: plan.Description.ValueString(),
 		Sourcename:  plan.Sourcename.ValueString(),
 		Override:    plan.Override.ValueString(),
@@ -216,17 +216,17 @@ func (r *sltResource) Create(ctx context.Context, req resource.CreateRequest, re
 
 	for _, pol := range plan.Policies {
 		reqSlt.Policies = append(reqSlt.Policies, backupdr.PolicyRest{
-			Name:              pol.Name.ValueString(),
-			Description:       pol.Description.ValueString(),
-			Priority:          pol.Priority.ValueString(),
-			Exclusiontype:     pol.Exclusiontype.ValueString(),
-			Iscontinuous:      pol.Iscontinuous.ValueBool(),
-			Rpo:               pol.Rpo.ValueString(),
-			Rpom:              pol.Rpom.ValueString(),
-			Starttime:         pol.Starttime.ValueString(),
-			Endtime:           pol.Endtime.ValueString(),
-			Scheduletype:      pol.Scheduletype.ValueString(),
-			Scheduling:        pol.Scheduling.ValueString(),
+			Name:          pol.Name.ValueString(),
+			Description:   pol.Description.ValueString(),
+			Priority:      pol.Priority.ValueString(),
+			Exclusiontype: pol.Exclusiontype.ValueString(),
+			Iscontinuous:  pol.Iscontinuous.ValueBool(),
+			Rpo:           pol.Rpo.ValueString(),
+			Rpom:          pol.Rpom.ValueString(),
+			Starttime:     pol.Starttime.ValueString(),
+			Endtime:       pol.Endtime.ValueString(),
+			Scheduletype:  pol.Scheduletype.ValueString(),
+			// Scheduling:        pol.Scheduling.ValueString(),
 			Targetvault:       int32(pol.Targetvault.ValueInt64()),
 			Sourcevault:       int32(pol.Sourcevault.ValueInt64()),
 			Selection:         pol.Selection.ValueString(),
@@ -326,8 +326,8 @@ func (r *sltResource) Update(ctx context.Context, req resource.UpdateRequest, re
 	}
 
 	reqSlt := backupdr.SltRest{
-		Name:        plan.Name.ValueString(),
-		Immutable:   plan.Immutable.ValueBool(),
+		Name: plan.Name.ValueString(),
+		// Immutable:   plan.Immutable.ValueBool(),
 		Description: plan.Description.ValueString(),
 		Sourcename:  plan.Sourcename.ValueString(),
 		Override:    plan.Override.ValueString(),
@@ -335,19 +335,19 @@ func (r *sltResource) Update(ctx context.Context, req resource.UpdateRequest, re
 
 	for _, pol := range plan.Policies {
 		reqSlt.Policies = append(reqSlt.Policies, backupdr.PolicyRest{
-			Name:              pol.Name.ValueString(),
-			Description:       pol.Description.ValueString(),
-			Priority:          pol.Priority.ValueString(),
-			Exclusiontype:     pol.Exclusiontype.ValueString(),
-			Iscontinuous:      pol.Iscontinuous.ValueBool(),
-			Rpo:               pol.Rpo.ValueString(),
-			Rpom:              pol.Rpom.ValueString(),
-			Starttime:         pol.Starttime.ValueString(),
-			Endtime:           pol.Endtime.ValueString(),
-			Targetvault:       int32(pol.Targetvault.ValueInt64()),
-			Sourcevault:       int32(pol.Sourcevault.ValueInt64()),
-			Scheduletype:      pol.Scheduletype.ValueString(),
-			Scheduling:        pol.Scheduling.ValueString(),
+			Name:          pol.Name.ValueString(),
+			Description:   pol.Description.ValueString(),
+			Priority:      pol.Priority.ValueString(),
+			Exclusiontype: pol.Exclusiontype.ValueString(),
+			Iscontinuous:  pol.Iscontinuous.ValueBool(),
+			Rpo:           pol.Rpo.ValueString(),
+			Rpom:          pol.Rpom.ValueString(),
+			Starttime:     pol.Starttime.ValueString(),
+			Endtime:       pol.Endtime.ValueString(),
+			Targetvault:   int32(pol.Targetvault.ValueInt64()),
+			Sourcevault:   int32(pol.Sourcevault.ValueInt64()),
+			Scheduletype:  pol.Scheduletype.ValueString(),
+			// Scheduling:        pol.Scheduling.ValueString(),
 			Selection:         pol.Selection.ValueString(),
 			Exclusion:         pol.Exclusion.ValueString(),
 			Exclusioninterval: pol.Exclusioninterval.ValueString(),

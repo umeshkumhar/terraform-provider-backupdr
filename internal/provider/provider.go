@@ -218,5 +218,8 @@ func (p *backupdrProvider) Resources(ctx context.Context) []func() resource.Reso
 		NewSlpResource,
 		NewDiskpoolResource,
 		NewSlaResource,
+		NewVcenterHostResource,
+		NewVcenterHostAddVMsResource,
+		NewCloudAddVMsResource,
 	}
 }
