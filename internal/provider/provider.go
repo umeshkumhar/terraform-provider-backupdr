@@ -208,6 +208,11 @@ func (p *backupdrProvider) DataSources(ctx context.Context) []func() datasource.
 		NewSlpDataSource,
 		NewDiskpoolDataSource,
 		NewSLADataSource,
+		NewSlpAllDataSource,
+		NewApplianceDataSource,
+		NewApplianceAllDataSource,
+		NewCloudCredentialDataSource,
+		NewCloudcredentialAllDataSource,
 	}
 }
 

@@ -10,7 +10,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // Ensure the implementation satisfies the expected interfaces.
@@ -108,7 +107,6 @@ func (r *cloudAddVMsResource) Create(ctx context.Context, req resource.CreateReq
 		listVMs = append(listVMs, vm.ValueString())
 	}
 
-	tflog.Info(ctx, "================== "+plan.ProjectID.ValueString())
 	reqCloudAddVMs := backupdr.CloudVmDiscoveryRest{
 		Region:    plan.Region.ValueString(),
 		ProjectId: plan.ProjectID.ValueString(),

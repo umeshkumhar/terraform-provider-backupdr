@@ -40,6 +40,8 @@ data "backupdr_slp" "example1" {
   id = "21032"
 }
 
+data "backupdr_slp_all" "name" {}
+
 resource "backupdr_slp" "name" {
   cid             = "4197"
   description     = "test profile0123"
@@ -143,16 +145,32 @@ resource "backupdr_vcenter_addvms" "name" {
   vms          = ["502309d6-8a3a-410e-2d3c-4573f35300d3"]
 }
 
+#####  Appliance  #####################
+
+data "backupdr_appliance" "name" {
+  id = "86122"
+}
+
+data "backupdr_appliance_all" "name" {}
+
+#####  CloudCredential  #####################
+data "backupdr_cloudcredential" "name" {
+  id = "49385"
+}
+
+data "backupdr_cloudcredential_all" "name" {}
+
 #####  Cloud VMs  #####################
-# resource "backupdr_cloud_addvms" "name" {
-#   cloudcredential = "86139"
-#   cluster = {
-#     clusterid = "145353943664"
-#   }
-#   region    = "us-central1-c"
-#   projectid = "drip-site-02"
-#   vmids     = ["745278443586790556"]
-# }
+resource "backupdr_cloud_addvms" "name" {
+  cloudcredential = "86139"
+  cluster = {
+    clusterid = "145353943664"
+  }
+  region    = "us-central1-c"
+  projectid = "drip-site-02"
+  vmids     = ["745278443586790556"]
+}
 
 ############### Update is failing ************
+
 

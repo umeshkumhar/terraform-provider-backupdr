@@ -183,6 +183,12 @@ github.com/umeshkumhar/backupdr-client v0.0.0-20240429092008-b171341ca9b9 h1:qOw
 github.com/umeshkumhar/backupdr-client v0.0.0-20240429092008-b171341ca9b9/go.mod h1:rf5wotz2BYr2EUXzpqcpYm2VqARJvQdJNtl+zCGjYUY=
 github.com/umeshkumhar/backupdr-client v0.0.0-20240429105237-00a21f60c488 h1:Eu6TLiQqvrw9Qj86ryJ3GVMpviyc6li0JhCT2zgf7Vs=
 github.com/umeshkumhar/backupdr-client v0.0.0-20240429105237-00a21f60c488/go.mod h1:rf5wotz2BYr2EUXzpqcpYm2VqARJvQdJNtl+zCGjYUY=
+github.com/umeshkumhar/backupdr-client v0.0.0-20240430094020-1d2e4fe30eb1 h1:aX2RjsCTzpt3L8tAsudwE2FfoiIdne/QrSUQJg6wCuc=
+github.com/umeshkumhar/backupdr-client v0.0.0-20240430094020-1d2e4fe30eb1/go.mod h1:rf5wotz2BYr2EUXzpqcpYm2VqARJvQdJNtl+zCGjYUY=
+github.com/umeshkumhar/backupdr-client v0.0.0-20240430105533-611424de5816 h1:UDSUSDPKUHe2Ye7l/RqohJGrRb1ti9Ksq8jcdEUWZK4=
+github.com/umeshkumhar/backupdr-client v0.0.0-20240430105533-611424de5816/go.mod h1:rf5wotz2BYr2EUXzpqcpYm2VqARJvQdJNtl+zCGjYUY=
+github.com/umeshkumhar/backupdr-client v0.0.0-20240502110759-568496fda9c6 h1:sYz/3M65YsNw2iBhJFUUMligw+yeqN5ZyAoJ/6CUoso=
+github.com/umeshkumhar/backupdr-client v0.0.0-20240502110759-568496fda9c6/go.mod h1:rf5wotz2BYr2EUXzpqcpYm2VqARJvQdJNtl+zCGjYUY=
 github.com/vmihailenco/msgpack v3.3.3+incompatible/go.mod h1:fy3FlTQTDXWkZ7Bh6AcGMlsjHatGryHQYUTf1ShIgkk=
 github.com/vmihailenco/msgpack v4.0.4+incompatible h1:dSLoQfGFAo3F6OoNhwUmLwVgaUXK79GlxNBwueZn0xI=
 github.com/vmihailenco/msgpack v4.0.4+incompatible/go.mod h1:fy3FlTQTDXWkZ7Bh6AcGMlsjHatGryHQYUTf1ShIgkk=
