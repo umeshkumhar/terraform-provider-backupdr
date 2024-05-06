@@ -43,7 +43,7 @@ func (d *applianceAllDataSource) Configure(ctx context.Context, req datasource.C
 }
 
 func (d *applianceAllDataSource) Metadata(ctx context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_appliance_all"
+	resp.TypeName = req.ProviderTypeName + "_appliances"
 }
 
 func (d *applianceAllDataSource) Schema(ctx context.Context, req datasource.SchemaRequest, resp *datasource.SchemaResponse) {

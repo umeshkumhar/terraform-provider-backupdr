@@ -204,11 +204,11 @@ func (p *backupdrProvider) Configure(ctx context.Context, req provider.Configure
 // DataSources defines the data sources implemented in the provider.
 func (p *backupdrProvider) DataSources(ctx context.Context) []func() datasource.DataSource {
 	return []func() datasource.DataSource{
-		NewSltDataSource,
-		NewSlpDataSource,
 		NewDiskpoolDataSource,
-		NewSLADataSource,
-		NewSlpAllDataSource,
+		NewTemplateDataSource,
+		NewProfileDataSource,
+		NewProfileAllDataSource,
+		NewPlanDataSource,
 		NewApplianceDataSource,
 		NewApplianceAllDataSource,
 		NewCloudCredentialDataSource,
@@ -219,12 +219,12 @@ func (p *backupdrProvider) DataSources(ctx context.Context) []func() datasource.
 // Resources defines the resources implemented in the provider.
 func (p *backupdrProvider) Resources(ctx context.Context) []func() resource.Resource {
 	return []func() resource.Resource{
-		NewSltResource,
-		NewSlpResource,
 		NewDiskpoolResource,
-		NewSlaResource,
-		NewVcenterHostResource,
-		NewVcenterHostAddVMsResource,
-		NewCloudAddVMsResource,
+		NewTemplateResource,
+		NewProfileResource,
+		NewPlanResource,
+		NewHostResource,
+		NewApplicationVmwareVMsResource,
+		NewApplicationComputeVMsResource,
 	}
 }

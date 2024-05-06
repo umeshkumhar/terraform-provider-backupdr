@@ -225,7 +225,7 @@ func (r *diskpoolResource) Configure(_ context.Context, req resource.ConfigureRe
 // Create a new resource.
 func (r *diskpoolResource) Create(ctx context.Context, req resource.CreateRequest, resp *resource.CreateResponse) {
 	// Retrieve values from state
-	var state DiskPoolResourceModel
+	var state diskPoolResourceModel
 	diags := req.Plan.Get(ctx, &state)
 	resp.Diagnostics.Append(diags...)
 	if resp.Diagnostics.HasError() {
@@ -311,7 +311,7 @@ func (r *diskpoolResource) Create(ctx context.Context, req resource.CreateReques
 // Read resource information.
 func (r *diskpoolResource) Read(ctx context.Context, req resource.ReadRequest, resp *resource.ReadResponse) {
 	// Get current state
-	var state DiskPoolResourceModel
+	var state diskPoolResourceModel
 	diags := req.State.Get(ctx, &state)
 	resp.Diagnostics.Append(diags...)
 	if resp.Diagnostics.HasError() {
@@ -388,7 +388,7 @@ func (r *diskpoolResource) Read(ctx context.Context, req resource.ReadRequest, r
 
 func (r *diskpoolResource) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {
 	// Retrieve values from state
-	var state DiskPoolResourceModel
+	var state diskPoolResourceModel
 	diags := req.Plan.Get(ctx, &state)
 	resp.Diagnostics.Append(diags...)
 	if resp.Diagnostics.HasError() {
@@ -480,7 +480,7 @@ func (r *diskpoolResource) Update(ctx context.Context, req resource.UpdateReques
 
 func (r *diskpoolResource) Delete(ctx context.Context, req resource.DeleteRequest, resp *resource.DeleteResponse) {
 	// Retrieve values from state
-	var state DiskPoolResourceModel
+	var state diskPoolResourceModel
 	diags := req.State.Get(ctx, &state)
 	resp.Diagnostics.Append(diags...)
 	if resp.Diagnostics.HasError() {

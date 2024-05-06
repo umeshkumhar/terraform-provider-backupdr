@@ -10,6 +10,8 @@ terraform {
 }
 
 
+provider "google" {}
+
 data "google_client_config" "default" {}
 
 provider "backupdr" {
@@ -35,14 +37,15 @@ resource "backupdr_diskpool" "name" {
     { key = "vaulttype", value = "GoogleNative" }
   ]
 }
-###### SLP ##################
-data "backupdr_slp" "example1" {
+
+###### profile ##################
+data "backupdr_profile" "example1" {
   id = "21032"
 }
 
-data "backupdr_slp_all" "name" {}
+data "backupdr_profiles" "name" {}
 
-resource "backupdr_slp" "name" {
+resource "backupdr_profile" "name" {
   cid             = "4197"
   description     = "test profile0123"
   localnode       = "backup-recovery-appliance001-frkr"
@@ -54,11 +57,11 @@ resource "backupdr_slp" "name" {
   }
 }
 #### SLT #####################
-data "backupdr_slt" "example" {
-  id = "63512"
+data "backupdr_template" "example" {
+  id = "18123"
 }
 
-resource "backupdr_slt" "name" {
+resource "backupdr_template" "name" {
   name        = "um3210"
   description = "from TF"
   policies = [{
@@ -105,11 +108,11 @@ resource "backupdr_slt" "name" {
 }
 
 #### SLA #####################
-data "backupdr_sla" "example" {
+data "backupdr_plan" "example" {
   id = "64274"
 }
 
-resource "backupdr_sla" "name" {
+resource "backupdr_plan" "name" {
   description = "test sla"
   scheduleoff = "true"
   application = {
@@ -123,35 +126,13 @@ resource "backupdr_sla" "name" {
   }
 }
 
-#####  vCenter  #####################
-resource "backupdr_vcenter" "name" {
-  friendlypath = "vcsa-303836.fecaf039.asia-northeast1.gve.goog"
-  hostname     = "vcsa-303836.fecaf039.asia-northeast1.gve.goog"
-  hosttype     = "vcenter"
-  hypervisoragent = {
-    username = "CloudOwner@gve.local"
-    password = "ZReJ*c0NBpVCYvFL"
-  }
-  ipaddress = "10.10.0.2"
-  # orglist   = []
-  sources = [{ clusterid = "145353943664" }]
-
-}
-
-resource "backupdr_vcenter_addvms" "name" {
-  cluster_name = "bcdr"
-  cluster      = "86122"
-  vcenter_id   = backupdr_vcenter.name.id
-  vms          = ["502309d6-8a3a-410e-2d3c-4573f35300d3"]
-}
-
 #####  Appliance  #####################
 
 data "backupdr_appliance" "name" {
   id = "86122"
 }
 
-data "backupdr_appliance_all" "name" {}
+data "backupdr_appliances" "name" {}
 
 #####  CloudCredential  #####################
 data "backupdr_cloudcredential" "name" {
@@ -161,16 +142,35 @@ data "backupdr_cloudcredential" "name" {
 data "backupdr_cloudcredential_all" "name" {}
 
 #####  Cloud VMs  #####################
-resource "backupdr_cloud_addvms" "name" {
+resource "backupdr_application_compute_vm" "name" {
   cloudcredential = "86139"
   cluster = {
     clusterid = "145353943664"
   }
-  region    = "us-central1-c"
+  region    = "us-central1-a"
   projectid = "drip-site-02"
-  vmids     = ["745278443586790556"]
+  vmids     = ["745278443586790556", "8242374309568738021", "5589298639124382135"]
+}
+
+#####  vCenter  #####################
+resource "backupdr_host" "example" {
+  friendlypath = "vcsa-303836.fecaf039.asia-northeast1.gve.goog"
+  hostname     = "vcsa-303836.fecaf039.asia-northeast1.gve.goog"
+  hosttype     = "vcenter"
+  hypervisoragent = {
+    username = "CloudOwner@gve.local"
+    password = "ZReJ*c0NBpVCYvFL"
+  }
+  ipaddress = "10.10.0.2"
+  sources   = [{ clusterid = "145353943664" }]
+}
+
+resource "backupdr_application_vmware_vm" "name" {
+  cluster_name = "bcdr"
+  cluster      = "86122"
+  vcenter_id   = backupdr_host.example.id
+  vms          = ["502309d6-8a3a-410e-2d3c-4573f35300d3"]
 }
 
 ############### Update is failing ************
-
 

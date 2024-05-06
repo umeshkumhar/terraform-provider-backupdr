@@ -9,7 +9,7 @@ require (
 	github.com/hashicorp/terraform-plugin-go v0.20.0
 	github.com/hashicorp/terraform-plugin-log v0.9.0
 	github.com/hashicorp/terraform-plugin-testing v1.6.0
-	github.com/umeshkumhar/backupdr-client v0.0.0-20240502110759-568496fda9c6
+	github.com/umeshkumhar/backupdr-client v0.0.0-20240502124000-88329ef56f1a
 )
 
 require (

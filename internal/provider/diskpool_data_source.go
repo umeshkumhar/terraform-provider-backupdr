@@ -215,7 +215,7 @@ func (d *diskpoolDataSource) Schema(ctx context.Context, req datasource.SchemaRe
 
 func (d *diskpoolDataSource) Read(ctx context.Context, req datasource.ReadRequest, resp *datasource.ReadResponse) {
 
-	var state DiskPoolResourceModel
+	var state diskPoolResourceModel
 	// Read Terraform configuration data into the model
 	resp.Diagnostics.Append(req.Config.Get(ctx, &state)...)
 
@@ -236,7 +236,7 @@ func (d *diskpoolDataSource) Read(ctx context.Context, req datasource.ReadReques
 	}
 
 	// Map response body to model
-	state = DiskPoolResourceModel{
+	state = diskPoolResourceModel{
 		Name:                types.StringValue(diskpool.Name),
 		ID:                  types.StringValue(diskpool.Id),
 		Pooltype:            types.StringValue(diskpool.Pooltype),
@@ -261,7 +261,7 @@ func (d *diskpoolDataSource) Read(ctx context.Context, req datasource.ReadReques
 	}
 
 	for _, prop := range diskpool.Properties {
-		state.Properties = append(state.Properties, KeyValueRestModel{
+		state.Properties = append(state.Properties, keyValueRestModel{
 			Key:   types.StringValue(prop.Key),
 			Value: types.StringValue(prop.Value),
 		})
@@ -287,7 +287,7 @@ func (d *diskpoolDataSource) Read(ctx context.Context, req datasource.ReadReques
 		Stale:           types.BoolValue(diskpool.Cluster.Stale),
 	}
 
-	state.Vaultprops = &VaultPropsRest{
+	state.Vaultprops = &vaultPropsRest{
 		Bucket:      types.StringValue(diskpool.Vaultprops.Bucket),
 		Compression: types.BoolValue(diskpool.Vaultprops.Compression),
 		Region:      types.StringValue(diskpool.Vaultprops.Region),
