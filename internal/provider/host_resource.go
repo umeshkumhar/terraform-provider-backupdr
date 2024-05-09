@@ -165,36 +165,25 @@ func (r *hostResource) Schema(_ context.Context, _ resource.SchemaRequest, resp 
 					},
 				},
 			},
-			// "appliance": schema.SingleNestedAttribute{
-			// 	Computed: true,
-			// 	Attributes: map[string]schema.Attribute{
-			// 		"clusterid": schema.StringAttribute{
-			// 			Computed: true,
-			// 		},
-			// 		"id": schema.StringAttribute{
-			// 			Computed: true,
-			// 		},
-			// 		"href": schema.StringAttribute{
-			// 			Computed: true,
+			"appliance_clusterid": schema.StringAttribute{
+				Required: true,
+			},
+			// "sources": schema.ListNestedAttribute{
+			// 	Optional: true,
+			// 	NestedObject: schema.NestedAttributeObject{
+			// 		Attributes: map[string]schema.Attribute{
+			// 			"id": schema.StringAttribute{
+			// 				Computed: true,
+			// 			},
+			// 			"href": schema.StringAttribute{
+			// 				Computed: true,
+			// 			},
+			// 			"clusterid": schema.StringAttribute{
+			// 				Required: true,
+			// 			},
 			// 		},
 			// 	},
 			// },
-			"sources": schema.ListNestedAttribute{
-				Optional: true,
-				NestedObject: schema.NestedAttributeObject{
-					Attributes: map[string]schema.Attribute{
-						"id": schema.StringAttribute{
-							Computed: true,
-						},
-						"href": schema.StringAttribute{
-							Computed: true,
-						},
-						"clusterid": schema.StringAttribute{
-							Required: true,
-						},
-					},
-				},
-			},
 			// "agents": schema.ListNestedAttribute{
 			// 	Optional: true,
 			// 	NestedObject: schema.NestedAttributeObject{
@@ -273,11 +262,9 @@ func (r *hostResource) Create(ctx context.Context, req resource.CreateRequest, r
 		}
 	}
 
-	if plan.Sources != nil {
-		reqVcenterHost.Sources = append(reqVcenterHost.Sources, backupdr.HostRest{
-			Clusterid: plan.Sources[0].Clusterid.ValueString(),
-		})
-	}
+	reqVcenterHost.Sources = append(reqVcenterHost.Sources, backupdr.HostRest{
+		Clusterid: plan.ApplianceClusterID.ValueString(),
+	})
 
 	// Generate API request body from plan
 	reqBody := backupdr.HostApiCreateHostOpts{
@@ -339,8 +326,8 @@ func (r *hostResource) Create(ctx context.Context, req resource.CreateRequest, r
 	// 	Password:        types.StringNull(),
 	// }}
 
-	plan.Sources[0].ID = types.StringValue(respObject.Sources[0].Id)
-	plan.Sources[0].Href = types.StringValue(respObject.Sources[0].Href)
+	// plan.Sources[0].ID = types.StringValue(respObject.Sources[0].Id)
+	// plan.Sources[0].Href = types.StringValue(respObject.Sources[0].Href)
 
 	// plan.Appliance = &ClusterRestRef{
 	// 	// Clusterid: types.StringValue(respObject.Appliance.Clusterid),
@@ -422,8 +409,8 @@ func (r *hostResource) Read(ctx context.Context, req resource.ReadRequest, resp 
 	// 	Password:        types.StringNull(),
 	// }}
 
-	state.Sources[0].ID = types.StringValue(respObject.Sources[0].Id)
-	state.Sources[0].Href = types.StringValue(respObject.Sources[0].Href)
+	// state.Sources[0].ID = types.StringValue(respObject.Sources[0].Id)
+	// state.Sources[0].Href = types.StringValue(respObject.Sources[0].Href)
 
 	// state.Appliance = &ClusterRestRef{
 	// 	// Clusterid: types.StringValue(respObject.Appliance.Clusterid),
@@ -462,11 +449,9 @@ func (r *hostResource) Update(ctx context.Context, req resource.UpdateRequest, r
 		}
 	}
 
-	if plan.Sources != nil {
-		reqVcenterHost.Sources = append(reqVcenterHost.Sources, backupdr.HostRest{
-			Clusterid: plan.Sources[0].Clusterid.ValueString(),
-		})
-	}
+	reqVcenterHost.Sources = append(reqVcenterHost.Sources, backupdr.HostRest{
+		Clusterid: plan.ApplianceClusterID.ValueString(),
+	})
 
 	// Generate API request body from plan
 	reqBody := backupdr.HostApiUpdateHostOpts{
@@ -537,8 +522,8 @@ func (r *hostResource) Update(ctx context.Context, req resource.UpdateRequest, r
 	// 	Password:        types.StringNull(),
 	// }}
 
-	plan.Sources[0].ID = types.StringValue(respObject.Sources[0].Id)
-	plan.Sources[0].Href = types.StringValue(respObject.Sources[0].Href)
+	// plan.Sources[0].ID = types.StringValue(respObject.Sources[0].Id)
+	// plan.Sources[0].Href = types.StringValue(respObject.Sources[0].Href)
 
 	// plan.Appliance, _ = types.ObjectValue(ClusterRestRef{
 	// 	// Clusterid: types.StringValue(respObject.Appliance.Clusterid),

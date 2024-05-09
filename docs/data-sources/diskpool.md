@@ -24,6 +24,7 @@ data "backupdr_diskpool" "example" {
 
 ### Read-Only
 
+- `appliance_clusterid` (String)
 - `capacity_mb` (Number)
 - `cluster` (Attributes) (see [below for nested schema](#nestedatt--cluster))
 - `free_mb` (Number)

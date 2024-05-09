@@ -250,7 +250,7 @@ func (r *templateResource) Create(ctx context.Context, req resource.CreateReques
 		Body: optional.NewInterface(reqSlt),
 	}
 
-	// Create new order
+	// Create new entity
 	respObject, _, err := r.client.SLATemplateApi.CreateSlt(r.authCtx, &reqBody)
 	if err != nil {
 		resp.Diagnostics.AddError(
@@ -329,46 +329,45 @@ func (r *templateResource) Update(ctx context.Context, req resource.UpdateReques
 		Name: plan.Name.ValueString(),
 		// Immutable:   plan.Immutable.ValueBool(),
 		Description: plan.Description.ValueString(),
-		Sourcename:  plan.Sourcename.ValueString(),
 		Override:    plan.Override.ValueString(),
 	}
 
-	for _, pol := range plan.Policies {
-		reqSlt.Policies = append(reqSlt.Policies, backupdr.PolicyRest{
-			Name:          pol.Name.ValueString(),
-			Description:   pol.Description.ValueString(),
-			Priority:      pol.Priority.ValueString(),
-			Exclusiontype: pol.Exclusiontype.ValueString(),
-			Iscontinuous:  pol.Iscontinuous.ValueBool(),
-			Rpo:           pol.Rpo.ValueString(),
-			Rpom:          pol.Rpom.ValueString(),
-			Starttime:     pol.Starttime.ValueString(),
-			Endtime:       pol.Endtime.ValueString(),
-			Targetvault:   int32(pol.Targetvault.ValueInt64()),
-			Sourcevault:   int32(pol.Sourcevault.ValueInt64()),
-			Scheduletype:  pol.Scheduletype.ValueString(),
-			// Scheduling:        pol.Scheduling.ValueString(),
-			Selection:         pol.Selection.ValueString(),
-			Exclusion:         pol.Exclusion.ValueString(),
-			Exclusioninterval: pol.Exclusioninterval.ValueString(),
-			Retention:         pol.Retention.ValueString(),
-			Retentionm:        pol.Retentionm.ValueString(),
-			Remoteretention:   int32(pol.Remoteretention.ValueInt64()),
-			PolicyType:        pol.PolicyType.ValueString(),
-			Op:                pol.Op.ValueString(),
-			Verification:      pol.Verification.ValueBool(),
-			Repeatinterval:    pol.Repeatinterval.ValueString(),
-			Encrypt:           pol.Encrypt.ValueString(),
-			Reptype:           pol.Reptype.ValueString(),
-			Verifychoice:      pol.Verifychoice.ValueString(),
-		})
-	}
+	// for _, pol := range plan.Policies {
+	// 	reqSlt.Policies = append(reqSlt.Policies, backupdr.PolicyRest{
+	// 		Name:          pol.Name.ValueString(),
+	// 		Description:   pol.Description.ValueString(),
+	// 		Priority:      pol.Priority.ValueString(),
+	// 		Exclusiontype: pol.Exclusiontype.ValueString(),
+	// 		Iscontinuous:  pol.Iscontinuous.ValueBool(),
+	// 		Rpo:           pol.Rpo.ValueString(),
+	// 		Rpom:          pol.Rpom.ValueString(),
+	// 		Starttime:     pol.Starttime.ValueString(),
+	// 		Endtime:       pol.Endtime.ValueString(),
+	// 		Targetvault:   int32(pol.Targetvault.ValueInt64()),
+	// 		Sourcevault:   int32(pol.Sourcevault.ValueInt64()),
+	// 		Scheduletype:  pol.Scheduletype.ValueString(),
+	// 		// Scheduling:        pol.Scheduling.ValueString(),
+	// 		Selection:         pol.Selection.ValueString(),
+	// 		Exclusion:         pol.Exclusion.ValueString(),
+	// 		Exclusioninterval: pol.Exclusioninterval.ValueString(),
+	// 		Retention:         pol.Retention.ValueString(),
+	// 		Retentionm:        pol.Retentionm.ValueString(),
+	// 		Remoteretention:   int32(pol.Remoteretention.ValueInt64()),
+	// 		PolicyType:        pol.PolicyType.ValueString(),
+	// 		Op:                pol.Op.ValueString(),
+	// 		Verification:      pol.Verification.ValueBool(),
+	// 		Repeatinterval:    pol.Repeatinterval.ValueString(),
+	// 		Encrypt:           pol.Encrypt.ValueString(),
+	// 		Reptype:           pol.Reptype.ValueString(),
+	// 		Verifychoice:      pol.Verifychoice.ValueString(),
+	// 	})
+	// }
 	// Generate API request body from plan
 	reqBody := backupdr.SLATemplateApiUpdateSltOpts{
 		Body: optional.NewInterface(reqSlt),
 	}
 
-	// Update existing order
+	// Update existing entity
 	respObject, res, err := r.client.SLATemplateApi.UpdateSlt(r.authCtx, plan.ID.ValueString(), &reqBody)
 	if err != nil {
 		resp.Diagnostics.AddError(

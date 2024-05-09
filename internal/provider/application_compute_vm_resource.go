@@ -34,17 +34,13 @@ type applicationComputeVMsResource struct {
 
 // tf go model
 type applicationComputeVMsResourceModel struct {
-	CloudCredential types.String         `tfsdk:"cloudcredential"`
-	Cluster         clusterResourceModel `tfsdk:"cluster"`
-	VMIds           []types.String       `tfsdk:"vmids"`
-	Region          types.String         `tfsdk:"region"`
-	ProjectID       types.String         `tfsdk:"projectid"`
-	Status          types.String         `tfsdk:"status"`
-	Applications    types.List           `tfsdk:"applications"`
-}
-
-type clusterResourceModel struct {
-	ClusterID types.String `tfsdk:"clusterid"`
+	CloudCredential    types.String   `tfsdk:"cloudcredential"`
+	ApplianceClusterID types.String   `tfsdk:"appliance_clusterid"`
+	VMIds              []types.String `tfsdk:"vmids"`
+	Region             types.String   `tfsdk:"region"`
+	ProjectID          types.String   `tfsdk:"projectid"`
+	Status             types.String   `tfsdk:"status"`
+	Applications       types.List     `tfsdk:"applications"`
 }
 
 // Metadata returns the resource type name.
@@ -60,13 +56,8 @@ func (r *applicationComputeVMsResource) Schema(_ context.Context, _ resource.Sch
 			"cloudcredential": schema.StringAttribute{
 				Required: true,
 			},
-			"cluster": schema.SingleNestedAttribute{
+			"appliance_clusterid": schema.StringAttribute{
 				Required: true,
-				Attributes: map[string]schema.Attribute{
-					"clusterid": schema.StringAttribute{
-						Required: true,
-					},
-				},
 			},
 			"projectid": schema.StringAttribute{
 				Required: true,
@@ -120,7 +111,7 @@ func (r *applicationComputeVMsResource) Create(ctx context.Context, req resource
 		Vmids:     listVMs,
 		ListOnly:  false,
 	}
-	reqCloudAddVMs.Cluster = &backupdr.ClusterRest{Clusterid: plan.Cluster.ClusterID.ValueString()}
+	reqCloudAddVMs.Cluster = &backupdr.ClusterRest{Clusterid: plan.ApplianceClusterID.ValueString()}
 
 	// Generate API request body from plan
 	reqBody := backupdr.DefaultApiAddVmOpts{
@@ -212,7 +203,7 @@ func (r *applicationComputeVMsResource) Update(ctx context.Context, req resource
 		ProjectId: plan.ProjectID.ValueString(),
 		Vmids:     listVMs,
 	}
-	reqCloudAddVMs.Cluster = &backupdr.ClusterRest{Clusterid: plan.Cluster.ClusterID.ValueString()}
+	reqCloudAddVMs.Cluster = &backupdr.ClusterRest{Clusterid: plan.ApplianceClusterID.ValueString()}
 
 	// Generate API request body from plan
 	reqBody := backupdr.DefaultApiAddVmOpts{

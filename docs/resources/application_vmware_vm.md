@@ -15,7 +15,7 @@ Manages an vCenter Host to add Virtual Machines.
 ```terraform
 resource "backupdr_application_vmware_vm" "name" {
   cluster_name = "<vcenter-cluster-name>"
-  cluster      = "<appliance-id>"
+  appliance_id = "<appliance-id>"
   vcenter_id   = "<vcenter-host-id>"
   vms          = ["<vcenter-vm-uuid>"]
 }
@@ -26,11 +26,12 @@ resource "backupdr_application_vmware_vm" "name" {
 
 ### Required
 
-- `cluster` (String)
+- `appliance_id` (String)
 - `cluster_name` (String)
 - `vcenter_id` (String)
 - `vms` (List of String)
 
 ### Read-Only
 
+- `applications` (List of String)
 - `status` (String)

@@ -14,7 +14,7 @@ Manages an SLA Profile.
 
 ```terraform
 resource "backupdr_profile" "name" {
-  cid             = "4197"
+  cid             = "<appliance-id>"
   name            = "<name>"
   description     = "<profile description>"
   localnode       = "<appliance-node-pool>"

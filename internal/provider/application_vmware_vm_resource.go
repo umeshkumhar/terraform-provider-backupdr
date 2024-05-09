@@ -34,7 +34,7 @@ type applicationVmwareVMsResource struct {
 
 // tf go model
 type applicationVmwareVMsResourceModel struct {
-	Cluster      types.String   `tfsdk:"cluster"`
+	ApplianceID  types.String   `tfsdk:"appliance_id"`
 	ClusterName  types.String   `tfsdk:"cluster_name"`
 	VMs          []types.String `tfsdk:"vms"`
 	VcenterID    types.String   `tfsdk:"vcenter_id"`
@@ -52,7 +52,7 @@ func (r *applicationVmwareVMsResource) Schema(_ context.Context, _ resource.Sche
 	resp.Schema = schema.Schema{
 		Description: "Manages an vCenter Host to add Virtual Machines.",
 		Attributes: map[string]schema.Attribute{
-			"cluster": schema.StringAttribute{
+			"appliance_id": schema.StringAttribute{
 				Required: true,
 			},
 			"vcenter_id": schema.StringAttribute{
@@ -102,7 +102,7 @@ func (r *applicationVmwareVMsResource) Create(ctx context.Context, req resource.
 	}
 
 	reqVcenterHostAddVMs := backupdr.VmDiscoveryRest{
-		Cluster: plan.Cluster.ValueString(),
+		Cluster: plan.ApplianceID.ValueString(),
 		Addvms:  true,
 		Vms:     listVMs,
 	}
@@ -192,7 +192,7 @@ func (r *applicationVmwareVMsResource) Update(ctx context.Context, req resource.
 	}
 
 	reqVcenterHostAddVMs := backupdr.VmDiscoveryRest{
-		Cluster: plan.Cluster.ValueString(),
+		Cluster: plan.ApplianceID.ValueString(),
 		Addvms:  true,
 		Vms:     listVMs,
 	}

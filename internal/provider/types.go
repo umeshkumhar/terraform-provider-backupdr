@@ -77,40 +77,41 @@ type LogicalGroupResourceModel struct {
 type vcenterHostRest struct {
 	Alternateip []types.String `tfsdk:"alternateip"`
 	// Appliance        *ClusterRestRef `tfsdk:"appliance"`
-	Autoupgrade      types.String         `tfsdk:"autoupgrade"`
-	CertRevoked      types.Bool           `tfsdk:"cert_revoked"`
-	Clusterid        types.String         `tfsdk:"clusterid"`
-	Dbauthentication types.Bool           `tfsdk:"dbauthentication"`
-	Diskpref         types.String         `tfsdk:"diskpref"`
-	Friendlypath     types.String         `tfsdk:"friendlypath"`
-	Hasagent         types.Bool           `tfsdk:"hasagent"`
-	Hostname         types.String         `tfsdk:"hostname"`
-	Hosttype         types.String         `tfsdk:"hosttype"`
-	Href             types.String         `tfsdk:"href"`
-	Hypervisoragent  *agentRest           `tfsdk:"hypervisoragent"`
-	ID               types.String         `tfsdk:"id"`
-	Ipaddress        types.String         `tfsdk:"ipaddress"`
-	IsClusterNode    types.Bool           `tfsdk:"isclusternode"`
-	IsShadowHost     types.Bool           `tfsdk:"isshadowhost"`
-	Isclusterhost    types.Bool           `tfsdk:"isclusterhost"`
-	Isesxhost        types.Bool           `tfsdk:"isesxhost"`
-	Isproxyhost      types.Bool           `tfsdk:"isproxyhost"`
-	Isvcenterhost    types.Bool           `tfsdk:"isvcenterhost"`
-	Isvm             types.Bool           `tfsdk:"isvm"`
-	Maxjobs          types.Int64          `tfsdk:"maxjobs"`
-	Modifydate       types.Int64          `tfsdk:"modifydate"`
-	Multiregion      types.String         `tfsdk:"multiregion"`
-	Name             types.String         `tfsdk:"name"`
-	Originalhostid   types.String         `tfsdk:"originalhostid"`
-	OstypeSpecial    types.String         `tfsdk:"ostype_special"`
-	PkiState         types.String         `tfsdk:"pki_state"`
-	Sourcecluster    types.String         `tfsdk:"sourcecluster"`
-	Sources          []vcenterHostRestRef `tfsdk:"sources"`
-	Srcid            types.String         `tfsdk:"srcid"`
-	Svcname          types.String         `tfsdk:"svcname"`
-	Transport        types.String         `tfsdk:"transport"`
-	Uniquename       types.String         `tfsdk:"uniquename"`
-	Zone             types.String         `tfsdk:"zone"`
+	Autoupgrade      types.String `tfsdk:"autoupgrade"`
+	CertRevoked      types.Bool   `tfsdk:"cert_revoked"`
+	Clusterid        types.String `tfsdk:"clusterid"`
+	Dbauthentication types.Bool   `tfsdk:"dbauthentication"`
+	Diskpref         types.String `tfsdk:"diskpref"`
+	Friendlypath     types.String `tfsdk:"friendlypath"`
+	Hasagent         types.Bool   `tfsdk:"hasagent"`
+	Hostname         types.String `tfsdk:"hostname"`
+	Hosttype         types.String `tfsdk:"hosttype"`
+	Href             types.String `tfsdk:"href"`
+	Hypervisoragent  *agentRest   `tfsdk:"hypervisoragent"`
+	ID               types.String `tfsdk:"id"`
+	Ipaddress        types.String `tfsdk:"ipaddress"`
+	IsClusterNode    types.Bool   `tfsdk:"isclusternode"`
+	IsShadowHost     types.Bool   `tfsdk:"isshadowhost"`
+	Isclusterhost    types.Bool   `tfsdk:"isclusterhost"`
+	Isesxhost        types.Bool   `tfsdk:"isesxhost"`
+	Isproxyhost      types.Bool   `tfsdk:"isproxyhost"`
+	Isvcenterhost    types.Bool   `tfsdk:"isvcenterhost"`
+	Isvm             types.Bool   `tfsdk:"isvm"`
+	Maxjobs          types.Int64  `tfsdk:"maxjobs"`
+	Modifydate       types.Int64  `tfsdk:"modifydate"`
+	Multiregion      types.String `tfsdk:"multiregion"`
+	Name             types.String `tfsdk:"name"`
+	Originalhostid   types.String `tfsdk:"originalhostid"`
+	OstypeSpecial    types.String `tfsdk:"ostype_special"`
+	PkiState         types.String `tfsdk:"pki_state"`
+	Sourcecluster    types.String `tfsdk:"sourcecluster"`
+	// Sources          []vcenterHostRestRef `tfsdk:"sources"`
+	ApplianceClusterID types.String `tfsdk:"appliance_clusterid"`
+	Srcid              types.String `tfsdk:"srcid"`
+	Svcname            types.String `tfsdk:"svcname"`
+	Transport          types.String `tfsdk:"transport"`
+	Uniquename         types.String `tfsdk:"uniquename"`
+	Zone               types.String `tfsdk:"zone"`
 }
 
 type vcenterHostRestRef struct {
@@ -288,6 +289,7 @@ type diskPoolResourceModel struct {
 	Name                types.String        `tfsdk:"name"`
 	Pooltype            types.String        `tfsdk:"pooltype"`
 	Cluster             *ClusterRest        `tfsdk:"cluster"`
+	ApplianceClusterID  types.String        `tfsdk:"appliance_clusterid"`
 	Properties          []keyValueRestModel `tfsdk:"properties"`
 	Vaultprops          *vaultPropsRest     `tfsdk:"vaultprops"`
 	Usedefaultsa        types.Bool          `tfsdk:"usedefaultsa"`

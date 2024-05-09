@@ -1,4 +1,4 @@
-data "backupdr_cloudcredential" "name" {
+data "backupdr_cloudcredential" "example" {
   ## replace with cloud credential ID
   id = "49385"
 }

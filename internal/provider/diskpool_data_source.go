@@ -126,6 +126,9 @@ func (d *diskpoolDataSource) Schema(ctx context.Context, req datasource.SchemaRe
 					},
 				},
 			},
+			"appliance_clusterid": schema.StringAttribute{
+				Computed: true,
+			},
 			"cluster": schema.SingleNestedAttribute{
 				Computed: true,
 				Attributes: map[string]schema.Attribute{
@@ -233,6 +236,7 @@ func (d *diskpoolDataSource) Read(ctx context.Context, req datasource.ReadReques
 			"Unable to Read BackupDR DiskPool",
 			res.Status,
 		)
+		return
 	}
 
 	// Map response body to model
@@ -267,26 +271,28 @@ func (d *diskpoolDataSource) Read(ctx context.Context, req datasource.ReadReques
 		})
 	}
 
-	state.Cluster = &ClusterRest{
-		Clusterid:       types.StringValue(diskpool.Cluster.Clusterid),
-		Serviceaccount:  types.StringValue(diskpool.Cluster.Serviceaccount),
-		Zone:            types.StringValue(diskpool.Cluster.Zone),
-		Region:          types.StringValue(diskpool.Cluster.Region),
-		Projectid:       types.StringValue(diskpool.Cluster.Projectid),
-		Version:         types.StringValue(diskpool.Cluster.Version),
-		Name:            types.StringValue(diskpool.Cluster.Name),
-		Type:            types.StringValue(diskpool.Cluster.Type_),
-		Ipaddress:       types.StringValue(diskpool.Cluster.Ipaddress),
-		Publicip:        types.StringValue(diskpool.Cluster.Publicip),
-		Secureconnect:   types.BoolValue(diskpool.Cluster.Secureconnect),
-		PkiBootstrapped: types.BoolValue(diskpool.Cluster.PkiBootstrapped),
-		Supportstatus:   types.StringValue(diskpool.Cluster.Supportstatus),
-		ID:              types.StringValue(diskpool.Cluster.Id),
-		Href:            types.StringValue(diskpool.Cluster.Href),
-		Syncdate:        types.Int64Value(diskpool.Cluster.Syncdate),
-		Stale:           types.BoolValue(diskpool.Cluster.Stale),
+	if diskpool.Cluster != nil {
+		state.ApplianceClusterID = types.StringValue(diskpool.Cluster.Clusterid)
+		state.Cluster = &ClusterRest{
+			Clusterid:       types.StringValue(diskpool.Cluster.Clusterid),
+			Serviceaccount:  types.StringValue(diskpool.Cluster.Serviceaccount),
+			Zone:            types.StringValue(diskpool.Cluster.Zone),
+			Region:          types.StringValue(diskpool.Cluster.Region),
+			Projectid:       types.StringValue(diskpool.Cluster.Projectid),
+			Version:         types.StringValue(diskpool.Cluster.Version),
+			Name:            types.StringValue(diskpool.Cluster.Name),
+			Type:            types.StringValue(diskpool.Cluster.Type_),
+			Ipaddress:       types.StringValue(diskpool.Cluster.Ipaddress),
+			Publicip:        types.StringValue(diskpool.Cluster.Publicip),
+			Secureconnect:   types.BoolValue(diskpool.Cluster.Secureconnect),
+			PkiBootstrapped: types.BoolValue(diskpool.Cluster.PkiBootstrapped),
+			Supportstatus:   types.StringValue(diskpool.Cluster.Supportstatus),
+			ID:              types.StringValue(diskpool.Cluster.Id),
+			Href:            types.StringValue(diskpool.Cluster.Href),
+			Syncdate:        types.Int64Value(diskpool.Cluster.Syncdate),
+			Stale:           types.BoolValue(diskpool.Cluster.Stale),
+		}
 	}
-
 	state.Vaultprops = &vaultPropsRest{
 		Bucket:      types.StringValue(diskpool.Vaultprops.Bucket),
 		Compression: types.BoolValue(diskpool.Vaultprops.Compression),

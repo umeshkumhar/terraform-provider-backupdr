@@ -9,9 +9,11 @@ import (
 	"github.com/antihax/optional"
 	backupdr "github.com/umeshkumhar/backupdr-client"
 
+	"github.com/hashicorp/terraform-plugin-framework/attr"
 	"github.com/hashicorp/terraform-plugin-framework/path"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/objectdefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 )
 
@@ -125,8 +127,21 @@ func (r *diskpoolResource) Schema(_ context.Context, _ resource.SchemaRequest, r
 					},
 				},
 			},
-			"cluster": schema.SingleNestedAttribute{
+			"appliance_clusterid": schema.StringAttribute{
 				Required: true,
+			},
+			"cluster": schema.SingleNestedAttribute{
+				Computed: true,
+				Default: objectdefault.StaticValue(
+					types.ObjectValueMust(
+						map[string]attr.Type{
+							"id": types.StringType,
+						},
+						map[string]attr.Value{
+							"id": types.StringValue(""),
+						},
+					),
+				),
 				Attributes: map[string]schema.Attribute{
 					"id": schema.StringAttribute{
 						Computed: true,
@@ -138,7 +153,7 @@ func (r *diskpoolResource) Schema(_ context.Context, _ resource.SchemaRequest, r
 						Computed: true,
 					},
 					"clusterid": schema.StringAttribute{
-						Required: true,
+						Computed: true,
 					},
 					"serviceaccount": schema.StringAttribute{
 						Computed: true,
@@ -235,7 +250,7 @@ func (r *diskpoolResource) Create(ctx context.Context, req resource.CreateReques
 	reqDiskpool := backupdr.DiskPoolRest{
 		Name:     state.Name.ValueString(),
 		Pooltype: state.Pooltype.ValueString(),
-		Cluster:  &backupdr.ClusterRest{Clusterid: state.Cluster.Clusterid.ValueString()},
+		Cluster:  &backupdr.ClusterRest{Clusterid: state.ApplianceClusterID.ValueString()},
 	}
 
 	for _, prop := range state.Properties {
@@ -251,13 +266,20 @@ func (r *diskpoolResource) Create(ctx context.Context, req resource.CreateReques
 	}
 
 	// Create new diskpool
-	respObject, _, err := r.client.DiskPoolApi.CreateDiskPool(r.authCtx, &reqBody)
+	respObject, res, err := r.client.DiskPoolApi.CreateDiskPool(r.authCtx, &reqBody)
 	if err != nil {
 		resp.Diagnostics.AddError(
 			"Error creating Diskpool",
 			"Could not create Diskpool, unexpected error: "+err.Error(),
 		)
 		return
+	}
+
+	if res.StatusCode != 200 {
+		resp.Diagnostics.AddError(
+			"Unable to Create BackupDR DiskPool",
+			res.Status,
+		)
 	}
 
 	// Map response body to schema and populate Computed attribute values
@@ -283,22 +305,43 @@ func (r *diskpoolResource) Create(ctx context.Context, req resource.CreateReques
 	state.CapacityMb = types.Int64Value(respObject.CapacityMb)
 	state.Pct = types.Float64Value(respObject.Pct)
 
-	state.Cluster.Href = types.StringValue(respObject.Cluster.Href)
-	state.Cluster.ID = types.StringValue(respObject.Cluster.Id)
-	state.Cluster.Serviceaccount = types.StringValue(respObject.Cluster.Serviceaccount)
-	state.Cluster.Zone = types.StringValue(respObject.Cluster.Zone)
-	state.Cluster.Region = types.StringValue(respObject.Cluster.Region)
-	state.Cluster.Projectid = types.StringValue(respObject.Cluster.Projectid)
-	state.Cluster.Version = types.StringValue(respObject.Cluster.Version)
-	state.Cluster.Name = types.StringValue(respObject.Cluster.Name)
-	state.Cluster.Type = types.StringValue(respObject.Cluster.Type_)
-	state.Cluster.Ipaddress = types.StringValue(respObject.Cluster.Ipaddress)
-	state.Cluster.Publicip = types.StringValue(respObject.Cluster.Publicip)
-	state.Cluster.Secureconnect = types.BoolValue(respObject.Cluster.Secureconnect)
-	state.Cluster.PkiBootstrapped = types.BoolValue(respObject.Cluster.PkiBootstrapped)
-	state.Cluster.Supportstatus = types.StringValue(respObject.Cluster.Supportstatus)
-	state.Cluster.Syncdate = types.Int64Value(respObject.Cluster.Syncdate)
-	state.Cluster.Stale = types.BoolValue(respObject.Cluster.Stale)
+	state.ApplianceClusterID = types.StringValue(respObject.Cluster.Clusterid)
+	// Set state to fully populated data
+	// state.Cluster = &ClusterRest{
+	// 	ID:              types.StringValue(respObject.Cluster.Id),
+	// 	Href:            types.StringValue(respObject.Cluster.Href),
+	// 	Serviceaccount:  types.StringValue(respObject.Cluster.Serviceaccount),
+	// 	Zone:            types.StringValue(respObject.Cluster.Zone),
+	// 	Region:          types.StringValue(respObject.Cluster.Region),
+	// 	Projectid:       types.StringValue(respObject.Cluster.Projectid),
+	// 	Version:         types.StringValue(respObject.Cluster.Version),
+	// 	Name:            types.StringValue(respObject.Cluster.Name),
+	// 	Type:            types.StringValue(respObject.Cluster.Type_),
+	// 	Ipaddress:       types.StringValue(respObject.Cluster.Ipaddress),
+	// 	Publicip:        types.StringValue(respObject.Cluster.Publicip),
+	// 	Secureconnect:   types.BoolValue(respObject.Cluster.Secureconnect),
+	// 	PkiBootstrapped: types.BoolValue(respObject.Cluster.PkiBootstrapped),
+	// 	Supportstatus:   types.StringValue(respObject.Cluster.Supportstatus),
+	// 	Syncdate:        types.Int64Value(respObject.Cluster.Syncdate),
+	// 	Stale:           types.BoolValue(respObject.Cluster.Stale),
+	// }
+
+	// // state.Cluster.Href = types.StringValue(respObject.Cluster.Href)
+	// // state.Cluster.ID = types.StringValue(respObject.Cluster.Id)
+	// // state.Cluster.Serviceaccount = types.StringValue(respObject.Cluster.Serviceaccount)
+	// // state.Cluster.Zone = types.StringValue(respObject.Cluster.Zone)
+	// // state.Cluster.Region = types.StringValue(respObject.Cluster.Region)
+	// // state.Cluster.Projectid = types.StringValue(respObject.Cluster.Projectid)
+	// // state.Cluster.Version = types.StringValue(respObject.Cluster.Version)
+	// // state.Cluster.Name = types.StringValue(respObject.Cluster.Name)
+	// // state.Cluster.Type = types.StringValue(respObject.Cluster.Type_)
+	// // state.Cluster.Ipaddress = types.StringValue(respObject.Cluster.Ipaddress)
+	// // state.Cluster.Publicip = types.StringValue(respObject.Cluster.Publicip)
+	// // state.Cluster.Secureconnect = types.BoolValue(respObject.Cluster.Secureconnect)
+	// // state.Cluster.PkiBootstrapped = types.BoolValue(respObject.Cluster.PkiBootstrapped)
+	// // state.Cluster.Supportstatus = types.StringValue(respObject.Cluster.Supportstatus)
+	// // state.Cluster.Syncdate = types.Int64Value(respObject.Cluster.Syncdate)
+	// // state.Cluster.Stale = types.BoolValue(respObject.Cluster.Stale)
 
 	// Set state to fully populated data
 	diags = resp.State.Set(ctx, state)
@@ -319,13 +362,20 @@ func (r *diskpoolResource) Read(ctx context.Context, req resource.ReadRequest, r
 	}
 
 	// Get refreshed values
-	respObject, _, err := r.client.DiskPoolApi.GetDiskPool(r.authCtx, state.ID.ValueString())
+	respObject, res, err := r.client.DiskPoolApi.GetDiskPool(r.authCtx, state.ID.ValueString())
 	if err != nil {
 		resp.Diagnostics.AddError(
 			"Error Reading DiskPool",
 			"Could not read DiskPool with ID "+state.ID.ValueString()+": "+err.Error(),
 		)
 		return
+	}
+
+	if res.StatusCode != 200 {
+		resp.Diagnostics.AddError(
+			"Unable to Read BackupDR DiskPool",
+			res.Status,
+		)
 	}
 
 	// Overwrite items with refreshed state
@@ -351,22 +401,27 @@ func (r *diskpoolResource) Read(ctx context.Context, req resource.ReadRequest, r
 	state.CapacityMb = types.Int64Value(respObject.CapacityMb)
 	state.Pct = types.Float64Value(respObject.Pct)
 
-	state.Cluster.Href = types.StringValue(respObject.Cluster.Href)
-	state.Cluster.ID = types.StringValue(respObject.Cluster.Id)
-	state.Cluster.Serviceaccount = types.StringValue(respObject.Cluster.Serviceaccount)
-	state.Cluster.Zone = types.StringValue(respObject.Cluster.Zone)
-	state.Cluster.Region = types.StringValue(respObject.Cluster.Region)
-	state.Cluster.Projectid = types.StringValue(respObject.Cluster.Projectid)
-	state.Cluster.Version = types.StringValue(respObject.Cluster.Version)
-	state.Cluster.Name = types.StringValue(respObject.Cluster.Name)
-	state.Cluster.Type = types.StringValue(respObject.Cluster.Type_)
-	state.Cluster.Ipaddress = types.StringValue(respObject.Cluster.Ipaddress)
-	state.Cluster.Publicip = types.StringValue(respObject.Cluster.Publicip)
-	state.Cluster.Secureconnect = types.BoolValue(respObject.Cluster.Secureconnect)
-	state.Cluster.PkiBootstrapped = types.BoolValue(respObject.Cluster.PkiBootstrapped)
-	state.Cluster.Supportstatus = types.StringValue(respObject.Cluster.Supportstatus)
-	state.Cluster.Syncdate = types.Int64Value(respObject.Cluster.Syncdate)
-	state.Cluster.Stale = types.BoolValue(respObject.Cluster.Stale)
+	state.ApplianceClusterID = types.StringValue(respObject.Cluster.Clusterid)
+
+	// Set state to fully populated data
+	// state.Cluster = &ClusterRest{
+	// 	ID:              types.StringValue(respObject.Cluster.Id),
+	// 	Href:            types.StringValue(respObject.Cluster.Href),
+	// 	Serviceaccount:  types.StringValue(respObject.Cluster.Serviceaccount),
+	// 	Zone:            types.StringValue(respObject.Cluster.Zone),
+	// 	Region:          types.StringValue(respObject.Cluster.Region),
+	// 	Projectid:       types.StringValue(respObject.Cluster.Projectid),
+	// 	Version:         types.StringValue(respObject.Cluster.Version),
+	// 	Name:            types.StringValue(respObject.Cluster.Name),
+	// 	Type:            types.StringValue(respObject.Cluster.Type_),
+	// 	Ipaddress:       types.StringValue(respObject.Cluster.Ipaddress),
+	// 	Publicip:        types.StringValue(respObject.Cluster.Publicip),
+	// 	Secureconnect:   types.BoolValue(respObject.Cluster.Secureconnect),
+	// 	PkiBootstrapped: types.BoolValue(respObject.Cluster.PkiBootstrapped),
+	// 	Supportstatus:   types.StringValue(respObject.Cluster.Supportstatus),
+	// 	Syncdate:        types.Int64Value(respObject.Cluster.Syncdate),
+	// 	Stale:           types.BoolValue(respObject.Cluster.Stale),
+	// }
 
 	// state.Vaultprops = &VaultPropsRest{
 	// 	Bucket:      types.StringValue(respObject.Vaultprops.Bucket),
@@ -398,7 +453,7 @@ func (r *diskpoolResource) Update(ctx context.Context, req resource.UpdateReques
 	reqDiskpool := backupdr.DiskPoolRest{
 		Name:     state.Name.ValueString(),
 		Pooltype: state.Pooltype.ValueString(),
-		Cluster:  &backupdr.ClusterRest{Clusterid: state.Cluster.Clusterid.ValueString()},
+		Cluster:  &backupdr.ClusterRest{Clusterid: state.ApplianceClusterID.ValueString()},
 	}
 
 	for _, prop := range state.Properties {
@@ -454,22 +509,25 @@ func (r *diskpoolResource) Update(ctx context.Context, req resource.UpdateReques
 	state.CapacityMb = types.Int64Value(respObject.CapacityMb)
 	state.Pct = types.Float64Value(respObject.Pct)
 
-	state.Cluster.Href = types.StringValue(respObject.Cluster.Href)
-	state.Cluster.ID = types.StringValue(respObject.Cluster.Id)
-	state.Cluster.Serviceaccount = types.StringValue(respObject.Cluster.Serviceaccount)
-	state.Cluster.Zone = types.StringValue(respObject.Cluster.Zone)
-	state.Cluster.Region = types.StringValue(respObject.Cluster.Region)
-	state.Cluster.Projectid = types.StringValue(respObject.Cluster.Projectid)
-	state.Cluster.Version = types.StringValue(respObject.Cluster.Version)
-	state.Cluster.Name = types.StringValue(respObject.Cluster.Name)
-	state.Cluster.Type = types.StringValue(respObject.Cluster.Type_)
-	state.Cluster.Ipaddress = types.StringValue(respObject.Cluster.Ipaddress)
-	state.Cluster.Publicip = types.StringValue(respObject.Cluster.Publicip)
-	state.Cluster.Secureconnect = types.BoolValue(respObject.Cluster.Secureconnect)
-	state.Cluster.PkiBootstrapped = types.BoolValue(respObject.Cluster.PkiBootstrapped)
-	state.Cluster.Supportstatus = types.StringValue(respObject.Cluster.Supportstatus)
-	state.Cluster.Syncdate = types.Int64Value(respObject.Cluster.Syncdate)
-	state.Cluster.Stale = types.BoolValue(respObject.Cluster.Stale)
+	state.ApplianceClusterID = types.StringValue(respObject.Cluster.Clusterid)
+
+	// state.Cluster.Href = types.StringValue(respObject.Cluster.Href)
+	// state.Cluster.ID = types.StringValue(respObject.Cluster.Id)
+	// state.Cluster.Clusterid = types.StringValue(respObject.Cluster.Clusterid)
+	// state.Cluster.Serviceaccount = types.StringValue(respObject.Cluster.Serviceaccount)
+	// state.Cluster.Zone = types.StringValue(respObject.Cluster.Zone)
+	// state.Cluster.Region = types.StringValue(respObject.Cluster.Region)
+	// state.Cluster.Projectid = types.StringValue(respObject.Cluster.Projectid)
+	// state.Cluster.Version = types.StringValue(respObject.Cluster.Version)
+	// state.Cluster.Name = types.StringValue(respObject.Cluster.Name)
+	// state.Cluster.Type = types.StringValue(respObject.Cluster.Type_)
+	// state.Cluster.Ipaddress = types.StringValue(respObject.Cluster.Ipaddress)
+	// state.Cluster.Publicip = types.StringValue(respObject.Cluster.Publicip)
+	// state.Cluster.Secureconnect = types.BoolValue(respObject.Cluster.Secureconnect)
+	// state.Cluster.PkiBootstrapped = types.BoolValue(respObject.Cluster.PkiBootstrapped)
+	// state.Cluster.Supportstatus = types.StringValue(respObject.Cluster.Supportstatus)
+	// state.Cluster.Syncdate = types.Int64Value(respObject.Cluster.Syncdate)
+	// state.Cluster.Stale = types.BoolValue(respObject.Cluster.Stale)
 
 	diags = resp.State.Set(ctx, state)
 	resp.Diagnostics.Append(diags...)

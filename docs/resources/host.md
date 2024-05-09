@@ -14,15 +14,15 @@ Manages an vCenter Host.
 
 ```terraform
 resource "backupdr_host" "example" {
-  friendlypath = "<friendly-name>"
-  hostname     = "vcsa-000000.xxxxxxx.asia-northeast1.gve.goog" ## vcenter hostname
-  ipaddress    = "10.10.0.2"                                    ## vcenter IP address
-  hosttype     = "vcenter"
+  friendlypath        = "<friendly-name>"
+  appliance_clusterid = "<appliance-clusterid>"
+  hostname            = "vcsa-000000.xxxxxxx.asia-northeast1.gve.goog" ## vcenter hostname
+  ipaddress           = "10.10.0.2"                                    ## vcenter IP address
+  hosttype            = "vcenter"
   hypervisoragent = {
     username = "CloudOwner@gve.local"
     password = "<vcenter-password>"
   }
-  sources = [{ clusterid = "<appliance-clusterid>" }]
 }
 ```
 
@@ -31,6 +31,7 @@ resource "backupdr_host" "example" {
 
 ### Required
 
+- `appliance_clusterid` (String)
 - `hostname` (String)
 - `hosttype` (String)
 - `ipaddress` (String)
@@ -42,7 +43,6 @@ resource "backupdr_host" "example" {
 - `hypervisoragent` (Attributes) (see [below for nested schema](#nestedatt--hypervisoragent))
 - `multiregion` (String)
 - `ostype_special` (String)
-- `sources` (Attributes List) (see [below for nested schema](#nestedatt--sources))
 
 ### Read-Only
 
@@ -89,16 +89,3 @@ Read-Only:
 - `agenttype` (String)
 - `hasalternatekey` (Boolean)
 - `haspassword` (Boolean)
-
-
-<a id="nestedatt--sources"></a>
-### Nested Schema for `sources`
-
-Required:
-
-- `clusterid` (String)
-
-Read-Only:
-
-- `href` (String)
-- `id` (String)

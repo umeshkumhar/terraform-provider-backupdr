@@ -14,11 +14,9 @@ Manages an DiskPool.
 
 ```terraform
 resource "backupdr_diskpool" "name" {
-  name     = "<name>"
-  pooltype = "vault"
-  cluster = {
-    clusterid = "<appliance-clusterid>"
-  }
+  name                = "<name>"
+  pooltype            = "vault"
+  appliance_clusterid = "<appliance-clusterid>"
   properties = [
     {
       key   = "accessId"
@@ -45,7 +43,7 @@ resource "backupdr_diskpool" "name" {
 
 ### Required
 
-- `cluster` (Attributes) (see [below for nested schema](#nestedatt--cluster))
+- `appliance_clusterid` (String)
 - `name` (String)
 - `pooltype` (String)
 - `properties` (Attributes List) (see [below for nested schema](#nestedatt--properties))
@@ -57,6 +55,7 @@ resource "backupdr_diskpool" "name" {
 ### Read-Only
 
 - `capacity_mb` (Number)
+- `cluster` (Attributes) (see [below for nested schema](#nestedatt--cluster))
 - `free_mb` (Number)
 - `href` (String)
 - `id` (String) The ID of this resource.
@@ -76,33 +75,6 @@ resource "backupdr_diskpool" "name" {
 - `usage_mb` (Number)
 - `usedefaultsa` (Boolean)
 - `warnpct` (Number)
-
-<a id="nestedatt--cluster"></a>
-### Nested Schema for `cluster`
-
-Required:
-
-- `clusterid` (String)
-
-Read-Only:
-
-- `href` (String)
-- `id` (String)
-- `ipaddress` (String)
-- `name` (String)
-- `pkibootstrapped` (Boolean)
-- `projectid` (String)
-- `publicip` (String)
-- `region` (String)
-- `secureconnect` (Boolean)
-- `serviceaccount` (String)
-- `stale` (Boolean)
-- `supportstatus` (String)
-- `syncdate` (Number)
-- `type` (String)
-- `version` (String)
-- `zone` (String)
-
 
 <a id="nestedatt--properties"></a>
 ### Nested Schema for `properties`
@@ -125,3 +97,27 @@ Read-Only:
 - `region` (String)
 - `stale` (Boolean)
 - `syncdate` (Number)
+
+
+<a id="nestedatt--cluster"></a>
+### Nested Schema for `cluster`
+
+Read-Only:
+
+- `clusterid` (String)
+- `href` (String)
+- `id` (String)
+- `ipaddress` (String)
+- `name` (String)
+- `pkibootstrapped` (Boolean)
+- `projectid` (String)
+- `publicip` (String)
+- `region` (String)
+- `secureconnect` (Boolean)
+- `serviceaccount` (String)
+- `stale` (Boolean)
+- `supportstatus` (String)
+- `syncdate` (Number)
+- `type` (String)
+- `version` (String)
+- `zone` (String)

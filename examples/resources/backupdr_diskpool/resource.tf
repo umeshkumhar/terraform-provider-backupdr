@@ -1,9 +1,7 @@
 resource "backupdr_diskpool" "name" {
-  name     = "<name>"
-  pooltype = "vault"
-  cluster = {
-    clusterid = "<appliance-clusterid>"
-  }
+  name                = "<name>"
+  pooltype            = "vault"
+  appliance_clusterid = "<appliance-clusterid>"
   properties = [
     {
       key   = "accessId"
