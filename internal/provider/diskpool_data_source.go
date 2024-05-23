@@ -293,14 +293,17 @@ func (d *diskpoolDataSource) Read(ctx context.Context, req datasource.ReadReques
 			Stale:           types.BoolValue(diskpool.Cluster.Stale),
 		}
 	}
-	state.Vaultprops = &vaultPropsRest{
-		Bucket:      types.StringValue(diskpool.Vaultprops.Bucket),
-		Compression: types.BoolValue(diskpool.Vaultprops.Compression),
-		Region:      types.StringValue(diskpool.Vaultprops.Region),
-		ID:          types.StringValue(diskpool.Vaultprops.Id),
-		Href:        types.StringValue(diskpool.Vaultprops.Href),
-		Syncdate:    types.Int64Value(diskpool.Vaultprops.Syncdate),
-		Stale:       types.BoolValue(diskpool.Vaultprops.Stale),
+
+	if diskpool.Vaultprops != nil {
+		state.Vaultprops = &vaultPropsRest{
+			Bucket:      types.StringValue(diskpool.Vaultprops.Bucket),
+			Compression: types.BoolValue(diskpool.Vaultprops.Compression),
+			Region:      types.StringValue(diskpool.Vaultprops.Region),
+			ID:          types.StringValue(diskpool.Vaultprops.Id),
+			Href:        types.StringValue(diskpool.Vaultprops.Href),
+			Syncdate:    types.Int64Value(diskpool.Vaultprops.Syncdate),
+			Stale:       types.BoolValue(diskpool.Vaultprops.Stale),
+		}
 	}
 
 	// Save data into Terraform state
