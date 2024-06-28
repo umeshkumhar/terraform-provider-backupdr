@@ -334,7 +334,9 @@ func (r *templateResource) Update(ctx context.Context, req resource.UpdateReques
 		Name: plan.Name.ValueString(),
 		// Immutable:   plan.Immutable.ValueBool(),
 		Description: plan.Description.ValueString(),
-		Override:    plan.Override.ValueString(),
+		// Override:    plan.Override.ValueString(),
+		Href:       plan.Href.ValueString(),
+		PolicyHref: plan.PolicyHref.ValueString(),
 	}
 
 	// for _, pol := range plan.Policies {
@@ -393,7 +395,6 @@ func (r *templateResource) Update(ctx context.Context, req resource.UpdateReques
 
 	// Update resource state with updated items and timestamp
 	// Map response body to schema and populate Computed attribute values
-	plan.ID = types.StringValue(respObject.Id)
 	plan.Href = types.StringValue(respObject.Href)
 	plan.OptionHref = types.StringValue(respObject.OptionHref)
 	plan.PolicyHref = types.StringValue(respObject.PolicyHref)

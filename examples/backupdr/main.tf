@@ -1,7 +1,7 @@
 terraform {
   required_providers {
     backupdr = {
-      source = "example.com/google/backupdr"
+      source = "umeshkumhar/backupdr"
     }
     google = {
       source = "hashicorp/google"
@@ -131,7 +131,7 @@ resource "backupdr_application_compute_vm" "name" {
 
   region    = "us-central1-a"
   projectid = "drip-site-02"
-  vmids     = ["745278443586790556", "8242374309568738021", "5589298639124382135"]
+  vmids     = ["745278411111110556", "824237111111118021", "5589291111114382135"]
 }
 
 #####  vCenter  #####################
@@ -141,7 +141,7 @@ resource "backupdr_host" "example" {
   hosttype     = "vcenter"
   hypervisoragent = {
     username = "CloudOwner@gve.local"
-    password = "ZReJ*c0NBpVCYvFL"
+    password = "xxxxxxxxxxxx"
   }
   ipaddress           = "10.10.0.2"
   appliance_clusterid = "145353943664"
@@ -193,9 +193,6 @@ resource "backupdr_plan" "vmware_backup" {
   }
 }
 
-
-
-############### Update is failing ************
 
 
 
