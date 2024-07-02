@@ -172,10 +172,8 @@ type templateResourceModel struct {
 	Override    types.String      `tfsdk:"override"`
 	Policies    []policyRestModel `tfsdk:"policies"`
 	// Options        []backupdr.AdvancedOptionRest `tfsdk:"options"`
-	Managedbyagm   types.Bool  `tfsdk:"managedbyagm"`
-	Usedbycloudapp types.Bool  `tfsdk:"usedbycloudapp"`
-	Syncdate       types.Int64 `tfsdk:"syncdate"`
-	Stale          types.Bool  `tfsdk:"stale"`
+	Managedbyagm   types.Bool `tfsdk:"managedbyagm"`
+	Usedbycloudapp types.Bool `tfsdk:"usedbycloudapp"`
 }
 
 type templateResourceRefModel struct {
@@ -210,7 +208,7 @@ type policyRestModel struct {
 	Repeatinterval    types.String `tfsdk:"repeatinterval"`
 	Exclusioninterval types.String `tfsdk:"exclusioninterval"`
 	Remoteretention   types.Int64  `tfsdk:"remoteretention"`
-	// Compliancesettings complianceSettingsRestModel `tfsdk:"compliancesettings"`
+	// Compliancesettings complianceSettingsRestModel   `tfsdk:"compliancesettings"`
 	// Options            []backupdr.AdvancedOptionRest `tfsdk:"options"`
 	PolicyType   types.String `tfsdk:"policytype"`
 	Truncatelog  types.String `tfsdk:"truncatelog"`
@@ -219,8 +217,6 @@ type policyRestModel struct {
 	Verification types.Bool   `tfsdk:"verification"`
 	ID           types.String `tfsdk:"id"`
 	Href         types.String `tfsdk:"href"`
-	Syncdate     types.Int64  `tfsdk:"syncdate"`
-	Stale        types.Bool   `tfsdk:"stale"`
 }
 
 // type complianceSettingsRestModel struct {

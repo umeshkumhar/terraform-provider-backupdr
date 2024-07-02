@@ -5,6 +5,8 @@ package provider
 
 import (
 	"context"
+	"fmt"
+	"strconv"
 
 	"github.com/antihax/optional"
 	backupdr "github.com/umeshkumhar/backupdr-client"
@@ -15,6 +17,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // Ensure the implementation satisfies the expected interfaces.
@@ -53,6 +56,9 @@ func (r *templateResource) Schema(_ context.Context, _ resource.SchemaRequest, r
 			},
 			"href": schema.StringAttribute{
 				Computed: true,
+				PlanModifiers: []planmodifier.String{
+					stringplanmodifier.UseStateForUnknown(),
+				},
 			},
 			"name": schema.StringAttribute{
 				Required: true,
@@ -69,12 +75,6 @@ func (r *templateResource) Schema(_ context.Context, _ resource.SchemaRequest, r
 			// "immutable": schema.BoolAttribute{
 			// 	Optional: true,
 			// },
-			"stale": schema.BoolAttribute{
-				Optional: true,
-			},
-			"syncdate": schema.Int64Attribute{
-				Optional: true,
-			},
 			"managedbyagm": schema.BoolAttribute{
 				Optional: true,
 			},
@@ -92,7 +92,10 @@ func (r *templateResource) Schema(_ context.Context, _ resource.SchemaRequest, r
 				NestedObject: schema.NestedAttributeObject{
 					Attributes: map[string]schema.Attribute{
 						"id": schema.StringAttribute{
-							Optional: true,
+							Computed: true,
+							PlanModifiers: []planmodifier.String{
+								stringplanmodifier.UseStateForUnknown(),
+							},
 						},
 						"description": schema.StringAttribute{
 							Optional: true,
@@ -101,13 +104,10 @@ func (r *templateResource) Schema(_ context.Context, _ resource.SchemaRequest, r
 							Required: true,
 						},
 						"href": schema.StringAttribute{
-							Optional: true,
-						},
-						"stale": schema.BoolAttribute{
-							Optional: true,
-						},
-						"syncdate": schema.Int64Attribute{
-							Optional: true,
+							Computed: true,
+							PlanModifiers: []planmodifier.String{
+								stringplanmodifier.UseStateForUnknown(),
+							},
 						},
 						"starttime": schema.StringAttribute{
 							Optional: true,
@@ -272,12 +272,19 @@ func (r *templateResource) Create(ctx context.Context, req resource.CreateReques
 	plan.PolicyHref = types.StringValue(respObject.PolicyHref)
 
 	// response doesnot show policy details
-	// for i, respPol := range respObject.Policies {
-	// 	plan.Policies[i].ID = types.StringValue(respPol.Id)
-	// 	plan.Policies[i].Href = types.StringValue(respPol.Href)
-	// 	plan.Policies[i].Stale = types.BoolValue(respPol.Stale)
-	// 	plan.Policies[i].Syncdate = types.Int64Value(respPol.Syncdate)
-	// }
+	sltID, _ := strconv.Atoi(respObject.Id)
+	respObjectPolicies, _, err := r.client.SLATemplateApi.ListPolicies(r.authCtx, int64(sltID))
+	if err != nil {
+		resp.Diagnostics.AddError(
+			"Error Reading SLT Policy",
+			"Could not read SLT policies ID: "+respObject.Id+": "+err.Error(),
+		)
+		return
+	}
+	for i, respPol := range respObjectPolicies.Items {
+		plan.Policies[i].ID = types.StringValue(respPol.Id)
+		plan.Policies[i].Href = types.StringValue(respPol.Href)
+	}
 
 	// Set state to fully populated data
 	diags = resp.State.Set(ctx, plan)
@@ -297,12 +304,12 @@ func (r *templateResource) Read(ctx context.Context, req resource.ReadRequest, r
 		return
 	}
 
-	// Get refreshed values
+	// Get refreshed values for SLT
 	respObject, _, err := r.client.SLATemplateApi.GetSlt(r.authCtx, state.ID.ValueString())
 	if err != nil {
 		resp.Diagnostics.AddError(
-			"Error Reading HashiCups Order",
-			"Could not read HashiCups order ID "+state.ID.ValueString()+": "+err.Error(),
+			"Error Reading SLT Template",
+			"Could not read SLT Template with ID: "+state.ID.ValueString()+": "+err.Error(),
 		)
 		return
 	}
@@ -312,6 +319,25 @@ func (r *templateResource) Read(ctx context.Context, req resource.ReadRequest, r
 	state.Href = types.StringValue(respObject.Href)
 	state.OptionHref = types.StringValue(respObject.OptionHref)
 	state.PolicyHref = types.StringValue(respObject.PolicyHref)
+
+	// Get refreshed values for SLT Policy
+	sltID, _ := strconv.Atoi(respObject.Id)
+	respObjectPolicies, _, err := r.client.SLATemplateApi.ListPolicies(r.authCtx, int64(sltID))
+	if err != nil {
+		resp.Diagnostics.AddError(
+			"Error Reading SLT Policy",
+			"Could not read SLT policies ID: "+respObject.Id+": "+err.Error(),
+		)
+		return
+	}
+	if len(respObjectPolicies.Items) > 0 {
+		for i, respPol := range respObjectPolicies.Items {
+			if i < len(state.Policies) {
+				state.Policies[i].ID = types.StringValue(respPol.Id)
+				state.Policies[i].Href = types.StringValue(respPol.Href)
+			}
+		}
+	}
 
 	// Set refreshed state
 	diags = resp.State.Set(ctx, &state)
@@ -330,51 +356,28 @@ func (r *templateResource) Update(ctx context.Context, req resource.UpdateReques
 		return
 	}
 
-	reqSlt := backupdr.SltRest{
-		Name: plan.Name.ValueString(),
-		// Immutable:   plan.Immutable.ValueBool(),
-		Description: plan.Description.ValueString(),
-		// Override:    plan.Override.ValueString(),
-		Href:       plan.Href.ValueString(),
-		PolicyHref: plan.PolicyHref.ValueString(),
+	// Get current state
+	var state templateResourceModel
+	diags = req.State.Get(ctx, &state)
+	resp.Diagnostics.Append(diags...)
+	if resp.Diagnostics.HasError() {
+		return
 	}
 
-	// for _, pol := range plan.Policies {
-	// 	reqSlt.Policies = append(reqSlt.Policies, backupdr.PolicyRest{
-	// 		Name:          pol.Name.ValueString(),
-	// 		Description:   pol.Description.ValueString(),
-	// 		Priority:      pol.Priority.ValueString(),
-	// 		Exclusiontype: pol.Exclusiontype.ValueString(),
-	// 		Iscontinuous:  pol.Iscontinuous.ValueBool(),
-	// 		Rpo:           pol.Rpo.ValueString(),
-	// 		Rpom:          pol.Rpom.ValueString(),
-	// 		Starttime:     pol.Starttime.ValueString(),
-	// 		Endtime:       pol.Endtime.ValueString(),
-	// 		Targetvault:   int32(pol.Targetvault.ValueInt64()),
-	// 		Sourcevault:   int32(pol.Sourcevault.ValueInt64()),
-	// 		Scheduletype:  pol.Scheduletype.ValueString(),
-	// 		// Scheduling:        pol.Scheduling.ValueString(),
-	// 		Selection:         pol.Selection.ValueString(),
-	// 		Exclusion:         pol.Exclusion.ValueString(),
-	// 		Exclusioninterval: pol.Exclusioninterval.ValueString(),
-	// 		Retention:         pol.Retention.ValueString(),
-	// 		Retentionm:        pol.Retentionm.ValueString(),
-	// 		Remoteretention:   int32(pol.Remoteretention.ValueInt64()),
-	// 		PolicyType:        pol.PolicyType.ValueString(),
-	// 		Op:                pol.Op.ValueString(),
-	// 		Verification:      pol.Verification.ValueBool(),
-	// 		Repeatinterval:    pol.Repeatinterval.ValueString(),
-	// 		Encrypt:           pol.Encrypt.ValueString(),
-	// 		Reptype:           pol.Reptype.ValueString(),
-	// 		Verifychoice:      pol.Verifychoice.ValueString(),
-	// 	})
-	// }
+	// update SLT template
+	reqSlt := backupdr.SltRest{
+		Name:        plan.Name.ValueString(),
+		Description: plan.Description.ValueString(),
+		Override:    plan.Override.ValueString(),
+		Href:        plan.Href.ValueString(),
+		PolicyHref:  plan.PolicyHref.ValueString(),
+	}
+
 	// Generate API request body from plan
 	reqBody := backupdr.SLATemplateApiUpdateSltOpts{
 		Body: optional.NewInterface(reqSlt),
 	}
 
-	// Update existing entity
 	respObject, res, err := r.client.SLATemplateApi.UpdateSlt(r.authCtx, plan.ID.ValueString(), &reqBody)
 	if err != nil {
 		resp.Diagnostics.AddError(
@@ -398,6 +401,130 @@ func (r *templateResource) Update(ctx context.Context, req resource.UpdateReques
 	plan.Href = types.StringValue(respObject.Href)
 	plan.OptionHref = types.StringValue(respObject.OptionHref)
 	plan.PolicyHref = types.StringValue(respObject.PolicyHref)
+
+	// create SLT template policy
+	if len(plan.Policies) > len(state.Policies) {
+
+		for i, pol := range plan.Policies {
+			tflog.Info(ctx, "------------------ Update Method: Check Create policy : "+pol.ID.ValueString())
+			if pol.ID.ValueString() == "" {
+				tflog.Info(ctx, "------------------ Update Method: Created policy : "+pol.ID.ValueString())
+
+				reqPol := backupdr.PolicyRest{
+					Id:                pol.ID.ValueString(),
+					Name:              pol.Name.ValueString(),
+					Description:       pol.Description.ValueString(),
+					Priority:          pol.Priority.ValueString(),
+					Exclusiontype:     pol.Exclusiontype.ValueString(),
+					Iscontinuous:      pol.Iscontinuous.ValueBool(),
+					Rpo:               pol.Rpo.ValueString(),
+					Rpom:              pol.Rpom.ValueString(),
+					Starttime:         pol.Starttime.ValueString(),
+					Endtime:           pol.Endtime.ValueString(),
+					Targetvault:       int32(pol.Targetvault.ValueInt64()),
+					Sourcevault:       int32(pol.Targetvault.ValueInt64()),
+					Scheduletype:      pol.Scheduletype.ValueString(),
+					Selection:         pol.Selection.ValueString(),
+					Exclusion:         pol.Exclusion.ValueString(),
+					Exclusioninterval: pol.Exclusioninterval.ValueString(),
+					Retention:         pol.Retention.ValueString(),
+					Retentionm:        pol.Retentionm.ValueString(),
+					Remoteretention:   int32(pol.Remoteretention.ValueInt64()),
+					PolicyType:        pol.PolicyType.ValueString(),
+					Op:                pol.Op.ValueString(),
+					Verification:      pol.Verification.ValueBool(),
+					Repeatinterval:    pol.Repeatinterval.ValueString(),
+					Encrypt:           pol.Encrypt.ValueString(),
+					Reptype:           pol.Reptype.ValueString(),
+					Verifychoice:      pol.Verifychoice.ValueString(),
+				}
+				// Generate API request body from plan
+				reqPolBody := backupdr.SLATemplateApiCreatePolicyOpts{
+					Body: optional.NewInterface(reqPol),
+				}
+				respPol, _, err := r.client.SLATemplateApi.CreatePolicy(r.authCtx, respObject.Id, &reqPolBody)
+				if err != nil {
+					resp.Diagnostics.AddError(
+						"Error Creating SLT Policy",
+						"Could not Create SLT policies ID: "+respObject.Id+": "+err.Error(),
+					)
+					return
+				}
+				plan.Policies[i].ID = types.StringValue(respPol.Id)
+				plan.Policies[i].Href = types.StringValue(respPol.Href)
+			}
+		}
+
+	}
+
+	// delete SLT template policy
+	if len(plan.Policies) < len(state.Policies) {
+		missingPolicies := findMissingPolicies(plan.Policies, state.Policies)
+		tflog.Info(ctx, "------------------ Update Method: Check Delete policy "+fmt.Sprint(len(missingPolicies)))
+		for _, pol := range missingPolicies {
+			tflog.Info(ctx, "------------------ Update Method: Deleted policy : "+pol.ID.ValueString())
+			_, err := r.client.SLATemplateApi.DeletePolicy(r.authCtx, respObject.Id, pol.ID.ValueString())
+			if err != nil {
+				resp.Diagnostics.AddError(
+					"Error Creating SLT Policy",
+					"Could not Create SLT policies ID: "+respObject.Id+": "+err.Error(),
+				)
+				return
+			}
+		}
+
+	}
+
+	// update SLT template policy
+	for i, pol := range plan.Policies {
+		reqPol := backupdr.PolicyRest{
+			Id:                pol.ID.ValueString(),
+			Name:              pol.Name.ValueString(),
+			Description:       pol.Description.ValueString(),
+			Priority:          pol.Priority.ValueString(),
+			Exclusiontype:     pol.Exclusiontype.ValueString(),
+			Iscontinuous:      pol.Iscontinuous.ValueBool(),
+			Rpo:               pol.Rpo.ValueString(),
+			Rpom:              pol.Rpom.ValueString(),
+			Starttime:         pol.Starttime.ValueString(),
+			Endtime:           pol.Endtime.ValueString(),
+			Targetvault:       int32(pol.Targetvault.ValueInt64()),
+			Sourcevault:       int32(pol.Targetvault.ValueInt64()),
+			Scheduletype:      pol.Scheduletype.ValueString(),
+			Selection:         pol.Selection.ValueString(),
+			Exclusion:         pol.Exclusion.ValueString(),
+			Exclusioninterval: pol.Exclusioninterval.ValueString(),
+			Retention:         pol.Retention.ValueString(),
+			Retentionm:        pol.Retentionm.ValueString(),
+			Remoteretention:   int32(pol.Remoteretention.ValueInt64()),
+			PolicyType:        pol.PolicyType.ValueString(),
+			Op:                pol.Op.ValueString(),
+			Verification:      pol.Verification.ValueBool(),
+			Repeatinterval:    pol.Repeatinterval.ValueString(),
+			Encrypt:           pol.Encrypt.ValueString(),
+			Reptype:           pol.Reptype.ValueString(),
+			Verifychoice:      pol.Verifychoice.ValueString(),
+		}
+		// Generate API request body from plan
+		if pol.ID.ValueString() != "" {
+			tflog.Info(ctx, "------------------ Update Method: Update policy : "+pol.ID.ValueString())
+			reqPolBody := backupdr.SLATemplateApiUpdatePolicyOpts{
+				Body: optional.NewInterface(reqPol),
+			}
+
+			// ignore if there is no diff
+
+			respPol, _, err := r.client.SLATemplateApi.UpdatePolicy(r.authCtx, respObject.Id, pol.ID.ValueString(), &reqPolBody)
+			if err != nil {
+				resp.Diagnostics.AddError(
+					"Error Updating SLT Policy",
+					"Could not Update SLT policies ID: "+pol.ID.ValueString()+": "+err.Error(),
+				)
+				return
+			}
+			plan.Policies[i].Href = types.StringValue(respPol.Href)
+		}
+	}
 
 	diags = resp.State.Set(ctx, plan)
 	resp.Diagnostics.Append(diags...)
@@ -429,4 +556,23 @@ func (r *templateResource) Delete(ctx context.Context, req resource.DeleteReques
 func (r *templateResource) ImportState(ctx context.Context, req resource.ImportStateRequest, resp *resource.ImportStateResponse) {
 	// Retrieve import ID and save to id attribute
 	resource.ImportStatePassthroughID(ctx, path.Root("id"), req, resp)
+}
+
+func findMissingPolicies(list1Policies, list2Policies []policyRestModel) []policyRestModel {
+	var missingPolicies []policyRestModel
+
+	// Create a map of state policies for efficient lookup
+	list1PolicyMap := make(map[string]bool)
+	for _, statePolicy := range list1Policies {
+		list1PolicyMap[statePolicy.ID.ValueString()] = true
+	}
+
+	// Iterate through plan policies and check if they exist in the state map
+	for _, list2Policy := range list2Policies {
+		if _, ok := list1PolicyMap[list2Policy.ID.ValueString()]; !ok {
+			missingPolicies = append(missingPolicies, list2Policy)
+		}
+	}
+
+	return missingPolicies
 }

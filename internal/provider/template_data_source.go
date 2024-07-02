@@ -62,14 +62,6 @@ func (d *templateDataSource) Schema(ctx context.Context, _ datasource.SchemaRequ
 				Computed:    true,
 				Description: "description",
 			},
-			"stale": schema.BoolAttribute{
-				Computed:    true,
-				Description: "Optional flag to indicate if the information is out-of-date due to communication problems with appliances. It does not apply to local resources.",
-			},
-			"syncdate": schema.Int64Attribute{
-				Computed:    true,
-				Description: "When this object was last synced from appliances (UNIX Epoch time in microseconds). It does not apply to local resources. format",
-			},
 			"managedbyagm": schema.BoolAttribute{
 				Computed:    true,
 				Description: "Managed by AGM",
@@ -114,14 +106,6 @@ func (d *templateDataSource) Schema(ctx context.Context, _ datasource.SchemaRequ
 						"href": schema.StringAttribute{
 							Computed:    true,
 							Description: "Href of the policy",
-						},
-						"stale": schema.BoolAttribute{
-							Computed:    true,
-							Description: "Stale",
-						},
-						"syncdate": schema.Int64Attribute{
-							Computed:    true,
-							Description: "Last sync date",
 						},
 						"priority": schema.StringAttribute{
 							Computed:    true,
@@ -310,14 +294,12 @@ func (d *templateDataSource) Read(ctx context.Context, req datasource.ReadReques
 			Op:                types.StringValue(pol.Op),
 			Href:              types.StringValue(pol.Href),
 
-			Syncdate:        types.Int64Value(pol.Syncdate),
 			Remoteretention: types.Int64Value(int64(pol.Remoteretention)),
 			Targetvault:     types.Int64Value(int64(pol.Targetvault)),
 			Sourcevault:     types.Int64Value(int64(pol.Sourcevault)),
 
 			Iscontinuous: types.BoolValue(pol.Iscontinuous),
 			Verification: types.BoolValue(pol.Verification),
-			Stale:        types.BoolValue(pol.Stale),
 		})
 	}
 
