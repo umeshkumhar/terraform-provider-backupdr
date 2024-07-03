@@ -322,11 +322,19 @@ func (r *profileResource) Update(ctx context.Context, req resource.UpdateRequest
 		reqSlp.Vaultpool = &backupdr.DiskPoolRest{
 			Id: plan.Vaultpool.ID.ValueString(),
 		}
+	} else {
+		reqSlp.Vaultpool = &backupdr.DiskPoolRest{
+			Id: "0",
+		}
 	}
 
 	if plan.Vaultpool2 != nil {
 		reqSlp.Vaultpool2 = &backupdr.DiskPoolRest{
 			Id: plan.Vaultpool2.ID.ValueString(),
+		}
+	} else {
+		reqSlp.Vaultpool2 = &backupdr.DiskPoolRest{
+			Id: "0",
 		}
 	}
 
@@ -334,11 +342,19 @@ func (r *profileResource) Update(ctx context.Context, req resource.UpdateRequest
 		reqSlp.Vaultpool3 = &backupdr.DiskPoolRest{
 			Id: plan.Vaultpool3.ID.ValueString(),
 		}
+	} else {
+		reqSlp.Vaultpool3 = &backupdr.DiskPoolRest{
+			Id: "0",
+		}
 	}
 
 	if plan.Vaultpool4 != nil {
 		reqSlp.Vaultpool4 = &backupdr.DiskPoolRest{
 			Id: plan.Vaultpool4.ID.ValueString(),
+		}
+	} else {
+		reqSlp.Vaultpool4 = &backupdr.DiskPoolRest{
+			Id: "0",
 		}
 	}
 
@@ -382,22 +398,44 @@ func (r *profileResource) Update(ctx context.Context, req resource.UpdateRequest
 	plan.Modifydate = types.Int64Value(respObject.Modifydate)
 	plan.Syncdate = types.Int64Value(respObject.Syncdate)
 
-	if respObject.Vaultpool != nil {
-		plan.Vaultpool.Name = types.StringValue(respObject.Vaultpool.Name)
-		plan.Vaultpool.Href = types.StringValue(respObject.Vaultpool.Href)
+	if respObject.Vaultpool != nil || plan.Vaultpool != nil {
+		if plan.Vaultpool.ID.ValueString() != "0" {
+			plan.Vaultpool.Name = types.StringValue(respObject.Vaultpool.Name)
+			plan.Vaultpool.Href = types.StringValue(respObject.Vaultpool.Href)
+		} else {
+			plan.Vaultpool.Name = types.StringNull()
+			plan.Vaultpool.Href = types.StringNull()
+		}
 	}
 
-	if respObject.Vaultpool2 != nil {
-		plan.Vaultpool2.Name = types.StringValue(respObject.Vaultpool2.Name)
-		plan.Vaultpool2.Href = types.StringValue(respObject.Vaultpool2.Href)
+	if respObject.Vaultpool2 != nil || plan.Vaultpool2 != nil {
+		if plan.Vaultpool2.ID.ValueString() != "0" {
+			plan.Vaultpool2.Name = types.StringValue(respObject.Vaultpool2.Name)
+			plan.Vaultpool2.Href = types.StringValue(respObject.Vaultpool2.Href)
+		} else {
+			plan.Vaultpool2.Name = types.StringNull()
+			plan.Vaultpool2.Href = types.StringNull()
+		}
 	}
-	if respObject.Vaultpool3 != nil {
-		plan.Vaultpool3.Name = types.StringValue(respObject.Vaultpool3.Name)
-		plan.Vaultpool3.Href = types.StringValue(respObject.Vaultpool3.Href)
+
+	if respObject.Vaultpool3 != nil || plan.Vaultpool3 != nil {
+		if plan.Vaultpool3.ID.ValueString() != "0" {
+			plan.Vaultpool3.Name = types.StringValue(respObject.Vaultpool3.Name)
+			plan.Vaultpool3.Href = types.StringValue(respObject.Vaultpool3.Href)
+		} else {
+			plan.Vaultpool3.Name = types.StringNull()
+			plan.Vaultpool3.Href = types.StringNull()
+		}
 	}
-	if respObject.Vaultpool4 != nil {
-		plan.Vaultpool4.Name = types.StringValue(respObject.Vaultpool4.Name)
-		plan.Vaultpool4.Href = types.StringValue(respObject.Vaultpool4.Href)
+
+	if respObject.Vaultpool4 != nil || plan.Vaultpool4 != nil {
+		if plan.Vaultpool4.ID.ValueString() != "0" {
+			plan.Vaultpool4.Name = types.StringValue(respObject.Vaultpool4.Name)
+			plan.Vaultpool4.Href = types.StringValue(respObject.Vaultpool4.Href)
+		} else {
+			plan.Vaultpool4.Name = types.StringNull()
+			plan.Vaultpool4.Href = types.StringNull()
+		}
 	}
 
 	diags = resp.State.Set(ctx, plan)
