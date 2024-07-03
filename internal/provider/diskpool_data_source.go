@@ -43,6 +43,7 @@ func (d *diskpoolDataSource) Metadata(ctx context.Context, req datasource.Metada
 
 func (d *diskpoolDataSource) Schema(ctx context.Context, req datasource.SchemaRequest, resp *datasource.SchemaResponse) {
 	resp.Schema = schema.Schema{
+		MarkdownDescription: "BackupDR DiskPool",
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
 				Required: true,

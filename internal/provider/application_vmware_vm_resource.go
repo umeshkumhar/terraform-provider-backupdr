@@ -50,27 +50,34 @@ func (r *applicationVmwareVMsResource) Metadata(_ context.Context, req resource.
 // Schema defines the schema for the resource.
 func (r *applicationVmwareVMsResource) Schema(_ context.Context, _ resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
-		Description: "Manages an vCenter Host to add Virtual Machines.",
+		Description:         "Manages an vCenter Host to add Virtual Machines.",
+		MarkdownDescription: "You can use this resource to onboard VMware VMs as an application into the Backup and DR Service. After you onboard the application, you can perform backup or restore operations.",
 		Attributes: map[string]schema.Attribute{
 			"appliance_id": schema.StringAttribute{
-				Required: true,
+				Required:            true,
+				MarkdownDescription: "Provide the backup/recovery appliance ID",
 			},
 			"vcenter_id": schema.StringAttribute{
-				Required: true,
+				Required:            true,
+				MarkdownDescription: "Provide the ID for the vCenter host",
 			},
 			"cluster_name": schema.StringAttribute{
-				Required: true,
+				Required:            true,
+				MarkdownDescription: "Provide a cluster name of the vCenter.",
 			},
 			"vms": schema.ListAttribute{
-				Required:    true,
-				ElementType: types.StringType,
+				Required:            true,
+				ElementType:         types.StringType,
+				MarkdownDescription: "Provide the list of VMs UUID",
 			},
 			"status": schema.StringAttribute{
-				Computed: true,
+				Computed:            true,
+				MarkdownDescription: "The status of the request.",
 			},
 			"applications": schema.ListAttribute{
-				Computed:    true,
-				ElementType: types.StringType,
+				Computed:            true,
+				ElementType:         types.StringType,
+				MarkdownDescription: "The list of Application IDs.",
 			},
 		},
 	}

@@ -37,8 +37,6 @@ data "backupdr_template" "example" {
 - `policies` (Attributes List) List of policies (see [below for nested schema](#nestedatt--policies))
 - `policy_href` (String) Href for policy
 - `sourcename` (String) Source Name
-- `stale` (Boolean) Optional flag to indicate if the information is out-of-date due to communication problems with appliances. It does not apply to local resources.
-- `syncdate` (Number) When this object was last synced from appliances (UNIX Epoch time in microseconds). It does not apply to local resources. format
 - `usedbycloudapp` (Boolean) Used by CloudApp
 
 <a id="nestedatt--policies"></a>
@@ -69,9 +67,7 @@ Read-Only:
 - `scheduletype` (String) Schedule Type
 - `selection` (String) Selection
 - `sourcevault` (Number) Source Vault
-- `stale` (Boolean) Stale
 - `starttime` (String) Start Time
-- `syncdate` (Number) Last sync date
 - `targetvault` (Number) Target Vault
 - `truncatelog` (String) Truncate Log
 - `verification` (Boolean) Verification

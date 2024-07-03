@@ -43,34 +43,47 @@ func (r *profileResource) Metadata(_ context.Context, req resource.MetadataReque
 // Schema defines the schema for the resource.
 func (r *profileResource) Schema(_ context.Context, _ resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
-		Description: "Manages an SLA Profile.",
+		MarkdownDescription: "A resource profile specifies the storage media for backups of application and VM data. The template and the resource profile that make up the backup plan dictate the type of application data policies to perform and where to store the application data backups (which storage pool is used). Resource Profiles define which snapshot pool (if needed) is used and which remote appliance data is replicated. " +
+			"In addition to templates, you also create resource profiles in the backup plans menu. Profiles define where to store data. Data can be stored in the following: " +
+			"Primary Appliance: The backup/recovery appliance that the resource profile is created for. This includes selecting which appliance snapshot pool will be used. " +
+			"Remote Appliance: The backup/recovery appliance used for remote replication. This remote appliance must be an appliance that is already paired to the selected local appliance. You can configure the remote appliance field only when one or more remote appliances are configured on the selected local appliance. See [Join appliance in non-sharing mode](https://cloud.google.com/backup-disaster-recovery/docs/concepts/join-appliance). " +
+			"OnVault: Up to four object storage buckets defined by an OnVault storage pool. The OnVault pools store compressed and encrypted backups of application data on Google Cloud Storage. " +
+			"For more information, see [Resource profile](https://cloud.google.com/backup-disaster-recovery/docs/concepts/resource-profile).",
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
 				Computed: true,
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.UseStateForUnknown(),
 				},
+				MarkdownDescription: "The ID of this resource.",
 			},
 			"name": schema.StringAttribute{
-				Required: true,
+				Required:            true,
+				MarkdownDescription: "Provide a name for the resource profile.",
 			},
 			"href": schema.StringAttribute{
-				Computed: true,
+				Computed:            true,
+				MarkdownDescription: "It displays the API URI for backup plan profile.",
 			},
 			"description": schema.StringAttribute{
-				Optional: true,
+				Optional:            true,
+				MarkdownDescription: "Provide a description for the resource profile",
 			},
 			"cid": schema.StringAttribute{
-				Optional: true,
+				Optional:            true,
+				MarkdownDescription: "Provide the ID of the cluster - It is not the same as cluster ID.",
 			},
 			"performancepool": schema.StringAttribute{
-				Optional: true,
+				Optional:            true,
+				MarkdownDescription: "Provide a name of the snapshot (performance) pool. The default is act_per_pool000.",
 			},
 			"localnode": schema.StringAttribute{
-				Optional: true,
+				Optional:            true,
+				MarkdownDescription: "Provide the primary backup/recovery appliance name.",
 			},
 			"remotenode": schema.StringAttribute{
-				Optional: true,
+				Optional:            true,
+				MarkdownDescription: "Provide the remote backup/recovery appliance name, when two appliances are to be configured to replicate snapshot data between them.",
 			},
 			"dedupasyncnode": schema.StringAttribute{
 				Computed: true,
@@ -78,35 +91,44 @@ func (r *profileResource) Schema(_ context.Context, _ resource.SchemaRequest, re
 
 			// Computed fields
 			"srcid": schema.StringAttribute{
-				Computed: true,
+				Computed:            true,
+				MarkdownDescription: "It displays the source ID on the appliance.",
 			},
 			"clusterid": schema.StringAttribute{
-				Computed: true,
+				Computed:            true,
+				MarkdownDescription: "It displays the backup/recovery appliance ID.",
 			},
 			"modifydate": schema.Int64Attribute{
-				Computed: true,
+				Computed:            true,
+				MarkdownDescription: "It displays the date when the resource profile details are modified.",
 			},
 			"createdate": schema.Int64Attribute{
-				Computed: true,
+				Computed:            true,
+				MarkdownDescription: "It displays the date when the resource profile was created.",
 			},
 			"stale": schema.BoolAttribute{
-				Computed: true,
+				Computed:            true,
+				MarkdownDescription: "It displays the possible values true or false.",
 			},
 			"syncdate": schema.Int64Attribute{
-				Computed: true,
+				Computed:            true,
+				MarkdownDescription: "It displays the last sync date.",
 			},
 
 			"vaultpool": schema.SingleNestedAttribute{
 				Optional: true,
 				Attributes: map[string]schema.Attribute{
 					"id": schema.StringAttribute{
-						Optional: true,
+						Optional:            true,
+						MarkdownDescription: "It displays the ID of the OnVault pool.",
 					},
 					"name": schema.StringAttribute{
-						Computed: true,
+						Computed:            true,
+						MarkdownDescription: "It displays the name of the OnVault pool used for resource profile.",
 					},
 					"href": schema.StringAttribute{
-						Computed: true,
+						Computed:            true,
+						MarkdownDescription: "It displays the API URI for OnVault storage pool",
 					},
 				},
 			},
@@ -114,13 +136,16 @@ func (r *profileResource) Schema(_ context.Context, _ resource.SchemaRequest, re
 				Optional: true,
 				Attributes: map[string]schema.Attribute{
 					"id": schema.StringAttribute{
-						Optional: true,
+						Optional:            true,
+						MarkdownDescription: "It displays the ID of the OnVault pool 2.",
 					},
 					"name": schema.StringAttribute{
-						Computed: true,
+						Computed:            true,
+						MarkdownDescription: "It displays the name of the OnVault pool 2 used for resource profile.",
 					},
 					"href": schema.StringAttribute{
-						Computed: true,
+						Computed:            true,
+						MarkdownDescription: "It displays the API URI for OnVault storage pool.",
 					},
 				},
 			},
@@ -128,13 +153,16 @@ func (r *profileResource) Schema(_ context.Context, _ resource.SchemaRequest, re
 				Optional: true,
 				Attributes: map[string]schema.Attribute{
 					"id": schema.StringAttribute{
-						Optional: true,
+						Optional:            true,
+						MarkdownDescription: "It displays the ID of the OnVault pool 3.",
 					},
 					"name": schema.StringAttribute{
-						Computed: true,
+						Computed:            true,
+						MarkdownDescription: "It displays the name of the OnVault pool 3 used for resource profile.",
 					},
 					"href": schema.StringAttribute{
-						Computed: true,
+						Computed:            true,
+						MarkdownDescription: "It displays the API URI for OnVault storage pool.",
 					},
 				},
 			},
@@ -142,13 +170,16 @@ func (r *profileResource) Schema(_ context.Context, _ resource.SchemaRequest, re
 				Optional: true,
 				Attributes: map[string]schema.Attribute{
 					"id": schema.StringAttribute{
-						Optional: true,
+						Optional:            true,
+						MarkdownDescription: "It displays the ID of the OnVault pool 4.",
 					},
 					"name": schema.StringAttribute{
-						Computed: true,
+						Computed:            true,
+						MarkdownDescription: "It displays the name of the OnVault pool 4 used for resource profile.",
 					},
 					"href": schema.StringAttribute{
-						Computed: true,
+						Computed:            true,
+						MarkdownDescription: "It displays gthe API URI for OnVault storage pool.",
 					},
 				},
 			},

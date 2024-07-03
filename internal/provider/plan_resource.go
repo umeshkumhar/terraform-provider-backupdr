@@ -40,68 +40,84 @@ func (r *planResource) Metadata(_ context.Context, req resource.MetadataRequest,
 // Schema defines the schema for the resource.
 func (r *planResource) Schema(_ context.Context, _ resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
-		Description: "Manages an SLA.",
+		MarkdownDescription: "Backup plans are the binding of templates ids, profiles ids to application ids management console shows when an application (VM, Filesystem or Database) is protected. Templates define how often to back up application data, how long to retain the application data backups, and where and how to replicate the application's data backups. Use the backup templates  to create policies and resource profiles to specify which backup/recovery appliance is used to manage the backup plan. A backup plans violation occurs when data is not being backed up according to the boundaries you have set in a templates policy. For more information, see [Backup plan](https://cloud.google.com/backup-disaster-recovery/docs/concepts/backup-plan).",
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
 				Computed: true,
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.UseStateForUnknown(),
 				},
+				MarkdownDescription: "The unique ID of this resource backup plan id can also be referred as sla ID’s.",
 			},
 			"href": schema.StringAttribute{
 				Computed: true,
+				MarkdownDescription: "It displays the API URI for backup plan.",
 			},
 			"description": schema.StringAttribute{
 				Optional: true,
+				MarkdownDescription: "Provide a description for the backup plan.",
 			},
 			"stale": schema.BoolAttribute{
 				Computed: true,
+				MarkdownDescription: "It displays true or false if the data is synchronized with the management console or not.",
 			},
 			"syncdate": schema.Int64Attribute{
 				Computed: true,
+				MarkdownDescription: "It displays the last sync date.",
 			},
 			"logexpirationoff": schema.BoolAttribute{
 				Computed: true,
+				MarkdownDescription: "It displays true or false for log expirations. The default value is false.",
 			},
 			"dedupasyncoff": schema.StringAttribute{
 				Computed: true,
 			},
 			"expirationoff": schema.StringAttribute{
 				Computed: true,
+				MarkdownDescription: "It displays the expiration schedule for application.",
 			},
 			"scheduleoff": schema.StringAttribute{
 				Optional: true,
+				MarkdownDescription: "Provide true or false values - to disable the backup plan set to true, else leave to false to ensure backups are enabled for the application on the defined schedule in the template.",
 			},
 			"modifydate": schema.Int64Attribute{
 				Computed: true,
+				MarkdownDescription: "It displays the date when the backup plan was last modified.",
 			},
-
 			"application": schema.SingleNestedAttribute{
 				Optional: true,
 				Attributes: map[string]schema.Attribute{
 					"id": schema.StringAttribute{
 						Required: true,
+						MarkdownDescription: "Provide the backup plan ID. It is also referred to as SLA ID.",
 					},
 					"name": schema.StringAttribute{
 						Computed: true,
+						MarkdownDescription: "It displays the name of the backup plan.",
 					},
 					"href": schema.StringAttribute{
 						Computed: true,
+						MarkdownDescription: "It displays the API URI for backup plan.",
 					},
 					"description": schema.StringAttribute{
 						Computed: true,
+						MarkdownDescription: "It displays the description of the backup plan.",
 					},
 					"appname": schema.StringAttribute{
 						Computed: true,
+						MarkdownDescription: "It displays the application name used for backup plan.",
 					},
 					"apptype": schema.StringAttribute{
 						Computed: true,
+						MarkdownDescription: "It displays the type of application used for backup plan.",
 					},
 					"stale": schema.BoolAttribute{
 						Computed: true,
+						MarkdownDescription: "It displays the possible values true or false.",
 					},
 					"syncdate": schema.Int64Attribute{
 						Computed: true,
+						MarkdownDescription: "It displays the last sync date.",
 					},
 				},
 			},
@@ -110,21 +126,27 @@ func (r *planResource) Schema(_ context.Context, _ resource.SchemaRequest, resp 
 				Attributes: map[string]schema.Attribute{
 					"id": schema.StringAttribute{
 						Required: true,
+						MarkdownDescription: "Provide the resource backup plan profile ID.",
 					},
 					"name": schema.StringAttribute{
 						Computed: true,
+						MarkdownDescription: "It displays the resource profile name.",
 					},
 					"href": schema.StringAttribute{
 						Computed: true,
-					},
-					"stale": schema.BoolAttribute{
-						Computed: true,
-					},
-					"syncdate": schema.Int64Attribute{
-						Computed: true,
+						MarkdownDescription: "It displays the API URI for backup plan profile.",
 					},
 					"cid": schema.StringAttribute{
 						Computed: true,
+						MarkdownDescription: "It displays the ID of the cluster. It is not the same as cluster ID.",
+					},
+					"stale": schema.BoolAttribute{
+						Computed: true,
+						MarkdownDescription: "It displays the possible values true or false.",
+					},
+					"syncdate": schema.Int64Attribute{
+						Computed: true,
+						MarkdownDescription: "It displays the last sync date.",
 					},
 				},
 			},
@@ -133,21 +155,27 @@ func (r *planResource) Schema(_ context.Context, _ resource.SchemaRequest, resp 
 				Attributes: map[string]schema.Attribute{
 					"id": schema.StringAttribute{
 						Required: true,
+						MarkdownDescription: "Provide the backup plan template ID.",
 					},
 					"name": schema.StringAttribute{
 						Computed: true,
+						MarkdownDescription: "It displays the backup template name.",
 					},
 					"href": schema.StringAttribute{
 						Computed: true,
+						MarkdownDescription: "It displays the API URI for backup plan template",
 					},
 					"override": schema.StringAttribute{
 						Computed: true,
+						MarkdownDescription: "It displays if you can override the backup plan settings or not. It can be true or false.",
 					},
 					"sourcename": schema.StringAttribute{
 						Computed: true,
+						MarkdownDescription: "it displays the source name. It normally matches the name string.",
 					},
 					"stale": schema.BoolAttribute{
 						Computed: true,
+						MarkdownDescription: "It displays the possible values true or false.",
 					},
 				},
 			},

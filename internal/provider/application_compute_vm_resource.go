@@ -51,30 +51,37 @@ func (r *applicationComputeVMsResource) Metadata(_ context.Context, req resource
 // Schema defines the schema for the resource.
 func (r *applicationComputeVMsResource) Schema(_ context.Context, _ resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
-		Description: "Manages an GCP Cloud Virtual Machines.",
+		MarkdownDescription: "You can use this resource to onboard GCE VMs as an application into the Backup and DR Service. After you onboard the application, you can perform backup or restore operations.",
 		Attributes: map[string]schema.Attribute{
 			"cloudcredential": schema.StringAttribute{
-				Required: true,
+				Required:            true,
+				MarkdownDescription: "Provide the ID of the cloud credential.",
 			},
 			"appliance_clusterid": schema.StringAttribute{
-				Required: true,
+				Required:            true,
+				MarkdownDescription: "Provide the ID of the backup/recovery appliance.",
 			},
 			"projectid": schema.StringAttribute{
-				Required: true,
+				Required:            true,
+				MarkdownDescription: "Provide the ID of the project in which the resource belongs. If it is not Provided, the Provider project is used.",
 			},
 			"region": schema.StringAttribute{
-				Required: true,
+				Required:            true,
+				MarkdownDescription: "Provide the region to create the cloud credential.",
 			},
 			"vmids": schema.ListAttribute{
-				Required:    true,
-				ElementType: types.StringType,
+				Required:            true,
+				ElementType:         types.StringType,
+				MarkdownDescription: "Provide the list of GCP instance IDs",
 			},
 			"status": schema.StringAttribute{
-				Computed: true,
+				Computed:            true,
+				MarkdownDescription: "The status of the request.",
 			},
 			"applications": schema.ListAttribute{
-				Computed:    true,
-				ElementType: types.StringType,
+				Computed:            true,
+				ElementType:         types.StringType,
+				MarkdownDescription: "The list of Application IDs ",
 			},
 		},
 	}

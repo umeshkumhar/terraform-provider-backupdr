@@ -44,7 +44,7 @@ func (d *templateDataSource) Metadata(ctx context.Context, req datasource.Metada
 
 func (d *templateDataSource) Schema(ctx context.Context, _ datasource.SchemaRequest, resp *datasource.SchemaResponse) {
 	resp.Schema = schema.Schema{
-		Description: "Read details about SLA Template",
+		MarkdownDescription: "Read details about SLA Template",
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
 				Description: "Unique ID for this object",

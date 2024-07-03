@@ -3,12 +3,12 @@
 page_title: "backupdr_application_vmware_vm Resource - terraform-provider-backupdr"
 subcategory: ""
 description: |-
-  Manages an vCenter Host to add Virtual Machines.
+  You can use this resource to onboard VMware VMs as an application into the Backup and DR Service. After you onboard the application, you can perform backup or restore operations.
 ---
 
 # backupdr_application_vmware_vm (Resource)
 
-Manages an vCenter Host to add Virtual Machines.
+You can use this resource to onboard VMware VMs as an application into the Backup and DR Service. After you onboard the application, you can perform backup or restore operations.
 
 ## Example Usage
 
@@ -26,12 +26,12 @@ resource "backupdr_application_vmware_vm" "name" {
 
 ### Required
 
-- `appliance_id` (String)
-- `cluster_name` (String)
-- `vcenter_id` (String)
-- `vms` (List of String)
+- `appliance_id` (String) Provide the backup/recovery appliance ID
+- `cluster_name` (String) Provide a cluster name of the vCenter.
+- `vcenter_id` (String) Provide the ID for the vCenter host
+- `vms` (List of String) Provide the list of VMs UUID
 
 ### Read-Only
 
-- `applications` (List of String)
-- `status` (String)
+- `applications` (List of String) The list of Application IDs.
+- `status` (String) The status of the request.

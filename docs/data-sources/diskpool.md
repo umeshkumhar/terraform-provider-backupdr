@@ -3,12 +3,12 @@
 page_title: "backupdr_diskpool Data Source - terraform-provider-backupdr"
 subcategory: ""
 description: |-
-  
+  BackupDR DiskPool
 ---
 
 # backupdr_diskpool (Data Source)
 
-
+BackupDR DiskPool
 
 ## Example Usage
 

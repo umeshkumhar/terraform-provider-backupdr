@@ -3,12 +3,12 @@
 page_title: "backupdr_plan Resource - terraform-provider-backupdr"
 subcategory: ""
 description: |-
-  Manages an SLA.
+  Backup plans are the binding of templates ids, profiles ids to application ids management console shows when an application (VM, Filesystem or Database) is protected. Templates define how often to back up application data, how long to retain the application data backups, and where and how to replicate the application's data backups. Use the backup templates  to create policies and resource profiles to specify which backup/recovery appliance is used to manage the backup plan. A backup plans violation occurs when data is not being backed up according to the boundaries you have set in a templates policy. For more information, see Backup plan https://cloud.google.com/backup-disaster-recovery/docs/concepts/backup-plan.
 ---
 
 # backupdr_plan (Resource)
 
-Manages an SLA.
+Backup plans are the binding of templates ids, profiles ids to application ids management console shows when an application (VM, Filesystem or Database) is protected. Templates define how often to back up application data, how long to retain the application data backups, and where and how to replicate the application's data backups. Use the backup templates  to create policies and resource profiles to specify which backup/recovery appliance is used to manage the backup plan. A backup plans violation occurs when data is not being backed up according to the boundaries you have set in a templates policy. For more information, see [Backup plan](https://cloud.google.com/backup-disaster-recovery/docs/concepts/backup-plan).
 
 ## Example Usage
 
@@ -34,38 +34,38 @@ resource "backupdr_plan" "example" {
 ### Optional
 
 - `application` (Attributes) (see [below for nested schema](#nestedatt--application))
-- `description` (String)
-- `scheduleoff` (String)
+- `description` (String) Provide a description for the backup plan.
+- `scheduleoff` (String) Provide true or false values - to disable the backup plan set to true, else leave to false to ensure backups are enabled for the application on the defined schedule in the template.
 - `slp` (Attributes) (see [below for nested schema](#nestedatt--slp))
 - `slt` (Attributes) (see [below for nested schema](#nestedatt--slt))
 
 ### Read-Only
 
 - `dedupasyncoff` (String)
-- `expirationoff` (String)
-- `href` (String)
-- `id` (String) The ID of this resource.
-- `logexpirationoff` (Boolean)
-- `modifydate` (Number)
-- `stale` (Boolean)
-- `syncdate` (Number)
+- `expirationoff` (String) It displays the expiration schedule for application.
+- `href` (String) It displays the API URI for backup plan.
+- `id` (String) The unique ID of this resource backup plan id can also be referred as sla ID’s.
+- `logexpirationoff` (Boolean) It displays true or false for log expirations. The default value is false.
+- `modifydate` (Number) It displays the date when the backup plan was last modified.
+- `stale` (Boolean) It displays true or false if the data is synchronized with the management console or not.
+- `syncdate` (Number) It displays the last sync date.
 
 <a id="nestedatt--application"></a>
 ### Nested Schema for `application`
 
 Required:
 
-- `id` (String)
+- `id` (String) Provide the backup plan ID. It is also referred to as SLA ID.
 
 Read-Only:
 
-- `appname` (String)
-- `apptype` (String)
-- `description` (String)
-- `href` (String)
-- `name` (String)
-- `stale` (Boolean)
-- `syncdate` (Number)
+- `appname` (String) It displays the application name used for backup plan.
+- `apptype` (String) It displays the type of application used for backup plan.
+- `description` (String) It displays the description of the backup plan.
+- `href` (String) It displays the API URI for backup plan.
+- `name` (String) It displays the name of the backup plan.
+- `stale` (Boolean) It displays the possible values true or false.
+- `syncdate` (Number) It displays the last sync date.
 
 
 <a id="nestedatt--slp"></a>
@@ -73,15 +73,15 @@ Read-Only:
 
 Required:
 
-- `id` (String)
+- `id` (String) Provide the resource backup plan profile ID.
 
 Read-Only:
 
-- `cid` (String)
-- `href` (String)
-- `name` (String)
-- `stale` (Boolean)
-- `syncdate` (Number)
+- `cid` (String) It displays the ID of the cluster. It is not the same as cluster ID.
+- `href` (String) It displays the API URI for backup plan profile.
+- `name` (String) It displays the resource profile name.
+- `stale` (Boolean) It displays the possible values true or false.
+- `syncdate` (Number) It displays the last sync date.
 
 
 <a id="nestedatt--slt"></a>
@@ -89,12 +89,12 @@ Read-Only:
 
 Required:
 
-- `id` (String)
+- `id` (String) Provide the backup plan template ID.
 
 Read-Only:
 
-- `href` (String)
-- `name` (String)
-- `override` (String)
-- `sourcename` (String)
-- `stale` (Boolean)
+- `href` (String) It displays the API URI for backup plan template
+- `name` (String) It displays the backup template name.
+- `override` (String) It displays if you can override the backup plan settings or not. It can be true or false.
+- `sourcename` (String) it displays the source name. It normally matches the name string.
+- `stale` (Boolean) It displays the possible values true or false.

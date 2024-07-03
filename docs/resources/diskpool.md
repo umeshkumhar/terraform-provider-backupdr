@@ -3,12 +3,12 @@
 page_title: "backupdr_diskpool Resource - terraform-provider-backupdr"
 subcategory: ""
 description: |-
-  Manages an DiskPool.
+  Backup/recovery appliances store data in these types of pools: Primary, Cloud, OnVault, and Snapshot. Every backup/recovery appliance has one primary pool that contains metadata and log files for the backup/recovery appliance. No user data or backups are stored in the primary pool. Cloud type pools represent Cloud credentials used to back up Compute Engine instances, These pools are automatically created when a Cloud credential is created. They do not represent a pool of disks managed by the backup/recovery appliance.  OnVault pools Provide long-term object storage using Google Cloud storage buckets. Snapshot pools contain your most recent backups and restored images. They enable instant access to your data. For more information, see Storage pools https://cloud.google.com/backup-disaster-recovery/docs/concepts/storage-pools.
 ---
 
 # backupdr_diskpool (Resource)
 
-Manages an DiskPool.
+Backup/recovery appliances store data in these types of pools: Primary, Cloud, OnVault, and Snapshot. Every backup/recovery appliance has one primary pool that contains metadata and log files for the backup/recovery appliance. No user data or backups are stored in the primary pool. Cloud type pools represent Cloud credentials used to back up Compute Engine instances, These pools are automatically created when a Cloud credential is created. They do not represent a pool of disks managed by the backup/recovery appliance.  OnVault pools Provide long-term object storage using Google Cloud storage buckets. Snapshot pools contain your most recent backups and restored images. They enable instant access to your data. For more information, see [Storage pools](https://cloud.google.com/backup-disaster-recovery/docs/concepts/storage-pools).
 
 ## Example Usage
 
@@ -43,9 +43,9 @@ resource "backupdr_diskpool" "name" {
 
 ### Required
 
-- `appliance_clusterid` (String)
-- `name` (String)
-- `pooltype` (String)
+- `appliance_clusterid` (String) Provide the backup/recovery appliance ID.
+- `name` (String) Provide a name for the storage pool.
+- `pooltype` (String) Specify the storage pool type as “Vault”.
 - `properties` (Attributes List) (see [below for nested schema](#nestedatt--properties))
 
 ### Optional
@@ -54,35 +54,35 @@ resource "backupdr_diskpool" "name" {
 
 ### Read-Only
 
-- `capacity_mb` (Number)
+- `capacity_mb` (Number) It displays the current pool capacity in Megabytes.
 - `cluster` (Attributes) (see [below for nested schema](#nestedatt--cluster))
-- `free_mb` (Number)
-- `href` (String)
-- `id` (String) The ID of this resource.
-- `immutable` (Boolean)
-- `mdiskgrp` (String)
-- `metadataonly` (Boolean)
-- `modifydate` (Number)
-- `pct` (Number)
-- `pooltypedisplayname` (String)
-- `safepct` (Number)
-- `srcid` (String)
-- `stale` (Boolean)
-- `state` (String)
-- `status` (String)
-- `syncdate` (Number)
+- `free_mb` (Number) It displays the free pool space in Megabytes.
+- `href` (String) It displays the URL to access the storage pools in the management console.
+- `id` (String) Provide the backup/recovery appliance ID.
+- `immutable` (Boolean) It displays the immutable values - true or false.
+- `mdiskgrp` (String) It displays the storage pool name.
+- `metadataonly` (Boolean) Identifies if this Storage pool is used for PD snapshot metadata or as a backup data storage pool. It displays true or false.
+- `modifydate` (Number) It displays the modified date in epoch time or date conversion
+- `pct` (Number) It displays the percentage of the pool used.
+- `pooltypedisplayname` (String) It displays the type of storage pool (cloud/perf/primary/vault), where perf = snapshot type.
+- `safepct` (Number) It displays the safe percent number, where alerts are generated once this threshold is met. Backup jobs or mounts will not be possible where this value is met.
+- `srcid` (String) It displays the source ID on the appliance.
+- `stale` (Boolean) It displays the state of the disk pool. Ok indicates the disk pool is healthy.
+- `state` (String) It displays the state of the disk pool. Ok indicates the disk pool is healthy.
+- `status` (String) It displays the status of the disk pool. The green indicates the disk pool has available space.
+- `syncdate` (Number) It displays the last sync date.
 - `udsuid` (Number)
-- `usage_mb` (Number)
-- `usedefaultsa` (Boolean)
-- `warnpct` (Number)
+- `usage_mb` (Number) It displays the current consumption of the pool in Megabytes.
+- `usedefaultsa` (Boolean) It displays true or false.
+- `warnpct` (Number) It displays the warn percent number, where alerts are generated once this threshold is met. Backup jobs and mounts can continue in this warning state.
 
 <a id="nestedatt--properties"></a>
 ### Nested Schema for `properties`
 
 Required:
 
-- `key` (String)
-- `value` (String)
+- `key` (String) Provide the storage pool attributes. It can be object size, use ssl, bucket name, or ID.
+- `value` (String) Provide storage pool values.
 
 
 <a id="nestedatt--vaultprops"></a>
@@ -90,13 +90,13 @@ Required:
 
 Read-Only:
 
-- `bucket` (String)
-- `compression` (Boolean)
-- `href` (String)
-- `id` (String)
-- `region` (String)
-- `stale` (Boolean)
-- `syncdate` (Number)
+- `bucket` (String) It displays the OnVault pool bucket ID.
+- `compression` (Boolean) It displays the possible compression values true or false.
+- `href` (String) It displays the API URI for disk pool
+- `id` (String) It displays the unique ID for objects.
+- `region` (String) It displays the region where the OnVault pool is created.
+- `stale` (Boolean) It displays the possible values true or false.
+- `syncdate` (Number) It displays the last sync date in epoch converted format.
 
 
 <a id="nestedatt--cluster"></a>
@@ -104,20 +104,20 @@ Read-Only:
 
 Read-Only:
 
-- `clusterid` (String)
-- `href` (String)
-- `id` (String)
-- `ipaddress` (String)
-- `name` (String)
-- `pkibootstrapped` (Boolean)
-- `projectid` (String)
-- `publicip` (String)
-- `region` (String)
-- `secureconnect` (Boolean)
-- `serviceaccount` (String)
-- `stale` (Boolean)
-- `supportstatus` (String)
-- `syncdate` (Number)
-- `type` (String)
-- `version` (String)
-- `zone` (String)
+- `clusterid` (String) It displays the backup/recovery appliance ID as shown in the Management console > Manage > Appliances page.
+- `href` (String) It displays the API URI for disk pool.
+- `id` (String) It displays the unique cluster id used in api call.
+- `ipaddress` (String) It displays the IP address of the backup/recovery appliance ID.
+- `name` (String) It displays the name of the storage pool.
+- `pkibootstrapped` (Boolean) It displays if the PKI boot strap is enabled or not.
+- `projectid` (String) It displays the project ID used to create the OnVault pool.
+- `publicip` (String) It displays the public IP of the backup/recovery appliance ID.
+- `region` (String) It displays the region where the OnVault pool is created.
+- `secureconnect` (Boolean) It displays the possible values for secure connect as true or false.
+- `serviceaccount` (String) It displays the GCP service account used for OnVault pool access.
+- `stale` (Boolean) It displays the possible values true or false.
+- `supportstatus` (String) It displays the appliance up to date with latest patches or updates status. It can be true or false.
+- `syncdate` (Number) It displays the last sync date between appliance and management console
+- `type` (String) It displays the appliance type.
+- `version` (String) It displays the version of the backup appliance.
+- `zone` (String) It displays the zone where the appliance is located.

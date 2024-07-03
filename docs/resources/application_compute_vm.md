@@ -3,12 +3,12 @@
 page_title: "backupdr_application_compute_vm Resource - terraform-provider-backupdr"
 subcategory: ""
 description: |-
-  Manages an GCP Cloud Virtual Machines.
+  You can use this resource to onboard GCE VMs as an application into the Backup and DR Service. After you onboard the application, you can perform backup or restore operations.
 ---
 
 # backupdr_application_compute_vm (Resource)
 
-Manages an GCP Cloud Virtual Machines.
+You can use this resource to onboard GCE VMs as an application into the Backup and DR Service. After you onboard the application, you can perform backup or restore operations.
 
 ## Example Usage
 
@@ -27,13 +27,13 @@ resource "backupdr_application_compute_vm" "example" {
 
 ### Required
 
-- `appliance_clusterid` (String)
-- `cloudcredential` (String)
-- `projectid` (String)
-- `region` (String)
-- `vmids` (List of String)
+- `appliance_clusterid` (String) Provide the ID of the backup/recovery appliance.
+- `cloudcredential` (String) Provide the ID of the cloud credential.
+- `projectid` (String) Provide the ID of the project in which the resource belongs. If it is not Provided, the Provider project is used.
+- `region` (String) Provide the region to create the cloud credential.
+- `vmids` (List of String) Provide the list of GCP instance IDs
 
 ### Read-Only
 
-- `applications` (List of String)
-- `status` (String)
+- `applications` (List of String) The list of Application IDs
+- `status` (String) The status of the request.

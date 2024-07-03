@@ -46,31 +46,37 @@ func (r *templateResource) Metadata(_ context.Context, req resource.MetadataRequ
 // Schema defines the schema for the resource.
 func (r *templateResource) Schema(_ context.Context, _ resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
-		Description: "Manages an SLA Template.",
+		MarkdownDescription: "Templates are composed of backup policies. In policies, you can define when to run a backup, how frequently to run a backup, how long to retain the backup image for (Days, Weeks, Months, Years), and also additional configuration when the policy is applied to a different application, such as a file system, database, or VM. For more information, see [Backup template](https://cloud.google.com/backup-disaster-recovery/docs/create-plan/create-template).",
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
 				Computed: true,
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.UseStateForUnknown(),
 				},
+				MarkdownDescription: "This displays the backup template ID.",
 			},
 			"href": schema.StringAttribute{
 				Computed: true,
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.UseStateForUnknown(),
 				},
+				MarkdownDescription: "It displays the API URI for Backup Plan template",
 			},
 			"name": schema.StringAttribute{
-				Required: true,
+				Required:            true,
+				MarkdownDescription: "Provide a name for the backup template.",
 			},
 			"option_href": schema.StringAttribute{
-				Computed: true,
+				Computed:            true,
+				MarkdownDescription: "It displays the API URI for Backup Plan template options",
 			},
 			"policy_href": schema.StringAttribute{
-				Computed: true,
+				Computed:            true,
+				MarkdownDescription: "This displays the backup policy ID.",
 			},
 			"description": schema.StringAttribute{
-				Optional: true,
+				Optional:            true,
+				MarkdownDescription: "Provide a description for the backup template.",
 			},
 			// "immutable": schema.BoolAttribute{
 			// 	Optional: true,
@@ -79,13 +85,16 @@ func (r *templateResource) Schema(_ context.Context, _ resource.SchemaRequest, r
 				Optional: true,
 			},
 			"usedbycloudapp": schema.BoolAttribute{
-				Optional: true,
+				Optional:            true,
+				MarkdownDescription: "It displays if the template is used by applications or not -  rue/false",
 			},
 			"sourcename": schema.StringAttribute{
-				Optional: true,
+				Optional:            true,
+				MarkdownDescription: "Provide the source name. It should match the name value.",
 			},
 			"override": schema.StringAttribute{
-				Optional: true,
+				Optional:            true,
+				MarkdownDescription: "Setting “Yes” will allow the policies set in this template to be overridden per-application. Setting “No” will enforce the policies as configured in this template without allowing any per-application overrides.",
 			},
 			"policies": schema.ListNestedAttribute{
 				Optional: true,
@@ -96,93 +105,121 @@ func (r *templateResource) Schema(_ context.Context, _ resource.SchemaRequest, r
 							PlanModifiers: []planmodifier.String{
 								stringplanmodifier.UseStateForUnknown(),
 							},
+							MarkdownDescription: "Provide the unique policy ID within the template.",
 						},
 						"description": schema.StringAttribute{
-							Optional: true,
+							Optional:            true,
+							MarkdownDescription: "Provide the description for the backup policy.",
 						},
 						"name": schema.StringAttribute{
-							Required: true,
+							Required:            true,
+							MarkdownDescription: "Provide a name for the backup policy.",
 						},
 						"href": schema.StringAttribute{
 							Computed: true,
 							PlanModifiers: []planmodifier.String{
 								stringplanmodifier.UseStateForUnknown(),
 							},
+							MarkdownDescription: "Provide the API URI for backup plan template policy.",
 						},
 						"starttime": schema.StringAttribute{
-							Optional: true,
+							Optional:            true,
+							MarkdownDescription: "Provide the start time for the backup plan in decimal format: total seconds = (hours x 3600) + (minutes + 60) + seconds",
 						},
 						"endtime": schema.StringAttribute{
-							Optional: true,
+							Optional:            true,
+							MarkdownDescription: "Provide the end time for the backup plan.",
 						},
 						"priority": schema.StringAttribute{
-							Optional: true,
+							Optional:            true,
+							MarkdownDescription: "Provide the application priority. It can be medium, high or low. The default job priority is medium, but you can change the priority to high or low.",
 						},
 						"rpo": schema.StringAttribute{
-							Optional: true,
+							Optional:            true,
+							MarkdownDescription: "Provide how often to run policy again. 24 is once per day.",
 						},
 						"rpom": schema.StringAttribute{
-							Optional: true,
+							Optional:            true,
+							MarkdownDescription: "Provide PRP in hours. You can also set the RPO in  minutes.",
 						},
 						"exclusiontype": schema.StringAttribute{
-							Optional: true,
+							Optional:            true,
+							MarkdownDescription: "Provide the exclusion type as daily, weekly, monthly, or yearly.",
 						},
 						"iscontinuous": schema.BoolAttribute{
-							Optional: true,
+							Optional:            true,
+							MarkdownDescription: "provide true or false if the policy setting for continuous mode or windowed",
 						},
 						"targetvault": schema.Int64Attribute{
-							Optional: true,
+							Optional:            true,
+							MarkdownDescription: "Provide the OnVault disk pool id. You can get the from the management console > Manage > Storage Pools, then enabling visibility of the ID column.",
 						},
 						"sourcevault": schema.Int64Attribute{
-							Optional: true,
+							Optional:            true,
+							MarkdownDescription: "Provide the OnVault disk pool id. You can get the from the management console > Manage > Storage Pools, then enabling visibility of the ID column.",
 						},
 						"selection": schema.StringAttribute{
-							Optional: true,
+							Optional:            true,
+							MarkdownDescription: "Set what days to run the scheduled job. For example, weekly jobs on Sunday - days of week as sun.",
 						},
 						"scheduletype": schema.StringAttribute{
-							Optional: true,
+							Optional:            true,
+							MarkdownDescription: "Set the schedule type as daily, weekly, monthly or yearly.",
 						},
 						// "scheduling": schema.StringAttribute{
 						// 	Optional: true,
 						// },
 						"exclusion": schema.StringAttribute{
-							Optional: true,
+							Optional:            true,
+							MarkdownDescription: "Specify days, days of week, month and days of month to exclude backup snapshots.",
 						},
 						"reptype": schema.StringAttribute{
-							Optional: true,
+							Optional:            true,
+							MarkdownDescription: "This is used for mirror policy options.",
 						},
 						"retention": schema.StringAttribute{
-							Optional: true,
+							Optional:            true,
+							MarkdownDescription: "Set how long to retain an image.",
 						},
 						"retentionm": schema.StringAttribute{
-							Optional: true,
+							Optional:            true,
+							MarkdownDescription: "Set the retention in days, weeks, months, or years.",
 						},
 						"encrypt": schema.StringAttribute{
-							Optional: true,
+							Optional:            true,
+							MarkdownDescription: "Provide the encryption identifier.",
 						},
 						"repeatinterval": schema.StringAttribute{
-							Optional: true,
+							Optional:            true,
+							MarkdownDescription: "Provide the interval value. Normally set to 1.",
 						},
 						"exclusioninterval": schema.StringAttribute{
-							Optional: true,
+							Optional:            true,
+							MarkdownDescription: "Provide the exclusion interval for the template. Normally set to 1.",
 						},
 						"remoteretention": schema.Int64Attribute{
-							Optional: true,
+							Optional:            true,
+							MarkdownDescription: "This is used for mirror policy options.",
 						},
 						"policytype": schema.StringAttribute{
-							Optional: true,
+							Optional:            true,
+							MarkdownDescription: "Provide the backup policy type. It can be snapshot, direct to OnVault, OnVault replication, mirror, and OnVault policy.",
 						},
 						"op": schema.StringAttribute{
-							Optional: true,
+							Optional:            true,
+							MarkdownDescription: "Provide the operation type. Normally set to snap, DirectOnVault, or stream_snap.",
 						},
 						"verification": schema.BoolAttribute{
-							Optional: true,
+							Optional:            true,
+							MarkdownDescription: "Provide the verification values as true or false.",
 						},
 						"verifychoice": schema.StringAttribute{
-							Optional: true,
+							Optional:            true,
+							MarkdownDescription: "Empty value by default - to be used in future versions.",
 						},
 						"truncatelog": schema.StringAttribute{
-							Optional: true,
+							Optional:            true,
+							MarkdownDescription: "Enable log truncation. This may not work as required in advanced options.",
 						},
 					},
 				},

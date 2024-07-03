@@ -31,61 +31,61 @@ resource "backupdr_host" "example" {
 
 ### Required
 
-- `appliance_clusterid` (String)
-- `hostname` (String)
-- `hosttype` (String)
-- `ipaddress` (String)
+- `appliance_clusterid` (String) Provide the appliance cluster id that host is added to.
+- `hostname` (String) Provide the fully qualified domain name of the vCenter host.
+- `hosttype` (String) Provide the host type as vCenter.
+- `ipaddress` (String) Provide the IP address of the host.
 
 ### Optional
 
-- `alternateip` (List of String)
-- `friendlypath` (String)
+- `alternateip` (List of String) Provide the alternate IP address of the host.
+- `friendlypath` (String) Provide the FQDN or alias name for vCenter address.
 - `hypervisoragent` (Attributes) (see [below for nested schema](#nestedatt--hypervisoragent))
-- `multiregion` (String)
-- `ostype_special` (String)
+- `multiregion` (String) Provide the region or regions where the host is created.
+- `ostype_special` (String) Provide the OS type for the host.
 
 ### Read-Only
 
-- `autoupgrade` (String)
-- `cert_revoked` (Boolean)
-- `clusterid` (String)
-- `dbauthentication` (Boolean)
-- `diskpref` (String)
-- `hasagent` (Boolean)
-- `href` (String)
-- `id` (String) The ID of this resource.
-- `isclusterhost` (Boolean)
-- `isclusternode` (Boolean)
-- `isesxhost` (Boolean)
-- `isproxyhost` (Boolean)
-- `isshadowhost` (Boolean)
-- `isvcenterhost` (Boolean)
-- `isvm` (Boolean)
-- `maxjobs` (Number)
-- `modifydate` (Number)
-- `name` (String)
-- `originalhostid` (String)
-- `pki_state` (String)
-- `sourcecluster` (String)
-- `srcid` (String)
-- `svcname` (String)
-- `transport` (String)
-- `uniquename` (String)
-- `zone` (String)
+- `autoupgrade` (String) It displays the autoupgrade values.
+- `cert_revoked` (Boolean) It displays the certificate revoked values as true or false.
+- `clusterid` (String) It displays the cluster ID.
+- `dbauthentication` (Boolean) This is not applicable for vCenter hosts.
+- `diskpref` (String) This is not applicable for vCenter hosts.
+- `hasagent` (Boolean) This is not applicable for vCenter hosts.
+- `href` (String) It displays the API URI for host.
+- `id` (String) It displays the unique application ID of this resource.
+- `isclusterhost` (Boolean) It displays if this is a cluster host or not - true or false.
+- `isclusternode` (Boolean) It displays if this is a cluster node or not - true or false.
+- `isesxhost` (Boolean) It displays if this is a  ESXi host type or not - true or false.
+- `isproxyhost` (Boolean) It displays if this is a proxy host or not - true or false.
+- `isshadowhost` (Boolean) It displays if this is a shadow host or not - true or false.
+- `isvcenterhost` (Boolean) It displays if this is a vCenter host or not - true or false.
+- `isvm` (Boolean) It displays if this is a VM host type or not - true or false.
+- `maxjobs` (Number) It displays the maximum number of concurrent jobs.
+- `modifydate` (Number) It displays the last modified using epoch format.
+- `name` (String) It displays the name of the host.
+- `originalhostid` (String) It displays the host ID on the backup/recovery appliance.
+- `pki_state` (String) It is used for VMs with agents
+- `sourcecluster` (String) It displays the appliance ID where host is added.
+- `srcid` (String) It displays the applications ID on the appliance.
+- `svcname` (String) It displays the host storage naming convention for backup appliance API.
+- `transport` (String) It displays the storage transport mode - nfs or san (nfs is default for Google cloud VMware Engine).
+- `uniquename` (String) It displays the vCenter uuid - The unique vm identity as per vcenter or esxi host.
+- `zone` (String) It displays the zone used for VMs.
 
 <a id="nestedatt--hypervisoragent"></a>
 ### Nested Schema for `hypervisoragent`
 
 Required:
 
-- `username` (String)
+- `username` (String) Provide the username of the vCenter host. Ideally this should be a solution-user-XX@gve.local account, rather than CloudOwner account.
 
 Optional:
 
-- `password` (String, Sensitive)
+- `password` (String, Sensitive) Provide the password of the vCenter host.
 
 Read-Only:
 
-- `agenttype` (String)
-- `hasalternatekey` (Boolean)
-- `haspassword` (Boolean)
+- `agenttype` (String) It displays the type of agent
+- `hasalternatekey` (Boolean) It displays true or false if the vCenter host has an alternate key or not.
+- `haspassword` (Boolean) It displays true or false if the vCenter host has a password or not.
