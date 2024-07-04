@@ -60,7 +60,7 @@ func (r *templateResource) Schema(_ context.Context, _ resource.SchemaRequest, r
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.UseStateForUnknown(),
 				},
-				MarkdownDescription: "It displays the API URI for Backup Plan template",
+				MarkdownDescription: "It displays the API URI for Backup Plan template.",
 			},
 			"name": schema.StringAttribute{
 				Required:            true,
@@ -86,7 +86,7 @@ func (r *templateResource) Schema(_ context.Context, _ resource.SchemaRequest, r
 			},
 			"usedbycloudapp": schema.BoolAttribute{
 				Optional:            true,
-				MarkdownDescription: "It displays if the template is used by applications or not -  rue/false",
+				MarkdownDescription: "It displays if the template is used by applications or not - true/false.",
 			},
 			"sourcename": schema.StringAttribute{
 				Optional:            true,
@@ -97,7 +97,8 @@ func (r *templateResource) Schema(_ context.Context, _ resource.SchemaRequest, r
 				MarkdownDescription: "Setting “Yes” will allow the policies set in this template to be overridden per-application. Setting “No” will enforce the policies as configured in this template without allowing any per-application overrides.",
 			},
 			"policies": schema.ListNestedAttribute{
-				Optional: true,
+				Optional:            true,
+				MarkdownDescription: "Provide policy details for backup template.",
 				NestedObject: schema.NestedAttributeObject{
 					Attributes: map[string]schema.Attribute{
 						"id": schema.StringAttribute{
@@ -148,15 +149,15 @@ func (r *templateResource) Schema(_ context.Context, _ resource.SchemaRequest, r
 						},
 						"iscontinuous": schema.BoolAttribute{
 							Optional:            true,
-							MarkdownDescription: "provide true or false if the policy setting for continuous mode or windowed",
+							MarkdownDescription: "provide true or false if the policy setting for continuous mode or windowed.",
 						},
 						"targetvault": schema.Int64Attribute{
 							Optional:            true,
-							MarkdownDescription: "Provide the OnVault disk pool id. You can get the from the management console > Manage > Storage Pools, then enabling visibility of the ID column.",
+							MarkdownDescription: "Provide the OnVault disk pool id. You can get the from the **management console** > **Manage** > **Storage Pools**, then enabling visibility of the ID column.",
 						},
 						"sourcevault": schema.Int64Attribute{
 							Optional:            true,
-							MarkdownDescription: "Provide the OnVault disk pool id. You can get the from the management console > Manage > Storage Pools, then enabling visibility of the ID column.",
+							MarkdownDescription: "Provide the OnVault disk pool id. You can get the from the **management console** > **Manage** > **Storage Pools**, then enabling visibility of the ID column.",
 						},
 						"selection": schema.StringAttribute{
 							Optional:            true,

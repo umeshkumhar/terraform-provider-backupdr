@@ -3,12 +3,12 @@
 page_title: "backupdr_profile Data Source - terraform-provider-backupdr"
 subcategory: ""
 description: |-
-  This data source can be used to read information about a BackupDR Profile. It displays the resource profile ID as shown in the Management console > Manage > Resource Profiles page.
+  This data source can be used to read information about a backup profile. It displays the resource profile ID as shown in the Management console > Backup Plans > Profiles page.
 ---
 
 # backupdr_profile (Data Source)
 
-This data source can be used to read information about a BackupDR Profile. It displays the resource profile ID as shown in the Management console > Manage > Resource Profiles page.
+This data source can be used to read information about a backup profile. It displays the resource profile ID as shown in the **Management console** > **Backup Plans** > **Profiles** page.
 
 ## Example Usage
 
@@ -31,7 +31,7 @@ data "backupdr_profile" "example" {
 - `cid` (String) It displays the ID of the cluster - It is not the same as cluster ID.
 - `clusterid` (String) It displays the backup/recovery appliance ID.
 - `createdate` (Number) It displays the date when the resource profile was created.
-- `description` (String) It displays the description for the resource profile
+- `description` (String) It displays the description for the resource profile.
 - `href` (String) It displays the API URI for backup plan profile.
 - `localnode` (String) It displays the primary backup/recovery appliance name.
 - `modifydate` (Number) It displays the date when the resource profile details are modified.
@@ -51,7 +51,7 @@ data "backupdr_profile" "example" {
 
 Read-Only:
 
-- `href` (String) It displays the API URI for OnVault storage pool
+- `href` (String) It displays the API URI for OnVault storage pool.
 - `id` (String) It displays the ID of the OnVault pool.
 - `name` (String) It displays the name of the OnVault pool used for resource profile.
 

@@ -43,216 +43,219 @@ func (d *diskpoolDataSource) Metadata(ctx context.Context, req datasource.Metada
 
 func (d *diskpoolDataSource) Schema(ctx context.Context, req datasource.SchemaRequest, resp *datasource.SchemaResponse) {
 	resp.Schema = schema.Schema{
-		MarkdownDescription: "BackupDR DiskPool",
+		MarkdownDescription: "This data source can be used to read information about a Backup and DR service diskpool.",
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
-				Required: true,
+				Required:            true,
 				MarkdownDescription: "Provide the ID of the storage pool.",
 			},
 			"name": schema.StringAttribute{
-				Computed: true,
+				Computed:            true,
 				MarkdownDescription: "It displays the name of the storage pool.",
 			},
 			"href": schema.StringAttribute{
-				Computed: true,
+				Computed:            true,
 				MarkdownDescription: "It displays the URL to access the storage pools in the management console.",
 			},
 			"stale": schema.BoolAttribute{
-				Computed: true,
+				Computed:            true,
 				MarkdownDescription: "It displays the state of the disk pool. Ok indicates the disk pool is healthy.",
 			},
 			"modifydate": schema.Int64Attribute{
-				Computed: true,
+				Computed:            true,
 				MarkdownDescription: "It displays the modified date in epoch time or date conversion.",
 			},
 			"syncdate": schema.Int64Attribute{
-				Computed: true,
+				Computed:            true,
 				MarkdownDescription: "It displays the last sync date.",
 			},
 			"pooltype": schema.StringAttribute{
-				Computed: true,
+				Computed:            true,
 				MarkdownDescription: "It displays the type of storage pool (cloud/perf/primary/vault), where perf = snapshot type.",
 			},
 			"state": schema.StringAttribute{
-				Computed: true,
+				Computed:            true,
 				MarkdownDescription: "It displays the state of the disk pool. Ok indicates the disk pool is healthy.",
 			},
 			"srcid": schema.StringAttribute{
-				Computed: true,
+				Computed:            true,
 				MarkdownDescription: "It displays the source ID on the appliance.",
 			},
 			"status": schema.StringAttribute{
-				Computed: true,
+				Computed:            true,
 				MarkdownDescription: "It displays the status of the disk pool. The green indicates the disk pool has available space.",
 			},
 			"mdiskgrp": schema.StringAttribute{
-				Computed: true,
+				Computed:            true,
 				MarkdownDescription: "It displays the storage pool name.",
 			},
 			"pooltypedisplayname": schema.StringAttribute{
-				Computed: true,
+				Computed:            true,
 				MarkdownDescription: "It displays the type of storage pool (cloud/perf/primary/vault), where perf = snapshot type.",
 			},
 			"warnpct": schema.Int64Attribute{
-				Computed: true,
+				Computed:            true,
 				MarkdownDescription: "It displays the warn percent number, where alerts are generated once this threshold is met. Backup jobs and mounts can continue in this warning state.",
 			},
 			"safepct": schema.Int64Attribute{
-				Computed: true,
+				Computed:            true,
 				MarkdownDescription: "It displays the safe percent number, where alerts are generated once this threshold is met. Backup jobs or mounts will not be possible where this value is met.",
 			},
 			"udsuid": schema.Int64Attribute{
 				Computed: true,
 			},
 			"free_mb": schema.Int64Attribute{
-				Computed: true,
+				Computed:            true,
 				MarkdownDescription: "It displays the free pool space in Megabytes.",
 			},
 			"usage_mb": schema.Int64Attribute{
-				Computed: true,
+				Computed:            true,
 				MarkdownDescription: "It displays the current consumption of the pool in Megabytes.",
 			},
 			"capacity_mb": schema.Int64Attribute{
-				Computed: true,
+				Computed:            true,
 				MarkdownDescription: "It displays the current pool capacity in Megabytes.",
 			},
 			"pct": schema.Float64Attribute{
-				Computed: true,
+				Computed:            true,
 				MarkdownDescription: "It displays the percentage of the pool used.",
 			},
 			"usedefaultsa": schema.BoolAttribute{
-				Computed: true,
+				Computed:            true,
 				MarkdownDescription: "It displays true or false.",
 			},
 			"immutable": schema.BoolAttribute{
-				Computed: true,
+				Computed:            true,
 				MarkdownDescription: "It displays the immutable values - true or false.",
 			},
 			"metadataonly": schema.BoolAttribute{
-				Computed: true,
+				Computed:            true,
 				MarkdownDescription: "Identifies if this Storage pool is used for PD snapshot metadata or as a backup data storage pool. It displays true or false.",
 			},
 			"properties": schema.ListNestedAttribute{
-				Computed: true,
+				Computed:            true,
+				MarkdownDescription: "It displays the key-value pair for the diskpool.",
 				NestedObject: schema.NestedAttributeObject{
 					Attributes: map[string]schema.Attribute{
 						"key": schema.StringAttribute{
-							Computed: true,
+							Computed:            true,
 							MarkdownDescription: "It displays the storage pool attributes. It can be object size, use ssl, bucket name, or ID.",
 						},
 						"value": schema.StringAttribute{
-							Computed: true,
+							Computed:            true,
 							MarkdownDescription: "It displays the storage pool values.",
 						},
 					},
 				},
 			},
 			"appliance_clusterid": schema.StringAttribute{
-				Computed: true,
-				MarkdownDescription: "Provide the backup/recovery appliance ID.",
+				Computed:            true,
+				MarkdownDescription: "It displays the backup/recovery appliance ID.",
 			},
 			"cluster": schema.SingleNestedAttribute{
-				Computed: true,
+				Computed:            true,
+				MarkdownDescription: "It displays the properties of the cluster.",
 				Attributes: map[string]schema.Attribute{
 					"id": schema.StringAttribute{
-						Computed: true,
+						Computed:            true,
 						MarkdownDescription: "It displays the unique cluster id used in api call.",
 					},
 					"name": schema.StringAttribute{
-						Computed: true,
+						Computed:            true,
 						MarkdownDescription: "It displays the name of the storage pool.",
 					},
 					"href": schema.StringAttribute{
-						Computed: true,
+						Computed:            true,
 						MarkdownDescription: "It displays the API URI for disk pool.",
 					},
 					"clusterid": schema.StringAttribute{
-						Computed: true,
-						MarkdownDescription: "It displays the backup/recovery appliance ID as shown in the Management console > Manage > Appliances page.",
+						Computed:            true,
+						MarkdownDescription: "It displays the backup/recovery appliance ID as shown in the **Management console** > **Manage** > **Appliances** page.",
 					},
 					"serviceaccount": schema.StringAttribute{
-						Computed: true,
+						Computed:            true,
 						MarkdownDescription: "It displays the GCP service account used for OnVault pool access.",
 					},
 					"zone": schema.StringAttribute{
-						Computed: true,
+						Computed:            true,
 						MarkdownDescription: "It displays the zone where the appliance is located.",
 					},
 					"region": schema.StringAttribute{
-						Computed: true,
+						Computed:            true,
 						MarkdownDescription: "It displays the region where the OnVault pool is created.",
 					},
 					"projectid": schema.StringAttribute{
-						Computed: true,
+						Computed:            true,
 						MarkdownDescription: "It displays the project ID used to create the OnVault pool.",
 					},
 					"version": schema.StringAttribute{
-						Computed: true,
+						Computed:            true,
 						MarkdownDescription: "It displays the version of the backup appliance.",
 					},
 					"type": schema.StringAttribute{
-						Computed: true,
+						Computed:            true,
 						MarkdownDescription: "It displays the appliance type.",
 					},
 					"ipaddress": schema.StringAttribute{
-						Computed: true,
+						Computed:            true,
 						MarkdownDescription: "It displays the IP address of the backup/recovery appliance ID.",
 					},
 					"publicip": schema.StringAttribute{
-						Computed: true,
+						Computed:            true,
 						MarkdownDescription: "It displays the public IP of the backup/recovery appliance ID.",
 					},
 					"supportstatus": schema.StringAttribute{
-						Computed: true,
+						Computed:            true,
 						MarkdownDescription: "It displays the appliance up to date with latest patches or updates status. It can be true or false.",
 					},
 					"secureconnect": schema.BoolAttribute{
-						Computed: true,
+						Computed:            true,
 						MarkdownDescription: "It displays the possible values for secure connect as true or false.",
 					},
 					"pkibootstrapped": schema.BoolAttribute{
-						Computed: true,
+						Computed:            true,
 						MarkdownDescription: "It displays if the PKI boot strap is enabled or not.",
 					},
 					"stale": schema.BoolAttribute{
-						Computed: true,
+						Computed:            true,
 						MarkdownDescription: "It displays the possible values true or false.",
 					},
 					"syncdate": schema.Int64Attribute{
-						Computed: true,
-						MarkdownDescription: "It displays the last sync date between appliance and management console",
+						Computed:            true,
+						MarkdownDescription: "It displays the last sync date between appliance and management console.",
 					},
 				},
 			},
 			"vaultprops": schema.SingleNestedAttribute{
-				Computed: true,
+				Computed:            true,
+				MarkdownDescription: "It displays the properties of OnVault.",
 				Attributes: map[string]schema.Attribute{
 					"id": schema.StringAttribute{
-						Computed: true,
+						Computed:            true,
 						MarkdownDescription: "It displays the unique ID for objects.",
 					},
 					"bucket": schema.StringAttribute{
-						Computed: true,
+						Computed:            true,
 						MarkdownDescription: "It displays the OnVault pool bucket ID.",
 					},
 					"href": schema.StringAttribute{
-						Computed: true,
-						MarkdownDescription: "It displays the API URI for disk pool",
+						Computed:            true,
+						MarkdownDescription: "It displays the API URI for disk pool.",
 					},
 					"region": schema.StringAttribute{
-						Computed: true,
+						Computed:            true,
 						MarkdownDescription: "It displays the region where the OnVault pool is created.",
 					},
 					"compression": schema.BoolAttribute{
-						Computed: true,
+						Computed:            true,
 						MarkdownDescription: "It displays the possible compression values true or false.",
 					},
 					"stale": schema.BoolAttribute{
-						Computed: true,
+						Computed:            true,
 						MarkdownDescription: "It displays the possible values true or false.",
 					},
 					"syncdate": schema.Int64Attribute{
-						Computed: true,
+						Computed:            true,
 						MarkdownDescription: "It displays the last sync date in epoch converted format.",
 					},
 				},

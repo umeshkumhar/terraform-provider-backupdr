@@ -33,11 +33,11 @@ resource "backupdr_plan" "example" {
 
 ### Optional
 
-- `application` (Attributes) (see [below for nested schema](#nestedatt--application))
+- `application` (Attributes) Provide application details for the backup plan. (see [below for nested schema](#nestedatt--application))
 - `description` (String) Provide a description for the backup plan.
 - `scheduleoff` (String) Provide true or false values - to disable the backup plan set to true, else leave to false to ensure backups are enabled for the application on the defined schedule in the template.
-- `slp` (Attributes) (see [below for nested schema](#nestedatt--slp))
-- `slt` (Attributes) (see [below for nested schema](#nestedatt--slt))
+- `slp` (Attributes) Provide profile details for the backup plan. (see [below for nested schema](#nestedatt--slp))
+- `slt` (Attributes) Provide template details for the backup plan. (see [below for nested schema](#nestedatt--slt))
 
 ### Read-Only
 
@@ -93,7 +93,7 @@ Required:
 
 Read-Only:
 
-- `href` (String) It displays the API URI for backup plan template
+- `href` (String) It displays the API URI for backup plan template.
 - `name` (String) It displays the backup template name.
 - `override` (String) It displays if you can override the backup plan settings or not. It can be true or false.
 - `sourcename` (String) it displays the source name. It normally matches the name string.

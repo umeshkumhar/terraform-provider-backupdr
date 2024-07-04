@@ -50,135 +50,135 @@ func (r *hostResource) Schema(_ context.Context, _ resource.SchemaRequest, resp 
 				MarkdownDescription: "It displays the unique application ID of this resource.",
 			},
 			"href": schema.StringAttribute{
-				Computed: true,
+				Computed:            true,
 				MarkdownDescription: "It displays the API URI for host.",
 			},
 			"friendlypath": schema.StringAttribute{
-				Optional: true,
+				Optional:            true,
 				MarkdownDescription: "Provide the FQDN or alias name for vCenter address.",
 			},
 			"hostname": schema.StringAttribute{
-				Required: true,
+				Required:            true,
 				MarkdownDescription: "Provide the fully qualified domain name of the vCenter host.",
 			},
 			"hosttype": schema.StringAttribute{
-				Required: true,
+				Required:            true,
 				MarkdownDescription: "Provide the host type as vCenter.",
 			},
 			"ipaddress": schema.StringAttribute{
-				Required: true,
+				Required:            true,
 				MarkdownDescription: "Provide the IP address of the host.",
 			},
 			"autoupgrade": schema.StringAttribute{
-				Computed: true,
+				Computed:            true,
 				MarkdownDescription: "It displays the autoupgrade values.",
 			},
 			"cert_revoked": schema.BoolAttribute{
-				Computed: true,
+				Computed:            true,
 				MarkdownDescription: "It displays the certificate revoked values as true or false.",
 			},
 			"clusterid": schema.StringAttribute{
-				Computed: true,
+				Computed:            true,
 				MarkdownDescription: "It displays the cluster ID.",
 			},
 			"dbauthentication": schema.BoolAttribute{
-				Computed: true,
+				Computed:            true,
 				MarkdownDescription: "This is not applicable for vCenter hosts.",
 			},
 			"diskpref": schema.StringAttribute{
-				Computed: true,
+				Computed:            true,
 				MarkdownDescription: "This is not applicable for vCenter hosts.",
 			},
 			"hasagent": schema.BoolAttribute{
-				Computed: true,
+				Computed:            true,
 				MarkdownDescription: "This is not applicable for vCenter hosts.",
 			},
 			"isclusternode": schema.BoolAttribute{
-				Computed: true,
+				Computed:            true,
 				MarkdownDescription: "It displays if this is a cluster node or not - true or false.",
 			},
 
 			"isshadowhost": schema.BoolAttribute{
-				Computed: true,
+				Computed:            true,
 				MarkdownDescription: "It displays if this is a shadow host or not - true or false.",
 			},
 			"isclusterhost": schema.BoolAttribute{
-				Computed: true,
+				Computed:            true,
 				MarkdownDescription: "It displays if this is a cluster host or not - true or false.",
 			},
 			"isesxhost": schema.BoolAttribute{
-				Computed: true,
+				Computed:            true,
 				MarkdownDescription: "It displays if this is a  ESXi host type or not - true or false.",
 			},
 			"isproxyhost": schema.BoolAttribute{
-				Computed: true,
+				Computed:            true,
 				MarkdownDescription: "It displays if this is a proxy host or not - true or false.",
 			},
 			"isvcenterhost": schema.BoolAttribute{
-				Computed: true,
+				Computed:            true,
 				MarkdownDescription: "It displays if this is a vCenter host or not - true or false.",
 			},
 			"isvm": schema.BoolAttribute{
-				Computed: true,
+				Computed:            true,
 				MarkdownDescription: "It displays if this is a VM host type or not - true or false.",
 			},
 
 			"maxjobs": schema.Int64Attribute{
-				Computed: true,
+				Computed:            true,
 				MarkdownDescription: "It displays the maximum number of concurrent jobs.",
 			},
 			"modifydate": schema.Int64Attribute{
-				Computed: true,
+				Computed:            true,
 				MarkdownDescription: "It displays the last modified using epoch format.",
 			},
 			"multiregion": schema.StringAttribute{
-				Optional: true,
+				Optional:            true,
 				MarkdownDescription: "Provide the region or regions where the host is created.",
 			},
 
 			"name": schema.StringAttribute{
-				Computed: true,
+				Computed:            true,
 				MarkdownDescription: "It displays the name of the host.",
 			},
 			"originalhostid": schema.StringAttribute{
-				Computed: true,
+				Computed:            true,
 				MarkdownDescription: "It displays the host ID on the backup/recovery appliance.",
 			},
 			"ostype_special": schema.StringAttribute{
-				Optional: true,
+				Optional:            true,
 				MarkdownDescription: "Provide the OS type for the host.",
 			},
 			"pki_state": schema.StringAttribute{
-				Computed: true,
-				MarkdownDescription: "It is used for VMs with agents",
+				Computed:            true,
+				MarkdownDescription: "It is used for VMs with agents.",
 			},
 			"sourcecluster": schema.StringAttribute{
-				Computed: true,
+				Computed:            true,
 				MarkdownDescription: "It displays the appliance ID where host is added.",
 			},
 			"srcid": schema.StringAttribute{
-				Computed: true,
+				Computed:            true,
 				MarkdownDescription: "It displays the applications ID on the appliance.",
 			},
 			"svcname": schema.StringAttribute{
-				Computed: true,
+				Computed:            true,
 				MarkdownDescription: "It displays the host storage naming convention for backup appliance API.",
 			},
 			"transport": schema.StringAttribute{
-				Computed: true,
+				Computed:            true,
 				MarkdownDescription: "It displays the storage transport mode - nfs or san (nfs is default for Google cloud VMware Engine).",
 			},
 			"uniquename": schema.StringAttribute{
-				Computed: true,
+				Computed:            true,
 				MarkdownDescription: "It displays the vCenter uuid - The unique vm identity as per vcenter or esxi host.",
 			},
 			"zone": schema.StringAttribute{
-				Computed: true,
+				Computed:            true,
 				MarkdownDescription: "It displays the zone used for VMs.",
 			},
 			"alternateip": schema.ListAttribute{
-				Optional:    true,
-				ElementType: types.StringType,
+				Optional:            true,
+				ElementType:         types.StringType,
 				MarkdownDescription: "Provide the alternate IP address of the host.",
 			},
 
@@ -186,31 +186,31 @@ func (r *hostResource) Schema(_ context.Context, _ resource.SchemaRequest, resp 
 				Optional: true,
 				Attributes: map[string]schema.Attribute{
 					"username": schema.StringAttribute{
-						Required: true,
+						Required:            true,
 						MarkdownDescription: "Provide the username of the vCenter host. Ideally this should be a solution-user-XX@gve.local account, rather than CloudOwner account.",
 					},
 					"password": schema.StringAttribute{
-						Optional:  true,
-						Sensitive: true,
+						Optional:            true,
+						Sensitive:           true,
 						MarkdownDescription: "Provide the password of the vCenter host.",
 					},
 					"haspassword": schema.BoolAttribute{
-						Computed: true,
+						Computed:            true,
 						MarkdownDescription: "It displays true or false if the vCenter host has a password or not.",
 					},
 					"hasalternatekey": schema.BoolAttribute{
-						Computed: true,
+						Computed:            true,
 						MarkdownDescription: "It displays true or false if the vCenter host has an alternate key or not.",
 					},
 					"agenttype": schema.StringAttribute{
-						Computed: true,
+						Computed:            true,
 						MarkdownDescription: "It displays the type of agent",
 					},
 				},
 			},
 			"appliance_clusterid": schema.StringAttribute{
-				Required: true,
-				MarkdownDescription: "Provide the appliance cluster id that host is added to.",
+				Required:            true,
+				MarkdownDescription: "Provide the appliance cluster ID that host is added to.",
 			},
 			// "sources": schema.ListNestedAttribute{
 			// 	Optional: true,

@@ -43,78 +43,78 @@ func (d *profileDataSource) Metadata(ctx context.Context, req datasource.Metadat
 
 func (d *profileDataSource) Schema(ctx context.Context, req datasource.SchemaRequest, resp *datasource.SchemaResponse) {
 	resp.Schema = schema.Schema{
-		MarkdownDescription: "This data source can be used to read information about a BackupDR Profile. It displays the resource profile ID as shown in the Management console > Manage > Resource Profiles page.",
+		MarkdownDescription: "This data source can be used to read information about a backup profile. It displays the resource profile ID as shown in the **Management console** > **Backup Plans** > **Profiles** page.",
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
-				Required: true,
+				Required:            true,
 				MarkdownDescription: "Provide the ID of the resource.",
 			},
 			"name": schema.StringAttribute{
-				Computed: true,
+				Computed:            true,
 				MarkdownDescription: "It displays the name of the OnVault pool used for resource profile.",
 			},
 			"href": schema.StringAttribute{
-				Computed: true,
+				Computed:            true,
 				MarkdownDescription: "It displays the API URI for backup plan profile.",
 			},
 			"description": schema.StringAttribute{
-				Computed: true,
-				MarkdownDescription: "It displays the description for the resource profile",
+				Computed:            true,
+				MarkdownDescription: "It displays the description for the resource profile.",
 			},
 			"stale": schema.BoolAttribute{
-				Computed: true,
+				Computed:            true,
 				MarkdownDescription: "It displays the possible values true or false.",
 			},
 			"syncdate": schema.Int64Attribute{
-				Computed: true,
+				Computed:            true,
 				MarkdownDescription: "It displays the last sync date.",
 			},
 			"srcid": schema.StringAttribute{
-				Computed: true,
+				Computed:            true,
 				MarkdownDescription: "It displays the source ID on the appliance.",
 			},
 			"cid": schema.StringAttribute{
-				Computed: true,
+				Computed:            true,
 				MarkdownDescription: "It displays the ID of the cluster - It is not the same as cluster ID.",
 			},
 			"clusterid": schema.StringAttribute{
-				Computed: true,
+				Computed:            true,
 				MarkdownDescription: "It displays the backup/recovery appliance ID.",
 			},
 			"performancepool": schema.StringAttribute{
-				Computed: true,
+				Computed:            true,
 				MarkdownDescription: "It displays the name of the snapshot (performance) pool. The default is act_per_pool000.",
 			},
 			"remotenode": schema.StringAttribute{
-				Computed: true,
+				Computed:            true,
 				MarkdownDescription: "It displays the remote backup/recovery appliance name, when two appliances are to be configured to replicate snapshot data between them.",
 			},
 			"localnode": schema.StringAttribute{
-				Computed: true,
+				Computed:            true,
 				MarkdownDescription: "It displays the primary backup/recovery appliance name.",
 			},
 			"modifydate": schema.Int64Attribute{
-				Computed: true,
+				Computed:            true,
 				MarkdownDescription: "It displays the date when the resource profile details are modified.",
 			},
 			"createdate": schema.Int64Attribute{
-				Computed: true,
+				Computed:            true,
 				MarkdownDescription: "It displays the date when the resource profile was created.",
 			},
 			"vaultpool": schema.SingleNestedAttribute{
 				Computed: true,
 				Attributes: map[string]schema.Attribute{
 					"id": schema.StringAttribute{
-						Computed: true,
+						Computed:            true,
 						MarkdownDescription: "It displays the ID of the OnVault pool.",
 					},
 					"name": schema.StringAttribute{
-						Computed: true,
+						Computed:            true,
 						MarkdownDescription: "It displays the name of the OnVault pool used for resource profile.",
 					},
 					"href": schema.StringAttribute{
-						Computed: true,
-						MarkdownDescription: "It displays the API URI for OnVault storage pool",
+						Computed:            true,
+						MarkdownDescription: "It displays the API URI for OnVault storage pool.",
 					},
 				},
 			},
@@ -122,15 +122,15 @@ func (d *profileDataSource) Schema(ctx context.Context, req datasource.SchemaReq
 				Computed: true,
 				Attributes: map[string]schema.Attribute{
 					"id": schema.StringAttribute{
-						Computed: true,
+						Computed:            true,
 						MarkdownDescription: "It displays the ID of the OnVault pool 2.",
 					},
 					"name": schema.StringAttribute{
-						Computed: true,
+						Computed:            true,
 						MarkdownDescription: "It displays the name of the OnVault pool 2 used for resource profile.",
 					},
 					"href": schema.StringAttribute{
-						Computed: true,
+						Computed:            true,
 						MarkdownDescription: "It displays the API URI for OnVault storage pool.",
 					},
 				},
@@ -139,15 +139,15 @@ func (d *profileDataSource) Schema(ctx context.Context, req datasource.SchemaReq
 				Computed: true,
 				Attributes: map[string]schema.Attribute{
 					"id": schema.StringAttribute{
-						Computed: true,
+						Computed:            true,
 						MarkdownDescription: "It displays the ID of the OnVault pool 3.",
 					},
 					"name": schema.StringAttribute{
-						Computed: true,
+						Computed:            true,
 						MarkdownDescription: "It displays the name of the OnVault pool 3 used for resource profile.",
 					},
 					"href": schema.StringAttribute{
-						Computed: true,
+						Computed:            true,
 						MarkdownDescription: "It displays the API URI for OnVault storage pool.",
 					},
 				},
@@ -156,15 +156,15 @@ func (d *profileDataSource) Schema(ctx context.Context, req datasource.SchemaReq
 				Computed: true,
 				Attributes: map[string]schema.Attribute{
 					"id": schema.StringAttribute{
-						Computed: true,
+						Computed:            true,
 						MarkdownDescription: "It displays the ID of the OnVault pool 4.",
 					},
 					"name": schema.StringAttribute{
-						Computed: true,
+						Computed:            true,
 						MarkdownDescription: "It displays the name of the OnVault pool 4 used for resource profile.",
 					},
 					"href": schema.StringAttribute{
-						Computed: true,
+						Computed:            true,
 						MarkdownDescription: "It displays the API URI for OnVault storage pool.",
 					},
 				},

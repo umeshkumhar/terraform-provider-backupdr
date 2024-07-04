@@ -3,12 +3,12 @@
 page_title: "backupdr_plan Data Source - terraform-provider-backupdr"
 subcategory: ""
 description: |-
-  This data source can be used to read information about a BackupDR Plan. It displays the backup plan ID as shown in the Management console > Manage > Backup Plans page.
+  This data source can be used to read information about a backup plan. It displays the backup plan ID as shown in the Management console > Manage > Backup Plans page.
 ---
 
 # backupdr_plan (Data Source)
 
-This data source can be used to read information about a BackupDR Plan. It displays the backup plan ID as shown in the Management console > Manage > Backup Plans page.
+This data source can be used to read information about a backup plan. It displays the backup plan ID as shown in the **Management console** > **Manage** > **Backup Plans** page.
 
 ## Example Usage
 
@@ -24,20 +24,20 @@ data "backupdr_plan" "example" {
 
 ### Required
 
-- `id` (String) The unique ID of this resource backup plan id can also be referred as sla ID’s.
+- `id` (String) The unique ID of this resource backup plan ID can also be referred as sla ID’s.
 
 ### Read-Only
 
-- `application` (Attributes) (see [below for nested schema](#nestedatt--application))
-- `dedupasyncoff` (String) It displays the dedupe async schedule for application.
+- `application` (Attributes) It displays the application details for the backup plan. (see [below for nested schema](#nestedatt--application))
+- `dedupasyncoff` (String) It displays the dedup async schedule for application.
 - `description` (String) It displays the backup plan description.
 - `expirationoff` (String) It displays the expiration schedule for application.
 - `href` (String) It displays the API URI for backup plan.
 - `logexpirationoff` (Boolean) It displays true or false for log expirations. The default value is false.
 - `modifydate` (Number) It displays the date when the backup plan was last modified.
 - `scheduleoff` (String) It displays the schedule for application.
-- `slp` (Attributes) (see [below for nested schema](#nestedatt--slp))
-- `slt` (Attributes) (see [below for nested schema](#nestedatt--slt))
+- `slp` (Attributes) It displays the profile details for the backup plan. (see [below for nested schema](#nestedatt--slp))
+- `slt` (Attributes) It displays the template details for the backup plan. (see [below for nested schema](#nestedatt--slt))
 - `stale` (Boolean) It displays true or false if the data is synchronized with the management console or not.
 - `syncdate` (Number) It displays the last sync date.
 
@@ -74,9 +74,9 @@ Read-Only:
 
 Read-Only:
 
-- `href` (String) It displays the API URI for backup plan template
-- `id` (String) It displays the ID of the backup template
+- `href` (String) It displays the API URI for backup plan template.
+- `id` (String) It displays the ID of the backup template.
 - `name` (String) It displays the backup template name.
 - `override` (String) It displays if you can override the backup plan settings or not. It can be true or false.
-- `sourcename` (String) it displays the source name. It normally matches the name string.
+- `sourcename` (String) It displays the source name. It normally matches the name string.
 - `stale` (Boolean) It displays the possible values true or false.

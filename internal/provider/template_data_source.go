@@ -44,163 +44,162 @@ func (d *templateDataSource) Metadata(ctx context.Context, req datasource.Metada
 
 func (d *templateDataSource) Schema(ctx context.Context, _ datasource.SchemaRequest, resp *datasource.SchemaResponse) {
 	resp.Schema = schema.Schema{
-		MarkdownDescription: "This data source can be used to read information about a BackupDR Template. It displays the backup template ID as shown in the Management console > Manage > Backup Templates page.",
+		MarkdownDescription: "This data source can be used to read information about a backup template. It displays the backup template ID as shown in the **Management console** > **Backup Plans** > **Templates** page.",
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
-				Required:    true,
+				Required:            true,
 				MarkdownDescription: "Provide the backup template ID.",
 			},
 			"name": schema.StringAttribute{
-				Computed:    true,
-				MarkdownDescription: "Name It displays the name of the backup template.",
+				Computed:            true,
+				MarkdownDescription: "It displays the name of the backup template.",
 			},
 			"href": schema.StringAttribute{
-				Computed:    true,
-				MarkdownDescription: "It displays the API URI for Backup Plan template",
+				Computed:            true,
+				MarkdownDescription: "It displays the API URI for Backup Plan template.",
 			},
 			"description": schema.StringAttribute{
-				Computed:    true,
+				Computed:            true,
 				MarkdownDescription: "It displays the description for the backup template.",
 			},
 			"managedbyagm": schema.BoolAttribute{
-				Computed:    true,
-				MarkdownDescription: "Managed by AGM",
+				Computed: true,
 			},
 			"usedbycloudapp": schema.BoolAttribute{
-				Computed:    true,
-				MarkdownDescription: "Used by CloudApp It displays if the template is used by applications or not - true/false",
+				Computed:            true,
+				MarkdownDescription: "It displays if the template is used by applications or not - true/false.",
 			},
 			"option_href": schema.StringAttribute{
-				Computed:    true,
-				MarkdownDescription: "It displays the API URI for Backup Plan template options",
+				Computed:            true,
+				MarkdownDescription: "It displays the API URI for Backup Plan template options.",
 			},
 			"policy_href": schema.StringAttribute{
-				Computed:    true,
+				Computed:            true,
 				MarkdownDescription: "It displays the backup policy ID.",
 			},
 			"sourcename": schema.StringAttribute{
-				Computed:    true,
-				MarkdownDescription: "Source Name It displays the source name. It should match the name value.",
+				Computed:            true,
+				MarkdownDescription: "It displays the source name. It should match the name value.",
 			},
 			"override": schema.StringAttribute{
-				Computed:    true,
-				MarkdownDescription: "Override options It displays the template override settings. Setting “Yes” will allow the policies set in this template to be overridden per-application. Setting “No” will enforce the policies as configured in this template without allowing any per-application overrides.",
+				Computed:            true,
+				MarkdownDescription: "It displays the template override settings. Setting “Yes” will allow the policies set in this template to be overridden per-application. Setting “No” will enforce the policies as configured in this template without allowing any per-application overrides.",
 			},
 			"policies": schema.ListNestedAttribute{
-				Computed:    true,
-				MarkdownDescription: "List of policies (see below for nested schema)",
+				Computed:            true,
+				MarkdownDescription: "It displays the policy details.",
 				NestedObject: schema.NestedAttributeObject{
 					Attributes: map[string]schema.Attribute{
 						"id": schema.StringAttribute{
-							Computed:    true,
-							MarkdownDescription: "Unique ID for this object",
+							Computed:            true,
+							MarkdownDescription: "It displays the backup plan policy ID.",
 						},
 						"description": schema.StringAttribute{
-							Computed:    true,
+							Computed:            true,
 							MarkdownDescription: "It displays the description for the backup policy.",
 						},
 						"encrypt": schema.StringAttribute{
-							Computed:    true,
+							Computed:            true,
 							MarkdownDescription: "It displays the encryption identifier.",
 						},
 						"endtime": schema.StringAttribute{
-							Computed:    true,
+							Computed:            true,
 							MarkdownDescription: "It displays the end time for the backup plan.",
 						},
 						"exclusion": schema.StringAttribute{
-							Computed:    true,
+							Computed:            true,
 							MarkdownDescription: "It displays specific days, days of week, month and days of month excluded for backup snapshots.",
 						},
 						"exclusioninterval": schema.StringAttribute{
-							Computed:    true,
+							Computed:            true,
 							MarkdownDescription: "It displays the exclusion interval for the template. Normally set to 1.",
 						},
 						"exclusiontype": schema.StringAttribute{
-							Computed:    true,
+							Computed:            true,
 							MarkdownDescription: "It displays the exclusion type as daily, weekly, monthly, or yearly.",
 						},
 						"href": schema.StringAttribute{
-							Computed:    true,
-							MarkdownDescription: "Href of the policy",
+							Computed:            true,
+							MarkdownDescription: "It displays the url to access the backup plan template href of the policy.",
 						},
 						"iscontinuous": schema.BoolAttribute{
-							Computed:    true,
-							MarkdownDescription: "It displays boolean value true or false if the policy setting for continuous mode or windowed",
+							Computed:            true,
+							MarkdownDescription: "It displays boolean value true or false if the policy setting for continuous mode or windowed.",
 						},
 						"name": schema.StringAttribute{
-							Computed:    true,
-							MarkdownDescription: "Name of the Policy",
+							Computed:            true,
+							MarkdownDescription: "It displays the name of the policy.",
 						},
 						"op": schema.StringAttribute{
-							Computed:    true,
+							Computed:            true,
 							MarkdownDescription: "It displays the operation type. Normally set to snap, DirectOnVault, or stream_snap.",
 						},
 						"policytype": schema.StringAttribute{
-							Computed:    true,
+							Computed:            true,
 							MarkdownDescription: "It displays the backup policy type. It can be snapshot, direct to OnVault, OnVault replication, mirror, and OnVault policy.",
 						},
 						"priority": schema.StringAttribute{
-							Computed:    true,
+							Computed:            true,
 							MarkdownDescription: "It displays the application priority. It can be medium, high or low. The default job priority is medium, but you can change the priority to high or low.",
 						},
 						"remoteretention": schema.Int64Attribute{
-							Computed:    true,
+							Computed:            true,
 							MarkdownDescription: "It displays for mirror policy options.",
 						},
 						"repeatinterval": schema.StringAttribute{
-							Computed:    true,
+							Computed:            true,
 							MarkdownDescription: "It displays the interval value. Normally set to 1.",
 						},
 						"reptype": schema.StringAttribute{
-							Computed:    true,
+							Computed:            true,
 							MarkdownDescription: "It displays for mirror policy options.",
 						},
 						"retention": schema.StringAttribute{
-							Computed:    true,
+							Computed:            true,
 							MarkdownDescription: "It displays how long the image is set for retention.",
 						},
 						"retentionm": schema.StringAttribute{
-							Computed:    true,
+							Computed:            true,
 							MarkdownDescription: "It displays the retention in days, weeks, months, or years.",
 						},
 						"rpo": schema.StringAttribute{
-							Computed:    true,
+							Computed:            true,
 							MarkdownDescription: "It displays how often to run policy again. 24 is once per day.",
 						},
 						"rpom": schema.StringAttribute{
-							Computed:    true,
+							Computed:            true,
 							MarkdownDescription: "It displays the PRP in hours. You can also set the RPO in minutes.",
 						},
 						"scheduletype": schema.StringAttribute{
-							Computed:    true,
+							Computed:            true,
 							MarkdownDescription: "It displays the schedule type as daily, weekly, monthly or yearly.",
 						},
 						"selection": schema.StringAttribute{
-							Computed:    true,
+							Computed:            true,
 							MarkdownDescription: "It displays the days to run the scheduled job. For example, weekly jobs on Sunday - days of week as sun.",
 						},
 						"sourcevault": schema.Int64Attribute{
-							Computed:    true,
-							MarkdownDescription: "It displays the OnVault disk pool id. You can get the from the management console > Manage > Storage Pools, then enabling visibility of the ID column.",
+							Computed:            true,
+							MarkdownDescription: "It displays the OnVault disk pool id. You can get the from the **Management console** > **Manage** > **Storage Pools**, then enabling visibility of the ID column.",
 						},
 						"starttime": schema.StringAttribute{
-							Computed:    true,
-							MarkdownDescription: "It displays the start time for the backup plan in decimal format: total seconds = (hours x 3600) + (minutes + 60) + seconds",
+							Computed:            true,
+							MarkdownDescription: "It displays the start time for the backup plan in decimal format: total seconds = (hours x 3600) + (minutes + 60) + seconds.",
 						},
 						"targetvault": schema.Int64Attribute{
-							Computed:    true,
-							MarkdownDescription: "It displays the OnVault disk pool id. You can get the from the management console > Manage > Storage Pools, then enabling visibility of the ID column.",
+							Computed:            true,
+							MarkdownDescription: "It displays the OnVault disk pool id. You can get the from the **Management console** > **Manage** > **Storage Pools**, then enabling visibility of the ID column.",
 						},
 						"truncatelog": schema.StringAttribute{
-							Computed:    true,
-							MarkdownDescription: "It displays the Enable log truncation options. This may not work as required in advanced options.",
+							Computed:            true,
+							MarkdownDescription: "It displays the log truncation options. This may not work as required in advanced options.",
 						},
 						"verification": schema.BoolAttribute{
-							Computed:    true,
+							Computed:            true,
 							MarkdownDescription: "It displays the verification values as true or false.",
 						},
 						"verifychoice": schema.StringAttribute{
-							Computed:    true,
+							Computed:            true,
 							MarkdownDescription: "It displays the empty value by default - to be used in future versions.",
 						},
 					},

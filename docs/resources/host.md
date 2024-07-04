@@ -31,7 +31,7 @@ resource "backupdr_host" "example" {
 
 ### Required
 
-- `appliance_clusterid` (String) Provide the appliance cluster id that host is added to.
+- `appliance_clusterid` (String) Provide the appliance cluster ID that host is added to.
 - `hostname` (String) Provide the fully qualified domain name of the vCenter host.
 - `hosttype` (String) Provide the host type as vCenter.
 - `ipaddress` (String) Provide the IP address of the host.
@@ -65,7 +65,7 @@ resource "backupdr_host" "example" {
 - `modifydate` (Number) It displays the last modified using epoch format.
 - `name` (String) It displays the name of the host.
 - `originalhostid` (String) It displays the host ID on the backup/recovery appliance.
-- `pki_state` (String) It is used for VMs with agents
+- `pki_state` (String) It is used for VMs with agents.
 - `sourcecluster` (String) It displays the appliance ID where host is added.
 - `srcid` (String) It displays the applications ID on the appliance.
 - `svcname` (String) It displays the host storage naming convention for backup appliance API.

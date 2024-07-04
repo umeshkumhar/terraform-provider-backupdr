@@ -63,7 +63,7 @@ func (r *applicationComputeVMsResource) Schema(_ context.Context, _ resource.Sch
 			},
 			"projectid": schema.StringAttribute{
 				Required:            true,
-				MarkdownDescription: "Provide the ID of the project in which the resource belongs. If it is not Provided, the Provider project is used.",
+				MarkdownDescription: "Provide the ID of the project in which the resource belongs. If it is not provided, the provider project is used.",
 			},
 			"region": schema.StringAttribute{
 				Required:            true,
@@ -72,16 +72,16 @@ func (r *applicationComputeVMsResource) Schema(_ context.Context, _ resource.Sch
 			"vmids": schema.ListAttribute{
 				Required:            true,
 				ElementType:         types.StringType,
-				MarkdownDescription: "Provide the list of GCP instance IDs",
+				MarkdownDescription: "Provide the list of GCP instance IDs.",
 			},
 			"status": schema.StringAttribute{
 				Computed:            true,
-				MarkdownDescription: "The status of the request.",
+				MarkdownDescription: "It displays the status of the request.",
 			},
 			"applications": schema.ListAttribute{
 				Computed:            true,
 				ElementType:         types.StringType,
-				MarkdownDescription: "The list of Application IDs ",
+				MarkdownDescription: "It displays the list of Application IDs.",
 			},
 		},
 	}

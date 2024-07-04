@@ -70,13 +70,13 @@ resource "backupdr_template" "example" {
 - `description` (String) Provide a description for the backup template.
 - `managedbyagm` (Boolean)
 - `override` (String) Setting “Yes” will allow the policies set in this template to be overridden per-application. Setting “No” will enforce the policies as configured in this template without allowing any per-application overrides.
-- `policies` (Attributes List) (see [below for nested schema](#nestedatt--policies))
+- `policies` (Attributes List) Provide policy details for backup template. (see [below for nested schema](#nestedatt--policies))
 - `sourcename` (String) Provide the source name. It should match the name value.
-- `usedbycloudapp` (Boolean) It displays if the template is used by applications or not -  rue/false
+- `usedbycloudapp` (Boolean) It displays if the template is used by applications or not - true/false.
 
 ### Read-Only
 
-- `href` (String) It displays the API URI for Backup Plan template
+- `href` (String) It displays the API URI for Backup Plan template.
 - `id` (String) This displays the backup template ID.
 - `option_href` (String) It displays the API URI for Backup Plan template options
 - `policy_href` (String) This displays the backup policy ID.
@@ -96,7 +96,7 @@ Optional:
 - `exclusion` (String) Specify days, days of week, month and days of month to exclude backup snapshots.
 - `exclusioninterval` (String) Provide the exclusion interval for the template. Normally set to 1.
 - `exclusiontype` (String) Provide the exclusion type as daily, weekly, monthly, or yearly.
-- `iscontinuous` (Boolean) provide true or false if the policy setting for continuous mode or windowed
+- `iscontinuous` (Boolean) provide true or false if the policy setting for continuous mode or windowed.
 - `op` (String) Provide the operation type. Normally set to snap, DirectOnVault, or stream_snap.
 - `policytype` (String) Provide the backup policy type. It can be snapshot, direct to OnVault, OnVault replication, mirror, and OnVault policy.
 - `priority` (String) Provide the application priority. It can be medium, high or low. The default job priority is medium, but you can change the priority to high or low.
@@ -109,9 +109,9 @@ Optional:
 - `rpom` (String) Provide PRP in hours. You can also set the RPO in  minutes.
 - `scheduletype` (String) Set the schedule type as daily, weekly, monthly or yearly.
 - `selection` (String) Set what days to run the scheduled job. For example, weekly jobs on Sunday - days of week as sun.
-- `sourcevault` (Number) Provide the OnVault disk pool id. You can get the from the management console > Manage > Storage Pools, then enabling visibility of the ID column.
+- `sourcevault` (Number) Provide the OnVault disk pool id. You can get the from the **management console** > **Manage** > **Storage Pools**, then enabling visibility of the ID column.
 - `starttime` (String) Provide the start time for the backup plan in decimal format: total seconds = (hours x 3600) + (minutes + 60) + seconds
-- `targetvault` (Number) Provide the OnVault disk pool id. You can get the from the management console > Manage > Storage Pools, then enabling visibility of the ID column.
+- `targetvault` (Number) Provide the OnVault disk pool id. You can get the from the **management console** > **Manage** > **Storage Pools**, then enabling visibility of the ID column.
 - `truncatelog` (String) Enable log truncation. This may not work as required in advanced options.
 - `verification` (Boolean) Provide the verification values as true or false.
 - `verifychoice` (String) Empty value by default - to be used in future versions.

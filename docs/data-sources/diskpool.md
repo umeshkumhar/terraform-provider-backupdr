@@ -3,12 +3,12 @@
 page_title: "backupdr_diskpool Data Source - terraform-provider-backupdr"
 subcategory: ""
 description: |-
-  BackupDR DiskPool
+  This data source can be used to read information about a Backup and DR service diskpool.
 ---
 
 # backupdr_diskpool (Data Source)
 
-BackupDR DiskPool
+This data source can be used to read information about a Backup and DR service diskpool.
 
 ## Example Usage
 
@@ -28,9 +28,9 @@ data "backupdr_diskpool" "example" {
 
 ### Read-Only
 
-- `appliance_clusterid` (String) Provide the backup/recovery appliance ID.
+- `appliance_clusterid` (String) It displays the backup/recovery appliance ID.
 - `capacity_mb` (Number) It displays the current pool capacity in Megabytes.
-- `cluster` (Attributes) (see [below for nested schema](#nestedatt--cluster))
+- `cluster` (Attributes) It displays the properties of the cluster. (see [below for nested schema](#nestedatt--cluster))
 - `free_mb` (Number) It displays the free pool space in Megabytes.
 - `href` (String) It displays the URL to access the storage pools in the management console.
 - `immutable` (Boolean) It displays the immutable values - true or false.
@@ -41,7 +41,7 @@ data "backupdr_diskpool" "example" {
 - `pct` (Number) It displays the percentage of the pool used.
 - `pooltype` (String) It displays the type of storage pool (cloud/perf/primary/vault), where perf = snapshot type.
 - `pooltypedisplayname` (String) It displays the type of storage pool (cloud/perf/primary/vault), where perf = snapshot type.
-- `properties` (Attributes List) (see [below for nested schema](#nestedatt--properties))
+- `properties` (Attributes List) It displays the key-value pair for the diskpool. (see [below for nested schema](#nestedatt--properties))
 - `safepct` (Number) It displays the safe percent number, where alerts are generated once this threshold is met. Backup jobs or mounts will not be possible where this value is met.
 - `srcid` (String) It displays the source ID on the appliance.
 - `stale` (Boolean) It displays the state of the disk pool. Ok indicates the disk pool is healthy.
@@ -51,7 +51,7 @@ data "backupdr_diskpool" "example" {
 - `udsuid` (Number)
 - `usage_mb` (Number) It displays the current consumption of the pool in Megabytes.
 - `usedefaultsa` (Boolean) It displays true or false.
-- `vaultprops` (Attributes) (see [below for nested schema](#nestedatt--vaultprops))
+- `vaultprops` (Attributes) It displays the properties of OnVault. (see [below for nested schema](#nestedatt--vaultprops))
 - `warnpct` (Number) It displays the warn percent number, where alerts are generated once this threshold is met. Backup jobs and mounts can continue in this warning state.
 
 <a id="nestedatt--cluster"></a>
@@ -59,7 +59,7 @@ data "backupdr_diskpool" "example" {
 
 Read-Only:
 
-- `clusterid` (String) It displays the backup/recovery appliance ID as shown in the Management console > Manage > Appliances page.
+- `clusterid` (String) It displays the backup/recovery appliance ID as shown in the **Management console** > **Manage** > **Appliances** page.
 - `href` (String) It displays the API URI for disk pool.
 - `id` (String) It displays the unique cluster id used in api call.
 - `ipaddress` (String) It displays the IP address of the backup/recovery appliance ID.
@@ -72,7 +72,7 @@ Read-Only:
 - `serviceaccount` (String) It displays the GCP service account used for OnVault pool access.
 - `stale` (Boolean) It displays the possible values true or false.
 - `supportstatus` (String) It displays the appliance up to date with latest patches or updates status. It can be true or false.
-- `syncdate` (Number) It displays the last sync date between appliance and management console
+- `syncdate` (Number) It displays the last sync date between appliance and management console.
 - `type` (String) It displays the appliance type.
 - `version` (String) It displays the version of the backup appliance.
 - `zone` (String) It displays the zone where the appliance is located.
@@ -94,7 +94,7 @@ Read-Only:
 
 - `bucket` (String) It displays the OnVault pool bucket ID.
 - `compression` (Boolean) It displays the possible compression values true or false.
-- `href` (String) It displays the API URI for disk pool
+- `href` (String) It displays the API URI for disk pool.
 - `id` (String) It displays the unique ID for objects.
 - `region` (String) It displays the region where the OnVault pool is created.
 - `stale` (Boolean) It displays the possible values true or false.

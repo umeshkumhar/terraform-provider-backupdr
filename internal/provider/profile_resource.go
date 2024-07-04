@@ -44,11 +44,11 @@ func (r *profileResource) Metadata(_ context.Context, req resource.MetadataReque
 func (r *profileResource) Schema(_ context.Context, _ resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		MarkdownDescription: "A resource profile specifies the storage media for backups of application and VM data. The template and the resource profile that make up the backup plan dictate the type of application data policies to perform and where to store the application data backups (which storage pool is used). Resource Profiles define which snapshot pool (if needed) is used and which remote appliance data is replicated. " +
-			"In addition to templates, you also create resource profiles in the backup plans menu. Profiles define where to store data. Data can be stored in the following: " +
-			"Primary Appliance: The backup/recovery appliance that the resource profile is created for. This includes selecting which appliance snapshot pool will be used. " +
-			"Remote Appliance: The backup/recovery appliance used for remote replication. This remote appliance must be an appliance that is already paired to the selected local appliance. You can configure the remote appliance field only when one or more remote appliances are configured on the selected local appliance. See [Join appliance in non-sharing mode](https://cloud.google.com/backup-disaster-recovery/docs/concepts/join-appliance). " +
-			"OnVault: Up to four object storage buckets defined by an OnVault storage pool. The OnVault pools store compressed and encrypted backups of application data on Google Cloud Storage. " +
-			"For more information, see [Resource profile](https://cloud.google.com/backup-disaster-recovery/docs/concepts/resource-profile).",
+			"In addition to templates, you also create resource profiles in the backup plans menu. Profiles define where to store data. Data can be stored in the following: \n" +
+			" - Primary Appliance: The backup/recovery appliance that the resource profile is created for. This includes selecting which appliance snapshot pool will be used. \n" +
+			" - Remote Appliance: The backup/recovery appliance used for remote replication. This remote appliance must be an appliance that is already paired to the selected local appliance. You can configure the remote appliance field only when one or more remote appliances are configured on the selected local appliance. \n" +
+			" - OnVault: Up to four object storage buckets defined by an OnVault storage pool. The OnVault pools store compressed and encrypted backups of application data on Google Cloud Storage. \n" +
+			"For more information, see [Resource profile](https://cloud.google.com/backup-disaster-recovery/docs/create-plan/create-resource-profiles).",
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
 				Computed: true,
@@ -67,7 +67,7 @@ func (r *profileResource) Schema(_ context.Context, _ resource.SchemaRequest, re
 			},
 			"description": schema.StringAttribute{
 				Optional:            true,
-				MarkdownDescription: "Provide a description for the resource profile",
+				MarkdownDescription: "Provide a description for the resource profile.",
 			},
 			"cid": schema.StringAttribute{
 				Optional:            true,

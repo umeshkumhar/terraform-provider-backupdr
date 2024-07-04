@@ -8,7 +8,7 @@ description: |-
 
 # backupdr_cloudcredentials (Data Source)
 
-This data source can be used to read information about all BackupDR Cloud Credentials. It displays the cloud credential ID as shown in the Management console > Manage > Cloud Credentials page.
+This data source can be used to read information about all BackupDR Cloud Credentials. It displays the cloud credential ID as shown in the **Management console** > **Manage** > **Cloud Credentials** page.
 
 ## Example Usage
 

@@ -29,11 +29,11 @@ resource "backupdr_application_compute_vm" "example" {
 
 - `appliance_clusterid` (String) Provide the ID of the backup/recovery appliance.
 - `cloudcredential` (String) Provide the ID of the cloud credential.
-- `projectid` (String) Provide the ID of the project in which the resource belongs. If it is not Provided, the Provider project is used.
+- `projectid` (String) Provide the ID of the project in which the resource belongs. If it is not provided, the provider project is used.
 - `region` (String) Provide the region to create the cloud credential.
-- `vmids` (List of String) Provide the list of GCP instance IDs
+- `vmids` (List of String) Provide the list of GCP instance IDs.
 
 ### Read-Only
 
-- `applications` (List of String) The list of Application IDs
-- `status` (String) The status of the request.
+- `applications` (List of String) It displays the list of Application IDs.
+- `status` (String) It displays the status of the request.

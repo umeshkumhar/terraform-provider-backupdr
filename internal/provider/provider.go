@@ -55,6 +55,7 @@ func (p *backupdrProvider) Metadata(ctx context.Context, _ provider.MetadataRequ
 // Schema defines the provider-level schema for configuration data.
 func (p *backupdrProvider) Schema(ctx context.Context, _ provider.SchemaRequest, resp *provider.SchemaResponse) {
 	resp.Schema = schema.Schema{
+		
 		Attributes: map[string]schema.Attribute{
 			"endpoint": schema.StringAttribute{
 				Required: true,

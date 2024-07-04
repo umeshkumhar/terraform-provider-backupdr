@@ -3,12 +3,15 @@
 page_title: "backupdr_diskpool Resource - terraform-provider-backupdr"
 subcategory: ""
 description: |-
-  Backup/recovery appliances store data in these types of pools: Primary, Cloud, OnVault, and Snapshot. Every backup/recovery appliance has one primary pool that contains metadata and log files for the backup/recovery appliance. No user data or backups are stored in the primary pool. Cloud type pools represent Cloud credentials used to back up Compute Engine instances, These pools are automatically created when a Cloud credential is created. They do not represent a pool of disks managed by the backup/recovery appliance.  OnVault pools Provide long-term object storage using Google Cloud storage buckets. Snapshot pools contain your most recent backups and restored images. They enable instant access to your data. For more information, see Storage pools https://cloud.google.com/backup-disaster-recovery/docs/concepts/storage-pools.
+  Backup/recovery appliances store data in these types of pools: Primary, Cloud, OnVault, and Snapshot. Every backup/recovery appliance has one primary pool that contains metadata and log files for the backup/recovery appliance. No user data or backups are stored in the primary pool.
+  Cloud type pools represent Cloud credentials used to back up Compute Engine instances. These pools are automatically created when a Cloud credential is created. They do not represent a pool of disks managed by the backup/recovery appliance.OnVault pools provide long-term object storage using Google Cloud storage buckets. Snapshot pools contain your most recent backups and restored images. They enable instant access to your data. For more information, see Storage pools https://cloud.google.com/backup-disaster-recovery/docs/concepts/storage-pools.
 ---
 
 # backupdr_diskpool (Resource)
 
-Backup/recovery appliances store data in these types of pools: Primary, Cloud, OnVault, and Snapshot. Every backup/recovery appliance has one primary pool that contains metadata and log files for the backup/recovery appliance. No user data or backups are stored in the primary pool. Cloud type pools represent Cloud credentials used to back up Compute Engine instances, These pools are automatically created when a Cloud credential is created. They do not represent a pool of disks managed by the backup/recovery appliance.  OnVault pools Provide long-term object storage using Google Cloud storage buckets. Snapshot pools contain your most recent backups and restored images. They enable instant access to your data. For more information, see [Storage pools](https://cloud.google.com/backup-disaster-recovery/docs/concepts/storage-pools).
+Backup/recovery appliances store data in these types of pools: Primary, Cloud, OnVault, and Snapshot. Every backup/recovery appliance has one primary pool that contains metadata and log files for the backup/recovery appliance. No user data or backups are stored in the primary pool. 
+Cloud type pools represent Cloud credentials used to back up Compute Engine instances. These pools are automatically created when a Cloud credential is created. They do not represent a pool of disks managed by the backup/recovery appliance.  
+OnVault pools provide long-term object storage using Google Cloud storage buckets. Snapshot pools contain your most recent backups and restored images. They enable instant access to your data. For more information, see [Storage pools](https://cloud.google.com/backup-disaster-recovery/docs/concepts/storage-pools).
 
 ## Example Usage
 
@@ -46,23 +49,23 @@ resource "backupdr_diskpool" "name" {
 - `appliance_clusterid` (String) Provide the backup/recovery appliance ID.
 - `name` (String) Provide a name for the storage pool.
 - `pooltype` (String) Specify the storage pool type as “Vault”.
-- `properties` (Attributes List) (see [below for nested schema](#nestedatt--properties))
+- `properties` (Attributes List) Provide the key-value pair for the diskpool. It can be accessid, bucket name, vaultype or compression. (see [below for nested schema](#nestedatt--properties))
 
 ### Optional
 
-- `vaultprops` (Attributes) (see [below for nested schema](#nestedatt--vaultprops))
+- `vaultprops` (Attributes) It displays the properties of OnVault. (see [below for nested schema](#nestedatt--vaultprops))
 
 ### Read-Only
 
 - `capacity_mb` (Number) It displays the current pool capacity in Megabytes.
-- `cluster` (Attributes) (see [below for nested schema](#nestedatt--cluster))
+- `cluster` (Attributes) It displays the properties of the cluster. (see [below for nested schema](#nestedatt--cluster))
 - `free_mb` (Number) It displays the free pool space in Megabytes.
 - `href` (String) It displays the URL to access the storage pools in the management console.
-- `id` (String) Provide the backup/recovery appliance ID.
+- `id` (String) It displays the backup/recovery appliance ID.
 - `immutable` (Boolean) It displays the immutable values - true or false.
 - `mdiskgrp` (String) It displays the storage pool name.
 - `metadataonly` (Boolean) Identifies if this Storage pool is used for PD snapshot metadata or as a backup data storage pool. It displays true or false.
-- `modifydate` (Number) It displays the modified date in epoch time or date conversion
+- `modifydate` (Number) It displays the modified date in epoch time or date conversion.
 - `pct` (Number) It displays the percentage of the pool used.
 - `pooltypedisplayname` (String) It displays the type of storage pool (cloud/perf/primary/vault), where perf = snapshot type.
 - `safepct` (Number) It displays the safe percent number, where alerts are generated once this threshold is met. Backup jobs or mounts will not be possible where this value is met.
@@ -92,7 +95,7 @@ Read-Only:
 
 - `bucket` (String) It displays the OnVault pool bucket ID.
 - `compression` (Boolean) It displays the possible compression values true or false.
-- `href` (String) It displays the API URI for disk pool
+- `href` (String) It displays the API URI for disk pool.
 - `id` (String) It displays the unique ID for objects.
 - `region` (String) It displays the region where the OnVault pool is created.
 - `stale` (Boolean) It displays the possible values true or false.
@@ -104,9 +107,9 @@ Read-Only:
 
 Read-Only:
 
-- `clusterid` (String) It displays the backup/recovery appliance ID as shown in the Management console > Manage > Appliances page.
+- `clusterid` (String) It displays the backup/recovery appliance ID as shown in the *Management console* > *Manage* > *Appliances* page.
 - `href` (String) It displays the API URI for disk pool.
-- `id` (String) It displays the unique cluster id used in api call.
+- `id` (String) It displays the unique cluster ID used in api call.
 - `ipaddress` (String) It displays the IP address of the backup/recovery appliance ID.
 - `name` (String) It displays the name of the storage pool.
 - `pkibootstrapped` (Boolean) It displays if the PKI boot strap is enabled or not.
@@ -117,7 +120,7 @@ Read-Only:
 - `serviceaccount` (String) It displays the GCP service account used for OnVault pool access.
 - `stale` (Boolean) It displays the possible values true or false.
 - `supportstatus` (String) It displays the appliance up to date with latest patches or updates status. It can be true or false.
-- `syncdate` (Number) It displays the last sync date between appliance and management console
+- `syncdate` (Number) It displays the last sync date between appliance and management console.
 - `type` (String) It displays the appliance type.
 - `version` (String) It displays the version of the backup appliance.
 - `zone` (String) It displays the zone where the appliance is located.

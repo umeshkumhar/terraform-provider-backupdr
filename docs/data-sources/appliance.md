@@ -3,12 +3,12 @@
 page_title: "backupdr_appliance Data Source - terraform-provider-backupdr"
 subcategory: ""
 description: |-
-  This data source can be used to read information about a BackupDR Appliance. It displays the backup/recovery appliance ID as shown in the Management console > Manage > Appliances page.
+  This data source can be used to read information about a backup/recovery Appliance. It displays the backup/recovery appliance ID as shown in the Management console > Manage > Appliances page.
 ---
 
 # backupdr_appliance (Data Source)
 
-This data source can be used to read information about a BackupDR Appliance. It displays the backup/recovery appliance ID as shown in the Management console > Manage > Appliances page.
+This data source can be used to read information about a backup/recovery Appliance. It displays the backup/recovery appliance ID as shown in the **Management console** > **Manage** > **Appliances** page.
 
 ## Example Usage
 
@@ -28,7 +28,7 @@ data "backupdr_appliance" "example" {
 
 ### Read-Only
 
-- `clusterid` (String) It displays the backup/recovery appliance ID as shown in the Management console > Manage > Appliances page.
+- `clusterid` (String) It displays the backup/recovery appliance ID as shown in the **Management console** > **Manage** > **Appliances** page.
 - `href` (String) It displays the URL to access the storage pools in the management console.
 - `ipaddress` (String) It displays the IP address of the backup/recovery appliance ID.
 - `name` (String) It displays the name of the backup/recovery appliance ID.

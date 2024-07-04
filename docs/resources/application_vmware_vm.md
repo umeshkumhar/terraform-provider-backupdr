@@ -26,12 +26,12 @@ resource "backupdr_application_vmware_vm" "name" {
 
 ### Required
 
-- `appliance_id` (String) Provide the backup/recovery appliance ID
+- `appliance_id` (String) Provide the backup/recovery appliance ID.
 - `cluster_name` (String) Provide a cluster name of the vCenter.
-- `vcenter_id` (String) Provide the ID for the vCenter host
-- `vms` (List of String) Provide the list of VMs UUID
+- `vcenter_id` (String) Provide the ID for the vCenter host.
+- `vms` (List of String) Provide the list of VMs UUID.
 
 ### Read-Only
 
-- `applications` (List of String) The list of Application IDs.
-- `status` (String) The status of the request.
+- `applications` (List of String) It displays the list of application IDs.
+- `status` (String) It displays the status of the request.

@@ -45,16 +45,16 @@ func (r *diskpoolResource) Metadata(_ context.Context, req resource.MetadataRequ
 // Schema defines the schema for the resource.
 func (r *diskpoolResource) Schema(_ context.Context, _ resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
-		MarkdownDescription: "Backup/recovery appliances store data in these types of pools: Primary, Cloud, OnVault, and Snapshot. Every backup/recovery appliance has one primary pool that contains metadata and log files for the backup/recovery appliance. No user data or backups are stored in the primary pool. " +
-			"Cloud type pools represent Cloud credentials used to back up Compute Engine instances, These pools are automatically created when a Cloud credential is created. They do not represent a pool of disks managed by the backup/recovery appliance.  " +
-			"OnVault pools Provide long-term object storage using Google Cloud storage buckets. Snapshot pools contain your most recent backups and restored images. They enable instant access to your data. For more information, see [Storage pools](https://cloud.google.com/backup-disaster-recovery/docs/concepts/storage-pools).",
+		MarkdownDescription: "Backup/recovery appliances store data in these types of pools: Primary, Cloud, OnVault, and Snapshot. Every backup/recovery appliance has one primary pool that contains metadata and log files for the backup/recovery appliance. No user data or backups are stored in the primary pool. \n" +
+			"Cloud type pools represent Cloud credentials used to back up Compute Engine instances. These pools are automatically created when a Cloud credential is created. They do not represent a pool of disks managed by the backup/recovery appliance.  \n" +
+			"OnVault pools provide long-term object storage using Google Cloud storage buckets. Snapshot pools contain your most recent backups and restored images. They enable instant access to your data. For more information, see [Storage pools](https://cloud.google.com/backup-disaster-recovery/docs/concepts/storage-pools).",
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
 				Computed: true,
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.UseStateForUnknown(),
 				},
-				MarkdownDescription: "Provide the backup/recovery appliance ID.",
+				MarkdownDescription: "It displays the backup/recovery appliance ID.",
 			},
 			"name": schema.StringAttribute{
 				Required:            true,
@@ -70,7 +70,7 @@ func (r *diskpoolResource) Schema(_ context.Context, _ resource.SchemaRequest, r
 			},
 			"modifydate": schema.Int64Attribute{
 				Computed:            true,
-				MarkdownDescription: "It displays the modified date in epoch time or date conversion",
+				MarkdownDescription: "It displays the modified date in epoch time or date conversion.",
 			},
 			"syncdate": schema.Int64Attribute{
 				Computed:            true,
@@ -143,7 +143,8 @@ func (r *diskpoolResource) Schema(_ context.Context, _ resource.SchemaRequest, r
 			},
 
 			"properties": schema.ListNestedAttribute{
-				Required: true,
+				Required:            true,
+				MarkdownDescription: "Provide the key-value pair for the diskpool. It can be accessid, bucket name, vaultype or compression.",
 				NestedObject: schema.NestedAttributeObject{
 					Attributes: map[string]schema.Attribute{
 						"key": schema.StringAttribute{
@@ -162,7 +163,8 @@ func (r *diskpoolResource) Schema(_ context.Context, _ resource.SchemaRequest, r
 				MarkdownDescription: "Provide the backup/recovery appliance ID.",
 			},
 			"cluster": schema.SingleNestedAttribute{
-				Computed: true,
+				Computed:            true,
+				MarkdownDescription: "It displays the properties of the cluster.",
 				Default: objectdefault.StaticValue(
 					types.ObjectValueMust(
 						map[string]attr.Type{
@@ -176,7 +178,7 @@ func (r *diskpoolResource) Schema(_ context.Context, _ resource.SchemaRequest, r
 				Attributes: map[string]schema.Attribute{
 					"id": schema.StringAttribute{
 						Computed:            true,
-						MarkdownDescription: "It displays the unique cluster id used in api call.",
+						MarkdownDescription: "It displays the unique cluster ID used in api call.",
 					},
 					"name": schema.StringAttribute{
 						Computed:            true,
@@ -188,7 +190,7 @@ func (r *diskpoolResource) Schema(_ context.Context, _ resource.SchemaRequest, r
 					},
 					"clusterid": schema.StringAttribute{
 						Computed:            true,
-						MarkdownDescription: "It displays the backup/recovery appliance ID as shown in the Management console > Manage > Appliances page.",
+						MarkdownDescription: "It displays the backup/recovery appliance ID as shown in the *Management console* > *Manage* > *Appliances* page.",
 					},
 					"serviceaccount": schema.StringAttribute{
 						Computed:            true,
@@ -240,12 +242,13 @@ func (r *diskpoolResource) Schema(_ context.Context, _ resource.SchemaRequest, r
 					},
 					"syncdate": schema.Int64Attribute{
 						Computed:            true,
-						MarkdownDescription: "It displays the last sync date between appliance and management console",
+						MarkdownDescription: "It displays the last sync date between appliance and management console.",
 					},
 				},
 			},
 			"vaultprops": schema.SingleNestedAttribute{
-				Optional: true,
+				Optional:            true,
+				MarkdownDescription: "It displays the properties of OnVault.",
 				Attributes: map[string]schema.Attribute{
 					"id": schema.StringAttribute{
 						Computed:            true,
@@ -257,7 +260,7 @@ func (r *diskpoolResource) Schema(_ context.Context, _ resource.SchemaRequest, r
 					},
 					"href": schema.StringAttribute{
 						Computed:            true,
-						MarkdownDescription: "It displays the API URI for disk pool",
+						MarkdownDescription: "It displays the API URI for disk pool.",
 					},
 					"region": schema.StringAttribute{
 						Computed:            true,

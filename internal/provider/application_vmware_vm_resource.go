@@ -55,11 +55,11 @@ func (r *applicationVmwareVMsResource) Schema(_ context.Context, _ resource.Sche
 		Attributes: map[string]schema.Attribute{
 			"appliance_id": schema.StringAttribute{
 				Required:            true,
-				MarkdownDescription: "Provide the backup/recovery appliance ID",
+				MarkdownDescription: "Provide the backup/recovery appliance ID.",
 			},
 			"vcenter_id": schema.StringAttribute{
 				Required:            true,
-				MarkdownDescription: "Provide the ID for the vCenter host",
+				MarkdownDescription: "Provide the ID for the vCenter host.",
 			},
 			"cluster_name": schema.StringAttribute{
 				Required:            true,
@@ -68,16 +68,16 @@ func (r *applicationVmwareVMsResource) Schema(_ context.Context, _ resource.Sche
 			"vms": schema.ListAttribute{
 				Required:            true,
 				ElementType:         types.StringType,
-				MarkdownDescription: "Provide the list of VMs UUID",
+				MarkdownDescription: "Provide the list of VMs UUID.",
 			},
 			"status": schema.StringAttribute{
 				Computed:            true,
-				MarkdownDescription: "The status of the request.",
+				MarkdownDescription: "It displays the status of the request.",
 			},
 			"applications": schema.ListAttribute{
 				Computed:            true,
 				ElementType:         types.StringType,
-				MarkdownDescription: "The list of Application IDs.",
+				MarkdownDescription: "It displays the list of application IDs.",
 			},
 		},
 	}
