@@ -48,6 +48,7 @@ func (d *applianceAllDataSource) Metadata(ctx context.Context, req datasource.Me
 
 func (d *applianceAllDataSource) Schema(ctx context.Context, req datasource.SchemaRequest, resp *datasource.SchemaResponse) {
 	resp.Schema = schema.Schema{
+		MarkdownDescription: "This data source can be used to read information about all BackupDR Appliances. It displays the backup/recovery appliance ID as shown in the Management console > Manage > Appliances page.",
 		Attributes: map[string]schema.Attribute{
 			"items": schema.ListNestedAttribute{
 				Computed: true,
@@ -55,51 +56,67 @@ func (d *applianceAllDataSource) Schema(ctx context.Context, req datasource.Sche
 					Attributes: map[string]schema.Attribute{
 						"id": schema.StringAttribute{
 							Computed: true,
+							MarkdownDescription: "It displays the ID of the appliance.",
 						},
 						"href": schema.StringAttribute{
 							Computed: true,
+							MarkdownDescription: "It displays the URL to access the storage pools in the management console.",
 						},
 						"stale": schema.BoolAttribute{
 							Computed: true,
+							MarkdownDescription: "It displays the possible values true or false.",
 						},
 						"clusterid": schema.StringAttribute{
 							Computed: true,
+							MarkdownDescription: "It displays the backup/recovery appliance ID as shown in the Management console > Manage > Appliances page.",
 						},
 						"serviceaccount": schema.StringAttribute{
 							Computed: true,
+							MarkdownDescription: "It displays the GCP service account used for backup/recovery appliances.",
 						},
 						"zone": schema.StringAttribute{
 							Computed: true,
+							MarkdownDescription: "It displays the zone where the appliance is located.",
 						},
 						"region": schema.StringAttribute{
 							Computed: true,
+							MarkdownDescription: "It displays the region where the backup/recovery appliance is created.",
 						},
 						"projectid": schema.StringAttribute{
 							Computed: true,
+							MarkdownDescription: "It displays the project ID of the backup/recovery appliance ID.",
 						},
 						"version": schema.StringAttribute{
 							Computed: true,
+							MarkdownDescription: "It displays the version of the backup appliance.",
 						},
 						"name": schema.StringAttribute{
 							Computed: true,
+							MarkdownDescription: "It displays the name of the backup/recovery appliance ID.",
 						},
 						"type": schema.StringAttribute{
 							Computed: true,
+							MarkdownDescription: "It displays the appliance type.",
 						},
 						"ipaddress": schema.StringAttribute{
 							Computed: true,
+							MarkdownDescription: "It displays the IP address of the backup/recovery appliance ID.",
 						},
 						"publicip": schema.StringAttribute{
 							Computed: true,
+							MarkdownDescription: "It displays the public IP of the backup/recovery appliance ID.",
 						},
 						"supportstatus": schema.StringAttribute{
 							Computed: true,
+							MarkdownDescription: "It displays the appliance up to date with latest patches or updates status. It can be true or false.",
 						},
 						"secureconnect": schema.BoolAttribute{
 							Computed: true,
+							MarkdownDescription: "It displays the possible values for secure connect as true or false.",
 						},
 						"pkibootstrapped": schema.BoolAttribute{
 							Computed: true,
+							MarkdownDescription: "It displays if the PKI boot strap is enabled or not.",
 						},
 					},
 				},

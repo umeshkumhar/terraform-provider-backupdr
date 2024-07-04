@@ -3,12 +3,12 @@
 page_title: "backupdr_template Data Source - terraform-provider-backupdr"
 subcategory: ""
 description: |-
-  Read details about SLA Template
+  This data source can be used to read information about a BackupDR Template. It displays the backup template ID as shown in the Management console > Manage > Backup Templates page.
 ---
 
 # backupdr_template (Data Source)
 
-Read details about SLA Template
+This data source can be used to read information about a BackupDR Template. It displays the backup template ID as shown in the Management console > Manage > Backup Templates page.
 
 ## Example Usage
 
@@ -24,51 +24,51 @@ data "backupdr_template" "example" {
 
 ### Required
 
-- `id` (String) Unique ID for this object
+- `id` (String) Provide the backup template ID.
 
 ### Read-Only
 
-- `description` (String) description
-- `href` (String) URL to access this object format
+- `description` (String) It displays the description for the backup template.
+- `href` (String) It displays the API URI for Backup Plan template
 - `managedbyagm` (Boolean) Managed by AGM
-- `name` (String) Name
-- `option_href` (String) Href for options
-- `override` (String) Override options
-- `policies` (Attributes List) List of policies (see [below for nested schema](#nestedatt--policies))
-- `policy_href` (String) Href for policy
-- `sourcename` (String) Source Name
-- `usedbycloudapp` (Boolean) Used by CloudApp
+- `name` (String) Name It displays the name of the backup template.
+- `option_href` (String) It displays the API URI for Backup Plan template options
+- `override` (String) Override options It displays the template override settings. Setting “Yes” will allow the policies set in this template to be overridden per-application. Setting “No” will enforce the policies as configured in this template without allowing any per-application overrides.
+- `policies` (Attributes List) List of policies (see below for nested schema) (see [below for nested schema](#nestedatt--policies))
+- `policy_href` (String) It displays the backup policy ID.
+- `sourcename` (String) Source Name It displays the source name. It should match the name value.
+- `usedbycloudapp` (Boolean) Used by CloudApp It displays if the template is used by applications or not - true/false
 
 <a id="nestedatt--policies"></a>
 ### Nested Schema for `policies`
 
 Read-Only:
 
-- `description` (String) description
-- `encrypt` (String) Encrypt
-- `endtime` (String) End Time
-- `exclusion` (String) Exclusion
-- `exclusioninterval` (String) Exclusion Interval
-- `exclusiontype` (String) Exclusion Type
+- `description` (String) It displays the description for the backup policy.
+- `encrypt` (String) It displays the encryption identifier.
+- `endtime` (String) It displays the end time for the backup plan.
+- `exclusion` (String) It displays specific days, days of week, month and days of month excluded for backup snapshots.
+- `exclusioninterval` (String) It displays the exclusion interval for the template. Normally set to 1.
+- `exclusiontype` (String) It displays the exclusion type as daily, weekly, monthly, or yearly.
 - `href` (String) Href of the policy
 - `id` (String) Unique ID for this object
-- `iscontinuous` (Boolean) Is Continous
+- `iscontinuous` (Boolean) It displays boolean value true or false if the policy setting for continuous mode or windowed
 - `name` (String) Name of the Policy
-- `op` (String) Operation
-- `policytype` (String) Policy Type
-- `priority` (String) priority
-- `remoteretention` (Number) Remote Retention
-- `repeatinterval` (String) Repeat Interval
-- `reptype` (String) Rep Type
-- `retention` (String) Retention
-- `retentionm` (String) Retention Type
-- `rpo` (String) RPO
-- `rpom` (String) RPO months
-- `scheduletype` (String) Schedule Type
-- `selection` (String) Selection
-- `sourcevault` (Number) Source Vault
-- `starttime` (String) Start Time
-- `targetvault` (Number) Target Vault
-- `truncatelog` (String) Truncate Log
-- `verification` (Boolean) Verification
-- `verifychoice` (String) Verify Choice
+- `op` (String) It displays the operation type. Normally set to snap, DirectOnVault, or stream_snap.
+- `policytype` (String) It displays the backup policy type. It can be snapshot, direct to OnVault, OnVault replication, mirror, and OnVault policy.
+- `priority` (String) It displays the application priority. It can be medium, high or low. The default job priority is medium, but you can change the priority to high or low.
+- `remoteretention` (Number) It displays for mirror policy options.
+- `repeatinterval` (String) It displays the interval value. Normally set to 1.
+- `reptype` (String) It displays for mirror policy options.
+- `retention` (String) It displays how long the image is set for retention.
+- `retentionm` (String) It displays the retention in days, weeks, months, or years.
+- `rpo` (String) It displays how often to run policy again. 24 is once per day.
+- `rpom` (String) It displays the PRP in hours. You can also set the RPO in minutes.
+- `scheduletype` (String) It displays the schedule type as daily, weekly, monthly or yearly.
+- `selection` (String) It displays the days to run the scheduled job. For example, weekly jobs on Sunday - days of week as sun.
+- `sourcevault` (Number) It displays the OnVault disk pool id. You can get the from the management console > Manage > Storage Pools, then enabling visibility of the ID column.
+- `starttime` (String) It displays the start time for the backup plan in decimal format: total seconds = (hours x 3600) + (minutes + 60) + seconds
+- `targetvault` (Number) It displays the OnVault disk pool id. You can get the from the management console > Manage > Storage Pools, then enabling visibility of the ID column.
+- `truncatelog` (String) It displays the Enable log truncation options. This may not work as required in advanced options.
+- `verification` (Boolean) It displays the verification values as true or false.
+- `verifychoice` (String) It displays the empty value by default - to be used in future versions.

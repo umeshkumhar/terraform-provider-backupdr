@@ -3,12 +3,12 @@
 page_title: "backupdr_cloudcredentials Data Source - terraform-provider-backupdr"
 subcategory: ""
 description: |-
-  
+  This data source can be used to read information about all BackupDR Cloud Credentials. It displays the cloud credential ID as shown in the Management console > Manage > Cloud Credentials page.
 ---
 
 # backupdr_cloudcredentials (Data Source)
 
-
+This data source can be used to read information about all BackupDR Cloud Credentials. It displays the cloud credential ID as shown in the Management console > Manage > Cloud Credentials page.
 
 ## Example Usage
 
@@ -27,23 +27,20 @@ data "backupdr_cloudcredentials" "example" {}
 <a id="nestedatt--items"></a>
 ### Nested Schema for `items`
 
-Required:
-
-- `id` (String)
-
 Read-Only:
 
-- `clientid` (String)
-- `cloudtype` (String)
-- `clusterid` (Number)
-- `domain` (String)
-- `endpoint` (String)
-- `href` (String)
-- `immutable` (Boolean)
-- `name` (String)
-- `projectid` (String)
-- `region` (String)
-- `serviceaccount` (String)
-- `srcid` (Number)
-- `stale` (Boolean)
-- `usedefaultsa` (Boolean)
+- `clientid` (String) It displays the client ID associated with the cloud credential.
+- `cloudtype` (String) It displays the cloud type associated with the cloud credential.
+- `clusterid` (Number) It displays the backup/recovery appliance ID as shown in the Management console > Manage > Appliances page.
+- `domain` (String) It displays the domain associated with the cloud credential.
+- `endpoint` (String) It displays the endpoint associated with the cloud credential.
+- `href` (String) It displays the URL to access the storage pools in the management console.
+- `id` (String) It displays the ID of the cloud credentials.
+- `immutable` (Boolean) It displays the immutable values - true or false.
+- `name` (String) It displays the name of the cloud credential.
+- `projectid` (String) It displays the project ID associated with the cloud credential.
+- `region` (String) It displays the region where the cloud credential is created.
+- `serviceaccount` (String) It displays the service account associated with the cloud credential.
+- `srcid` (Number) It displays the source ID on the appliance.
+- `stale` (Boolean) It displays true or false if the data is synchronized with the management console or not.
+- `usedefaultsa` (Boolean) It displays true or false.

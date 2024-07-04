@@ -3,12 +3,12 @@
 page_title: "backupdr_appliances Data Source - terraform-provider-backupdr"
 subcategory: ""
 description: |-
-  
+  This data source can be used to read information about all BackupDR Appliances. It displays the backup/recovery appliance ID as shown in the Management console > Manage > Appliances page.
 ---
 
 # backupdr_appliances (Data Source)
 
-
+This data source can be used to read information about all BackupDR Appliances. It displays the backup/recovery appliance ID as shown in the Management console > Manage > Appliances page.
 
 ## Example Usage
 
@@ -29,19 +29,19 @@ data "backupdr_appliances" "example" {}
 
 Read-Only:
 
-- `clusterid` (String)
-- `href` (String)
-- `id` (String)
-- `ipaddress` (String)
-- `name` (String)
-- `pkibootstrapped` (Boolean)
-- `projectid` (String)
-- `publicip` (String)
-- `region` (String)
-- `secureconnect` (Boolean)
-- `serviceaccount` (String)
-- `stale` (Boolean)
-- `supportstatus` (String)
-- `type` (String)
-- `version` (String)
-- `zone` (String)
+- `clusterid` (String) It displays the backup/recovery appliance ID as shown in the Management console > Manage > Appliances page.
+- `href` (String) It displays the URL to access the storage pools in the management console.
+- `id` (String) It displays the ID of the appliance.
+- `ipaddress` (String) It displays the IP address of the backup/recovery appliance ID.
+- `name` (String) It displays the name of the backup/recovery appliance ID.
+- `pkibootstrapped` (Boolean) It displays if the PKI boot strap is enabled or not.
+- `projectid` (String) It displays the project ID of the backup/recovery appliance ID.
+- `publicip` (String) It displays the public IP of the backup/recovery appliance ID.
+- `region` (String) It displays the region where the backup/recovery appliance is created.
+- `secureconnect` (Boolean) It displays the possible values for secure connect as true or false.
+- `serviceaccount` (String) It displays the GCP service account used for backup/recovery appliances.
+- `stale` (Boolean) It displays the possible values true or false.
+- `supportstatus` (String) It displays the appliance up to date with latest patches or updates status. It can be true or false.
+- `type` (String) It displays the appliance type.
+- `version` (String) It displays the version of the backup appliance.
+- `zone` (String) It displays the zone where the appliance is located.

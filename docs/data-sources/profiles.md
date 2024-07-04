@@ -3,12 +3,12 @@
 page_title: "backupdr_profiles Data Source - terraform-provider-backupdr"
 subcategory: ""
 description: |-
-  
+  This data source can be used to read information about all BackupDR Profiles. It displays the resource profile ID as shown in the Management console > Manage > Resource Profiles page.
 ---
 
 # backupdr_profiles (Data Source)
 
-
+This data source can be used to read information about all BackupDR Profiles. It displays the resource profile ID as shown in the Management console > Manage > Resource Profiles page.
 
 ## Example Usage
 
@@ -29,21 +29,21 @@ data "backupdr_profiles" "example" {}
 
 Read-Only:
 
-- `cid` (String)
-- `clusterid` (String)
-- `createdate` (Number)
-- `dedupasyncnode` (String)
-- `description` (String)
-- `href` (String)
-- `id` (String)
-- `localnode` (String)
-- `modifydate` (Number)
-- `name` (String)
-- `performancepool` (String)
-- `remotenode` (String)
-- `srcid` (String)
-- `stale` (Boolean)
-- `syncdate` (Number)
+- `cid` (String) It displays the ID of the cluster - It is not the same as cluster ID.
+- `clusterid` (String) It displays the backup/recovery appliance ID.
+- `createdate` (Number) It displays the date when the resource profile was created.
+- `dedupasyncnode` (String) It displays the dedupe async node name.
+- `description` (String) It displays the description for the resource profile
+- `href` (String) It displays the API URI for backup plan profile.
+- `id` (String) It displays the ID of the resource.
+- `localnode` (String) It displays the primary backup/recovery appliance name.
+- `modifydate` (Number) It displays the date when the resource profile details are modified.
+- `name` (String) It displays the name of the OnVault pool used for resource profile.
+- `performancepool` (String) It displays the name of the snapshot (performance) pool. The default is act_per_pool000.
+- `remotenode` (String) It displays the remote backup/recovery appliance name, when two appliances are to be configured to replicate snapshot data between them.
+- `srcid` (String) It displays the source ID on the appliance.
+- `stale` (Boolean) It displays the possible values true or false.
+- `syncdate` (Number) It displays the last sync date.
 - `vaultpool` (Attributes) (see [below for nested schema](#nestedatt--items--vaultpool))
 - `vaultpool2` (Attributes) (see [below for nested schema](#nestedatt--items--vaultpool2))
 - `vaultpool3` (Attributes) (see [below for nested schema](#nestedatt--items--vaultpool3))
@@ -54,9 +54,9 @@ Read-Only:
 
 Read-Only:
 
-- `href` (String)
-- `id` (String)
-- `name` (String)
+- `href` (String) It displays the API URI for OnVault storage pool
+- `id` (String) It displays the ID of the OnVault pool.
+- `name` (String) It displays the name of the OnVault pool used for resource profile.
 
 
 <a id="nestedatt--items--vaultpool2"></a>
@@ -64,9 +64,9 @@ Read-Only:
 
 Read-Only:
 
-- `href` (String)
-- `id` (String)
-- `name` (String)
+- `href` (String) It displays the API URI for OnVault storage pool.
+- `id` (String) It displays the ID of the OnVault pool 2.
+- `name` (String) It displays the name of the OnVault pool 2 used for resource profile.
 
 
 <a id="nestedatt--items--vaultpool3"></a>
@@ -74,9 +74,9 @@ Read-Only:
 
 Read-Only:
 
-- `href` (String)
-- `id` (String)
-- `name` (String)
+- `href` (String) It displays the API URI for OnVault storage pool.
+- `id` (String) It displays the ID of the OnVault pool 3.
+- `name` (String) It displays the name of the OnVault pool 3 used for resource profile.
 
 
 <a id="nestedatt--items--vaultpool4"></a>
@@ -84,6 +84,6 @@ Read-Only:
 
 Read-Only:
 
-- `href` (String)
-- `id` (String)
-- `name` (String)
+- `href` (String) It displays the API URI for OnVault storage pool.
+- `id` (String) It displays the ID of the OnVault pool 4.
+- `name` (String) It displays the name of the OnVault pool 4 used for resource profile.
