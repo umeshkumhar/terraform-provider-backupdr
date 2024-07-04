@@ -55,15 +55,18 @@ func (p *backupdrProvider) Metadata(ctx context.Context, _ provider.MetadataRequ
 // Schema defines the provider-level schema for configuration data.
 func (p *backupdrProvider) Schema(ctx context.Context, _ provider.SchemaRequest, resp *provider.SchemaResponse) {
 	resp.Schema = schema.Schema{
-		
+		MarkdownDescription: "This BackupDR provider enhances Terraform by enabling direct interaction with the Backup and Disaster Recovery (DR) management console. This integration allows users to define and provision backup and DR resources seamlessly within their Terraform configuration code. By leveraging this provider, users can automate the setup and management of backup and DR services, ensuring a more efficient and consistent approach to data protection and recovery. This streamlines the entire process, making it easier to incorporate these critical aspects into the overall infrastructure management workflow.\n " +
+			"Learn more about [Backup and DR Service](https://cloud.google.com/backup-disaster-recovery/docs/concepts/backup-dr)",
 		Attributes: map[string]schema.Attribute{
 			"endpoint": schema.StringAttribute{
-				Required: true,
-				Optional: false,
+				Required:            true,
+				Optional:            false,
+				MarkdownDescription: "Provide the management console API URL.",
 			},
 			"access_token": schema.StringAttribute{
-				Required: true,
-				Optional: false,
+				Required:            true,
+				Optional:            false,
+				MarkdownDescription: "Provide the gcp access_token.",
 			},
 		},
 	}
