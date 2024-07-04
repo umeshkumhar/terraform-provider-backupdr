@@ -3,12 +3,14 @@
 page_title: "backupdr Provider"
 subcategory: ""
 description: |-
-  
+  This BackupDR provider enhances Terraform by enabling direct interaction with the Backup and Disaster Recovery (DR) management console. This integration allows users to define and provision backup and DR resources seamlessly within their Terraform configuration code. By leveraging this provider, users can automate the setup and management of backup and DR services, ensuring a more efficient and consistent approach to data protection and recovery. This streamlines the entire process, making it easier to incorporate these critical aspects into the overall infrastructure management workflow.
+   Learn more about Backup and DR Service https://cloud.google.com/backup-disaster-recovery/docs/concepts/backup-dr
 ---
 
-# backupdr Provider
+# Backup and DR Service  Provider
 
-
+This BackupDR provider enhances Terraform by enabling direct interaction with the Backup and Disaster Recovery (DR) management console. This integration allows users to define and provision backup and DR resources seamlessly within their Terraform configuration code. By leveraging this provider, users can automate the setup and management of backup and DR services, ensuring a more efficient and consistent approach to data protection and recovery. This streamlines the entire process, making it easier to incorporate these critical aspects into the overall infrastructure management workflow.
+ Learn more about [Backup and DR Service](https://cloud.google.com/backup-disaster-recovery/docs/concepts/backup-dr)
 
 ## Example Usage
 
@@ -35,5 +37,5 @@ provider "backupdr" {
 
 ### Required
 
-- `access_token` (String)
-- `endpoint` (String)
+- `access_token` (String) Provide the gcp access_token.
+- `endpoint` (String) Provide the management console API URL.
