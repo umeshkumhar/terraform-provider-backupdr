@@ -158,6 +158,8 @@ func (r *applicationComputeVMsResource) Create(ctx context.Context, req resource
 			// capture the id of filtered application
 			if lsApps.Items != nil && len(lsApps.Items) > 0 {
 				applicationIDs = append(applicationIDs, types.StringValue(lsApps.Items[0].Id))
+			} else {
+				applicationIDs = append(applicationIDs, types.StringValue("unknown-error"))
 			}
 		}
 		if len(applicationIDs) > 0 {
@@ -251,6 +253,8 @@ func (r *applicationComputeVMsResource) Update(ctx context.Context, req resource
 			// capture the id of filtered application
 			if lsApps.Items != nil && len(lsApps.Items) > 0 {
 				applicationIDs = append(applicationIDs, types.StringValue(lsApps.Items[0].Id))
+			} else {
+				applicationIDs = append(applicationIDs, types.StringValue("unknown-error"))
 			}
 		}
 		if len(applicationIDs) > 0 {
